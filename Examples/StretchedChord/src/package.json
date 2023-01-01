@@ -2,7 +2,7 @@
   "id": "47634fff-3181-4e4e-8d78-000000000000",
   "name": "Stretched Chord",
   "description": "Combination of Chord Diagram and Sankey Diagram",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "dependencies": {
     "d3": "./d3/visualization.js",
     "other": "./other/visualization.js"

@@ -1,13 +1,3 @@
-import 'core-js/stable/array/find'
-import 'core-js/stable/array/find-index'
-import 'core-js/stable/array/flat'
-import 'core-js/stable/array/includes'
-import 'core-js/stable/array/entries'
-import 'core-js/stable/array/from'
-import 'core-js/stable/object/values'
-import 'core-js/stable/object/entries'
-import 'core-js/stable/string/includes'
-
 import { setUpEnvironment, drawDiagram, createGradients, addInteractivity } from './d3_handling'
 import { StretchedChord } from './stretched_chord'
 
