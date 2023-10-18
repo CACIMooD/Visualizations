@@ -1,7 +1,7 @@
 {
   "name": "process-flow",
   "description": "Visualisation of a Process Flow in swimlanes",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "license": "MIT",
   "dependencies": {
     "core-js": "3.22.0",

@@ -1,7 +1,7 @@
 {
   "name": "line_chart",
   "description": "Example simple line chart based on React framework and recharts library",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "license": "MIT",
   "dependencies": {
     "@types/recharts": "^1.8.23",

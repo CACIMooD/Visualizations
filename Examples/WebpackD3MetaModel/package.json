@@ -1,7 +1,7 @@
 {
     "name": "meta-model-force-simulation",
     "description": "Meta Model chart using D3 v7",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "license": "MIT",
     "dependencies": {
         "d3": "7.6.1"
