@@ -12,3 +12,4 @@ Lollipop/visualizations.zip
 .vs/
 *.bak
 .DS_Store
+**/README.html

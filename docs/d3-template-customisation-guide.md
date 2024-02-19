@@ -1,8 +1,10 @@
+# D3 Template Customisation Guide
+
 [README](../README.md)
 
 [Template Customisation Guide](./template-customisation-guide.md#webpackcommonjs)
 
-# webpack.common.js
+## webpack.common.js
 
 * Babel loader configuration, including supported browsers
 * visualization entry point(s)
@@ -11,6 +13,7 @@
   You will need to update the dependencies in `src/package.json.ejs` (see below) for any chunks you add
 
   For example
+
 ```JavaScript
 
    optimization: {
@@ -34,26 +37,30 @@
         }
    }
 ```
+
  or update test property for "d3"
 
   For example
+
 ```JavaScript
                 "d3" : {
                     test: /[\\/]node_modules[\\/](d3-hexbin.*)[\\/]/,
 ```
+
 * VersionFile plugins for any additional visualizations
 
 [README](../README.md)
 
 [Template Customisation Guide](./template-customisation-guide.md#webpackcommonjs)
 
-# src/visualization01/visualization.js
+## src/visualization01/visualization.js
 
 __Note__: This file and the [datashape](./template-customisation-guide.md#srcvisualization01visualizationdatashapegql) are interdependent and should be updated alongside each other.
 
 * Add import statements for any additional D3 chart libraries
 
     Add import any additional import statements after the d3 import
+
 ```JavaScript
 //
 //    Entry function declaration
@@ -65,6 +72,7 @@ import * as d3Hex from "d3-hexbin";
 * Add chart code to visualization function
 
     Add the chart code at the TODO comment
+
 ```JavaScript
   //
   // TODO: Add D3 visualization code here, referencing configuration above
@@ -96,15 +104,17 @@ import * as d3Hex from "d3-hexbin";
 
 [Template Customisation Guide](./template-customisation-guide.md#srcvisualization01visualizationjs)
 
-# src/package.json.ejs
+## src/package.json.ejs
 
 Embedded JavaScript Template for visualization package.json.
 
 [See instructions](./template-customisation-guide.md#generate-guids) on how to generate package.json.ejs containing a GUID before customising this file.
+
 * Do not alter the id or version properties
 * Update visualization package properties
 
     For example
+
 ```JSON
 {
   "id": "<Generated GUID>",
@@ -112,11 +122,13 @@ Embedded JavaScript Template for visualization package.json.
   "description": "Example scatter plot diagram",
   "version": "<%= package.version %>",
 ```
+
 * Update dependencies - e.g. chart library
 
   Add dependencies for any chunks added by changes to `webpack.common.js` above
 
   For example
+
 ```JSON
 {
   "dependencies": {

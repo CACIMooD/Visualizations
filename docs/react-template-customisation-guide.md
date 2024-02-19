@@ -1,11 +1,15 @@
+# React Template Customisation Guide
+
 [README](../README.md)
 
 [Template Customisation Guide](./template-customisation-guide.md#webpackcommonjs)
 
-# webpack.common.js
+## webpack.common.js
+
 * Babel loader configuration, including supported browsers and Babel plug-ins for chosen React chart library
 
   For example
+
 ```JavaScript
     module: {
         rules: [
@@ -41,11 +45,13 @@
         ]
     },
 ```
+
 * Chunk configuration for chosen React chart library
 
   You will need to update the dependencies in `src/package.json.ejs` (see below) for any chunks you add
 
   For example
+
 ```JavaScript
     optimization: {
         splitChunks: {
@@ -75,19 +81,21 @@
         }
     },
 ```
+
 * VersionFile plugins for any additional visualizations
 
 [README](../README.md)
 
 [Template Customisation Guide](./template-customisation-guide.md#webpackcommonjs)
 
-# src/visualization01/visualization.js
+## src/visualization01/visualization.js
 
 __Note__: This file and the [datashape](./template-customisation-guide.md#srcvisualization01visualizationdatashapegql) are interdependent and should be updated alongside each other.
 
 * Add import statements for chosen React chart library
 
   For example
+
 ```JavaScript
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 import React from 'react';
@@ -97,6 +105,7 @@ import ReactDOM from 'react-dom';
 * Add chart code to visualization function
 
     Add the chart code at the TODO comment
+
 ```JSX
   //
   // TODO: Add chart code here
@@ -118,7 +127,7 @@ import ReactDOM from 'react-dom';
 
 [Template Customisation Guide](./template-customisation-guide.md#srcvisualization01visualizationjs)
 
-# src/package.json.ejs
+## src/package.json.ejs
 
 Embedded JavaScript Template for visualization package.json.ejs template.
 
@@ -128,6 +137,7 @@ Embedded JavaScript Template for visualization package.json.ejs template.
 * Update visualization package properties
 
     For example
+
 ```JSON
 {
   "id": "<Generated GUID>",
@@ -139,6 +149,7 @@ Embedded JavaScript Template for visualization package.json.ejs template.
 * Update dependencies - e.g. chart library
 
   For example
+
 ```JSON
 {
   "dependencies": {

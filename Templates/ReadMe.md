@@ -1,15 +1,21 @@
-## What's in this folder
-### EchartsCustomVisualizationTemplate
+# What's in this folder
+
+## EchartsCustomVisualizationTemplate
+
 A template which contains a simple EChart bar chart. This template uses webpack.
 
-### EmptyCustomVisualizationTemplate
+## EmptyCustomVisualizationTemplate
+
 Contains a completely empty webpack template.
 
-### EmptySimpleTemplate
+## EmptySimpleTemplate
+
 The most simple template possible. Doesn't use webpack but requires more manual steps to maintain.
 
-### WebpackD3VisualizationTemplate
+## WebpackD3VisualizationTemplate
+
 A webpack template which depends on D3.
 
-### WebpackReactVisualizationTemplate
+## WebpackReactVisualizationTemplate
+
 A webpack template which depends on React.

@@ -1,36 +1,41 @@
-# Table of Contents
-*   [Data Shape Schema](#data-shape-schema)
-    * [GraphQL Types](#graphql-types)
-    * [GraphQL Interfaces](#graphql-interfaces)
-    * [GraphQL Directives](#graphql-directives)
-    * [Examples](#examples)
-        * [Schema illustrating types, interfaces and directives](#schema-illustrating-types-interfaces-and-directives)
-        * [Simple tabular shape](#simple-tabular-shape)
-        * [Bar or Column Chart (with grouping and stacking)](#bar-or-column-chart-with-grouping-and-stacking)
-        * [Sankey Diagram](#sankey-diagram)
-        * [Boston Matrix](#boston-matrix)
-        * [Heatmap](#heatmap)
-        * [Network Diagram](#network-diagram)
+# Data Shape Schema
+
+## Table of Contents
+
+* [Data Shape Schema](#data-shape-schema-file)
+  * [GraphQL Types](#graphql-types)
+  * [GraphQL Interfaces](#graphql-interfaces)
+  * [GraphQL Directives](#graphql-directives)
+  * [Examples](#examples)
+    * [Schema illustrating types, interfaces and directives](#schema-illustrating-types-interfaces-and-directives)
+    * [Simple tabular shape](#simple-tabular-shape)
+    * [Bar or Column Chart (with grouping and stacking)](#bar-or-column-chart-with-grouping-and-stacking)
+    * [Sankey Diagram](#sankey-diagram)
+    * [Boston Matrix](#boston-matrix)
+    * [Heatmap](#heatmap)
+    * [Network Diagram](#network-diagram)
 
 [README Data Shape Schema](../README.md#data-shape-schema)
 
 [README](../README.md)
 
-# Data Shape Schema
+## Data Shape Schema File
 
 ![GraphQL](images/graphql-logo.png)
 
 This is a GraphQL file that defines the schema that the Business Architect uses to determine what fields and series the visualization needs to render itself.  The schema details the structure of the data shape and the types needed.
 
-## GraphQL Types
+### GraphQL Types
 
 See the type definitions below:
+
 * [GraphQL Scalar types](http://spec.graphql.org/June2018/#sec-Scalars)
 * [GraphQL Object types](http://spec.graphql.org/June2018/#sec-Objects)
 * [GraphQL Union types](http://spec.graphql.org/June2018/#sec-Unions)
 
 MooD Business Architect supports some custom type extensions to GraphQL
-```
+
+```text
 scalar Date 
 scalar Colour 
 scalar Shape 
@@ -45,23 +50,24 @@ union Any = String | Date | Number | Boolean
 
 [Table of Contents](#table-of-contents)
 
-## GraphQL Interfaces 
+### GraphQL Interfaces
 
 GraphQL interfaces represent a list of named fields and their arguments. GraphQL objects can then implement these interfaces which requires that the object type will define all fields defined by those interfaces.
+
 * [GraphQL Interfaces](http://spec.graphql.org/June2018/#sec-Interfaces)
 
-MooD Business Architect implicitly recognises `MooDElement`. The `MooDElement` interface is for defining where the data to visualize is a set of MooD elements, e.g. from a MooD query. For example a simple tabular data visualization would have a data type that would implement and add to the MooDElement interface for values from an Element in the repository like the name or a field value. 
+MooD Business Architect implicitly recognises `MooDElement`. The `MooDElement` interface is for defining where the data to visualize is a set of MooD elements, e.g. from a MooD query. For example a simple tabular data visualization would have a data type that would implement and add to the MooDElement interface for values from an Element in the repository like the name or a field value.
 
-   ```
+   ```text
    interface MooDElement { 
    } 
    ```
 
-Using the type `ID` when in the context of the MooDElement gives a unique identifier for the MooDElement (see the Simple Tabular row type example). 
+Using the type `ID` when in the context of the MooDElement gives a unique identifier for the MooDElement (see the Simple Tabular row type example).
 
 Another implicit interface is 'MooDMetaModel'. The 'MooDMetaModel' interface is for defining a point in your data where the MooD meta model will be output. This includes types, field and relationship information. Note that any fields defined inside the 'MooDMetaModel' interface will be ignored.
 
-   ```
+   ```text
    interface MooDMetaModel { 
    }
    
@@ -72,36 +78,36 @@ Another implicit interface is 'MooDMetaModel'. The 'MooDMetaModel' interface is 
 
 In the above example here is an extract of the JSON you will receive:
 
-   ```
-	"meta": 
-	{
-		"aliases": [
-			{
-				"name": "Person", 
-				"id": "00000000000000000000000000000001", 
-				"type": "primary element", 
-				"fields": [
-					{"name": "Identifier", "id": "00000000000000000000000000000002", "type": "string", "relationship_alias_id": null},
-					{"name": "PersonToTeam", "id": "00000000000000000000000000000003", "type": "relationship field", "relationship_alias_id": "00000000000000000000000000000005"}
-				], 
-				"allowed_aliases": []
-			},
-			{
-				"name": "Team", 
-				"id": "00000000000000000000000000000004", 
-				"type": "primary element", 
-				"fields": [], 
-				"allowed_aliases": []
-			},
-							{
-				"name": "PersonToTeam", 
-				"id": "00000000000000000000000000000005", 
-				"type": "element relationship", 
-				"fields": [], 
-				"allowed_aliases": [{"name": "Team", "id": "00000000000000000000000000000004"}]
-			}
-		]
-	}   
+   ```JSON
+ "meta": 
+ {
+  "aliases": [
+   {
+    "name": "Person", 
+    "id": "00000000000000000000000000000001", 
+    "type": "primary element", 
+    "fields": [
+     {"name": "Identifier", "id": "00000000000000000000000000000002", "type": "string", "relationship_alias_id": null},
+     {"name": "PersonToTeam", "id": "00000000000000000000000000000003", "type": "relationship field", "relationship_alias_id": "00000000000000000000000000000005"}
+    ], 
+    "allowed_aliases": []
+   },
+   {
+    "name": "Team", 
+    "id": "00000000000000000000000000000004", 
+    "type": "primary element", 
+    "fields": [], 
+    "allowed_aliases": []
+   },
+       {
+    "name": "PersonToTeam", 
+    "id": "00000000000000000000000000000005", 
+    "type": "element relationship", 
+    "fields": [], 
+    "allowed_aliases": [{"name": "Team", "id": "00000000000000000000000000000004"}]
+   }
+  ]
+ }   
 ```
 
 This enables visualizations such as the one below to be created:
@@ -110,14 +116,15 @@ This enables visualizations such as the one below to be created:
 
 [Table of Contents](#table-of-contents)
 
-## GraphQL Directives 
+### GraphQL Directives
 
 GraphQL supports directives which are used to annotate various parts of a GraphQL document as an indicator that they should be evaluated differently by a validator, executor, or client tool such as a code generator.
+
 * [GraphQL Directives](http://spec.graphql.org/June2018/#sec-Type-System.Directives)
 
 Types can be annotated by adding directives, these can help describe the types, and MooD understands one directive to help interpret the types for the User Interface, that is the @UI directive. It has two arguments, `name` and `default`; the `name` argument takes a string value and uses this in the data selection user interface as the name for the field instead of using the alias of the field; the `default` argument takes a typed value where the type is the same type as the field and the UI uses this as the default constant value for the field, with one exception if a field of type string is used and the default is "name" then it will default to the name of the element.
 
-```
+```text
 directive @UI ( 
    default: Any 
    name: String 
@@ -127,19 +134,22 @@ directive @UI (
 
 For example
 
-The user interface directive is telling the UI through the `name` argument to display the name field as "Example Name" and not the field name "aliasName", and through the `default` argument to set the value on first presentation as the name of the element: 
-```
+The user interface directive is telling the UI through the `name` argument to display the name field as "Example Name" and not the field name "aliasName", and through the `default` argument to set the value on first presentation as the name of the element:
+
+```text
 type example implements MooDElement { 
    aliasName: String @UI (default: "name" name: "Example Name") 
    value: Number @UI (default: 5 name: "Example Value") 
    } 
 ```
+
 [Table of Contents](#table-of-contents)
 
-## Examples
+### Examples
 
-### Schema illustrating types, interfaces and directives
-```
+#### Schema illustrating types, interfaces and directives
+
+```text
 # The following are predefined MooD type definitions for use along with the GraphQL predefined scalar definitions "ID", "Int", "Float", "String", and "Boolean" 
 scalar Date 
 scalar Colour 
@@ -204,11 +214,14 @@ type row implements MooDElement {
     image: Image 
 }
 ```
+
 [Table of Contents](#table-of-contents)
 
-### Simple tabular shape
-#### Schema
-```
+#### Simple tabular shape
+
+##### Simple tabular Schema
+
+```text
 type data { 
     rows: [row!]! 
 } 
@@ -218,8 +231,10 @@ type row implements MooDElement {
     name: String 
 }
 ```
-#### Data
-```
+
+##### Simple tabular Data
+
+```JSON
 data: { 
     rows: [ 
     { id: "0", name: "One" }, 
@@ -230,9 +245,11 @@ data: {
 
 [Table of Contents](#table-of-contents)
 
-### Chart shape
-#### Schema
-```
+#### Chart Shape
+
+##### Chart Shape Schema
+
+```text
 type data { 
     rows: [Row!]! 
 } 
@@ -244,8 +261,10 @@ type Row implements MooDElement {
     y: any! 
 }
 ```
-#### Data
-```
+
+##### Chart Shape Data
+
+```JSON
 data: { 
     rows: [ 
     { id: "2-", name: "One", x: 1, y: 1 }, 
@@ -255,9 +274,11 @@ data: {
 
 [Table of Contents](#table-of-contents)
 
-### Bar or Column Chart (with grouping and stacking) 
-#### Schema
-```
+#### Bar or Column Chart (with grouping and stacking)
+
+##### Bar or Column Chart Schema
+
+```text
 # The data type defines a little about the shape that the visualization expects; it expects the series data to be in a property called series (though this could be named anything) and it expects at least one series and at most 3 series. 
 type data { 
     series: [BarSeries!]! @arrayLength(min: 1, max: 3) 
@@ -279,9 +300,12 @@ type BarItem implements MooDElement {
     groupBy: any 
 } 
 ```
-#### Data
-Given the above schema, the data that could be produced for a chart showing the average salary (in 1,000s) per month, stacked by department and grouped by gender would be: 
-```
+
+##### Bar or Column Chart Data
+
+Given the above schema, the data that could be produced for a chart showing the average salary (in 1,000s) per month, stacked by department and grouped by gender would be:
+
+```JSON
 data: { 
     series: [{ 
         items: [{ 
@@ -315,9 +339,11 @@ data: {
 
 [Table of Contents](#table-of-contents)
 
-### Sankey Diagram
-#### Schema
-```
+#### Sankey Diagram
+
+##### Sankey Diagram Schema
+
+```text
 type data { 
     items: [SankeyItem!]! 
 } 
@@ -334,9 +360,12 @@ type SankeyRelation implements MooDElement {
 } 
 
 ```
-#### Data
-Given the above schema, a diagram showing several countries around the world and the value of trade between them, the data would look like this: 
-```
+
+##### Sankey Diagram Data
+
+Given the above schema, a diagram showing several countries around the world and the value of trade between them, the data would look like this:
+
+```JSON
 data: { 
     items: [{ 
         id: "0", 
@@ -364,9 +393,11 @@ data: {
 
 [Table of Contents](#table-of-contents)
 
-### Boston Matrix
-#### Schema
-```
+#### Boston Matrix
+
+##### Boston Matrix Schema
+
+```text
 type data { 
     rows: [row!]!  
 } 
@@ -379,9 +410,12 @@ type row implements MooDElement {
     Z: number 
 } 
 ```
-#### Data
-Given the above schema, a diagram showing several countries around the world and the values GDP, Capita and Growth etc, the data would look like this: 
-```
+
+##### Boston Matrix Data
+
+Given the above schema, a diagram showing several countries around the world and the values GDP, Capita and Growth etc, the data would look like this:
+
+```JSON
 data: { 
     rows: [{ 
         key: "0", 
@@ -407,9 +441,11 @@ data: {
 
 [Table of Contents](#table-of-contents)
 
-### Heatmap
-#### Schema
-```
+#### Heatmap
+
+##### Heatmap Schema
+
+```text
 type data { 
     rows: [row!]! 
 } 
@@ -426,9 +462,11 @@ type value implements MooDElement {
 } 
 ```
 
-#### Data
+##### Heatmap Data
+
 Given the above schema, a diagram showing several countries around the world and the values GDP, Capita and Growth etc, the data would look like this:
-```
+
+```JSON
 data: { 
     rows: [{ 
         id: "0", 
@@ -476,9 +514,11 @@ data: {
 
 [Table of Contents](#table-of-contents)
 
-### Network Diagram
-#### Schema
-```
+#### Network Diagram
+
+##### Network Diagram Schema
+
+```text
 type NetworkItem implements MooDElement { 
     Id: ID 
     label: any! 
@@ -499,8 +539,9 @@ type data {
 } 
 ```
 
-#### Data
-```
+##### Network Diagram Data
+
+```JSON
 data: { 
     series: [{ 
         nodes: [{ 
@@ -547,4 +588,3 @@ data: {
 ```
 
 [Table of Contents](#table-of-contents)
-
