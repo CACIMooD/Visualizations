@@ -29,7 +29,6 @@ export function visualization (config) {
     //
     // set the dimensions and margins of the graph
     // append the svg object to the body of the page
-    //
     const svg = d3.select('#' + config.element)
       .append('svg')
       .attr('width', width + margin.left + margin.right)
