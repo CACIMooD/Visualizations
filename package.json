@@ -7,7 +7,7 @@
     "markdownlint-cli2": "^0.12.1"
   },
   "scripts": {
-    "markdownlint": "markdownlint-cli2 **/*.md #**/node_modules #.github"
+    "markdownlint": "markdownlint-cli2 **/*.md #**/node_modules"
   },
   "markdownlint-cli2": {
     "config": {
