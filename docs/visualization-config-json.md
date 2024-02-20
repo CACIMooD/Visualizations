@@ -42,10 +42,10 @@ The configuration of a visualization.
 
 * __Property__: moodVersion
   * This would be the MooD version that this package was built against and would be an indication of the version of MooD Business Architect that this visualization was created for.  This is useful for users of the visualization to know what the minimum version of MooD is that this visualization supports (even though the visualization would likely be supported in previous versions)
-<a id="dynamic-data"></a>
+<a id="dynamic-data"></a> <!-- markdownlint-disable-line MD033 -->
 * __Property__: dynamicData
   * Indicates if the visualization supports data being posted to it to update itself or does it need to be completely re-rendered. The value is either true or false and if true data after the initial load will be passed to the visualization using the dataChanged(data) function. See [JavaScript Configuration Object -> Functions Object](visualization-configuration-object.md#functions-object)
-<a id="can-overflow"></a>
+<a id="can-overflow"></a> <!-- markdownlint-disable-line MD033 -->
 * __Property__: canOverflow (Introduced in Customer Release 6)
   * Indicates that when rendered, the visualization may exceed the bounds of the panel and wishes to increase the size of the panel and page to fully accommodate it. The visualization needs to call [updateSize function](visualization-configuration-object.md#update-size) to effect the resizing. The value is either true or false.
 * __Property__: entry - Object
