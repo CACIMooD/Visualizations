@@ -21,4 +21,5 @@ A webpack template which depends on D3.
 A webpack template which depends on React.
 
 ### TypeScriptWebpackReactVisualizationTemplate
+
 A webpack template which depends on React using TypeScript.
