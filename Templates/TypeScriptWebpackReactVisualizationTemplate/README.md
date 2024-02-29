@@ -9,31 +9,32 @@ Next open this file: ```TypeScriptWebpackReactVisualizationTemplate.code-workspa
 Remember to run: ```npm install``` before doing anything else, this will install the relevant node modules.
 
 ## The folder structure
+
 - root
-    - Files which are used by Node
-    - The final visualizations.zip file
-    - package.json (containing a list of commands you can use with ```npm run```) 
+  - Files which are used by Node
+  - The final visualizations.zip file
+  - package.json (containing a list of commands you can use with ```npm run```)
 - helpers
-    - Files that are already set up to be passed to each visualization
-      - Context stores React context files that can be useful anywhere
-      - Hooks stores Reacts hooks files that allow reading/writing data to/from MooD
+  - Files that are already set up to be passed to each visualization
+    - Context stores React context files that can be useful anywhere
+    - Hooks stores Reacts hooks files that allow reading/writing data to/from MooD
 - typescript-transformer
-    - Files that are used in the process of transforming the configuration files into TypeScript
+  - Files that are used in the process of transforming the configuration files into TypeScript
 - src
-    - visualization01
-        - This is where you can edit your custom visualization code
-        - \_\_tests__
-            - A folder where you can add your automated test scaffolding (run using ```npm run test```)
-        - src
-            - This is where you can add any code to not clutter your root visualization01 level
-            - types
-                - An automatically generated folder that contains all of the parsed types from your visualization
+  - visualization01
+    - This is where you can edit your custom visualization code
+    - \_\_tests__
+      - A folder where you can add your automated test scaffolding (run using ```npm run test```)
+    - src
+      - This is where you can add any code to not clutter your root visualization01 level
+      - types
+        - An automatically generated folder that contains all of the parsed types from your visualization
 - test
-    - A folder where you can add your test data to run the visuailzation in development mode in a browser (run using ```npm run start```)
+  - A folder where you can add your test data to run the visuailzation in development mode in a browser (run using ```npm run start```)
 - dist
-     - An automatically generated output folder
+  - An automatically generated output folder
 - node_modules
-    - Another automatically generated output folder
+  - Another automatically generated output folder
 
 ## Getting started
 
@@ -73,6 +74,7 @@ Which will produce:
 - src\package.json
 - src\visualization01\package.json
 - visualizations.zip
+
 > These are automatically generated files which you shouldn't manually edit.
 
 You should also choose a preview image by changing ```visualization.png```.
@@ -83,6 +85,7 @@ You can run: ```npm run start```
 
 This will open your browser showing test-page.html. You can now start modifying the visualization code.
 Interesting files:
+
 - app.tsx: This is where your main code lives.
 - test-page.js: Hooks the test page in to the main visualization code.
 - data.json: This file passes test data in to your test visualization page.
