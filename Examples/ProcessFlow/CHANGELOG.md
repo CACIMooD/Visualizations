@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.6.4 (12/03/2024)
+
+* Fix handling of same information carried by multiple flows into or out of a step.
+* Fix flow from Start or to End carrying information
+
 ## 2.6.3 (09/01/2024)
 
 * Fix development environment vulnerability in follow-redirects

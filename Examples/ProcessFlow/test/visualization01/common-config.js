@@ -8,12 +8,12 @@
 // import dataConfig from './data-bp124.json';
 // import dataConfig from './data-bp135.json';
 // import dataConfig from './data-bp150.json';
-import dataConfig from './data-bpmn01.json';
+// import dataConfig from './data-bpmn01.json';
 // import dataConfig from './data-bpXYZ.json';
 // import dataConfig from './data-mro1-3 compact.json';
 // import dataConfig from './data-mro1-3.json';
 // import dataConfig from './data-mro4.json';
-// import dataConfig from './data-ftp-demand.json';
+import dataConfig from './data-ftp-demand.json';
 
 export const commonConfig = {
   style: {

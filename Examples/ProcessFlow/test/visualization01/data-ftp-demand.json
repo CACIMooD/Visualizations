@@ -711,7 +711,8 @@
 				"label": null, 
 				"offPageConnection": false, 
 				"offPageOutputLabel": null, 
-				"offPageInputLabel": null
+				"offPageInputLabel": null,
+				"informationCarried": [{"id": "Test-multiple-Link-to-DR-01", "target": {"id": "55-2003BFAE2AA44F299D4C46E815E53A13", "name": "Test Multiple Info", "shortName": null, "type": "Document / Form", "navigable": true}, "label": null}]
 			},
 			{
 				"id": "41-212F7B458E75479EB3E4895338F935DA", 
@@ -792,7 +793,8 @@
 				"label": null, 
 				"offPageConnection": false, 
 				"offPageOutputLabel": null, 
-				"offPageInputLabel": null
+				"offPageInputLabel": null,
+				"informationCarried": [{"id": "Test-multiple-Link-to-DR-02", "target": {"id": "55-2003BFAE2AA44F299D4C46E815E53A13", "name": "Test Multiple Info", "shortName": null, "type": "Document / Form", "navigable": true}, "label": null}]
 			},
 			{
 				"id": "41-15F0F064732D4BD497A8895A8F6220AA", 
@@ -828,7 +830,8 @@
 				"label": null, 
 				"offPageConnection": false, 
 				"offPageOutputLabel": null, 
-				"offPageInputLabel": null
+				"offPageInputLabel": null,
+				"informationCarried": [{"id": "Test-multiple-Link-to-DR-03", "target": {"id": "55-2003BFAE2AA44F299D4C46E815E53A13", "name": "Test Multiple Info", "shortName": null, "type": "Document / Form", "navigable": true}, "label": null}]
 			},
 			{
 				"id": "41-99CAB4FD4E774693B25AE10DD2E97AEA", 
@@ -837,7 +840,8 @@
 				"label": null, 
 				"offPageConnection": false, 
 				"offPageOutputLabel": null, 
-				"offPageInputLabel": null
+				"offPageInputLabel": null,
+				"informationCarried": [{"id": "Test-multiple-Link-to-DR-04", "target": {"id": "55-2003BFAE2AA44F299D4C46E815E53A13", "name": "Test Multiple Info", "shortName": null, "type": "Document / Form", "navigable": true}, "label": null}]
 			},
 			{
 				"id": "41-F3672B9C31004A56B379DF1C33CE7AEC", 
@@ -846,7 +850,8 @@
 				"label": null, 
 				"offPageConnection": false, 
 				"offPageOutputLabel": null, 
-				"offPageInputLabel": null
+				"offPageInputLabel": null,
+				"informationCarried": [{"id": "Test-multiple-Link-to-DR-05", "target": {"id": "55-2003BFAE2AA44F299D4C46E815E53A13", "name": "Test Multiple Info", "shortName": null, "type": "Document / Form", "navigable": true}, "label": null}]
 			},
 			{
 				"id": "41-BE0768F82BBC4474834A9BD6A025ACDA", 
