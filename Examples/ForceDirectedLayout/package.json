@@ -1,7 +1,7 @@
 {
     "name": "force-directed-layout",
     "description": "Network chart using D3 Force Directed Layout",
-    "version": "0.0.42",
+    "version": "0.0.43",
     "license": "MIT",
     "dependencies": {
         "d3": "7.6.1"

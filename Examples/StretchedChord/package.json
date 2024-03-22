@@ -1,6 +1,6 @@
 {
   "name": "stretched-chord",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Stretched Chord visualisation based on work of visualcinnamon.com for Deloitte, see https://www.visualcinnamon.com/2015/08/stretched-chord",
   "repository": "https://supportportal.moodinternational.com",
   "main": "index.js",

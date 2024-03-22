@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.6.5 (22/03/2024)
+
+* Fix another development environment vulnerability in follow-redirects
+* Fix development environment vulnerability in webpack-dev-middleware
+
 ## 2.6.4 (12/03/2024)
 
 * Fix handling of same information carried by multiple flows into or out of a step.
