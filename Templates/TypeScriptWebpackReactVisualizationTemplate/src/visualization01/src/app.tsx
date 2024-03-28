@@ -11,6 +11,7 @@ import { StyleExample } from "./examples/styleExample";
 import { BaseExample } from "./examples/baseExample";
 import { ExternalMessageExample } from "./examples/externalMessageExample";
 import { JSONExample } from "./examples/jsonExample";
+import { NavigateExample } from "./examples/navigateExample";
 
 export type AppProps = {};
 
@@ -20,47 +21,51 @@ export type AppProps = {};
 export const App: React.FC<AppProps> = () => {
   return (
     <div>
-      <BaseExample title="Config Example:">
+      <BaseExample title='Config Example:'>
         <ConfigExample />
       </BaseExample>
 
-      <BaseExample title="Error Example:">
+      <BaseExample title='Error Example:'>
         <ErrorExample />
       </BaseExample>
 
-      <BaseExample title="Size Example:">
+      <BaseExample title='Size Example:'>
         <SizeExample />
       </BaseExample>
 
-      <BaseExample title="State Example:">
+      <BaseExample title='State Example:'>
         <StateExample />
       </BaseExample>
 
-      <BaseExample title="Style Example:">
+      <BaseExample title='Style Example:'>
         <StyleExample />
       </BaseExample>
 
-      <BaseExample title="Data Example:">
+      <BaseExample title='Data Example:'>
         <DataExample />
       </BaseExample>
 
-      <BaseExample title="Input Example:">
+      <BaseExample title='Input Example:'>
         <InputExample />
       </BaseExample>
 
-      <BaseExample title="Output Example:">
+      <BaseExample title='Output Example:'>
         <OutputExample />
       </BaseExample>
 
-      <BaseExample title="Action Example:">
+      <BaseExample title='Action Example:'>
         <ActionExample />
       </BaseExample>
 
-      <BaseExample title="External Message Example:">
+      <BaseExample title='Navigate Example:'>
+        <NavigateExample />
+      </BaseExample>
+
+      <BaseExample title='External Message Example:'>
         <ExternalMessageExample />
       </BaseExample>
 
-      <BaseExample title="JSON Example (Read-Only):">
+      <BaseExample title='JSON Example (Read-Only):'>
         <JSONExample />
       </BaseExample>
     </div>

@@ -94,6 +94,17 @@ interface MoodOutputChangedAction extends MooDActionBase {}
 type MooDFunctions = {
   errorOccurred: (error: String) => void;
 
+  navigate: (
+    windowId: string,
+    elementIds: string | string[],
+    action: {
+      method: "navigate";
+      name: string;
+      title: string;
+      master?: string;
+    }
+  ) => void;
+
   dataChanged: (data: Vis.Data) => void;
 
   inputChanged: <TInputKey extends keyof Vis.Inputs>(
@@ -110,11 +121,15 @@ type MooDFunctions = {
 
   updateState: (state: string) => void;
 
-  performAction: (name: keyof Vis.Actions, id: string, event: object) => void;
+  performAction: (
+    name: keyof Vis.Actions,
+    elementIds: string,
+    event: object
+  ) => void;
 
   hasAction: (
     name: keyof Vis.Actions,
-    id: string | string[],
+    elementIds: string | string[],
     callback: (result: boolean, id: string) => void
   ) => void;
 };

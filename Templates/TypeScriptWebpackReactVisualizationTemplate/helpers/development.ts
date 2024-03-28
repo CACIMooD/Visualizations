@@ -37,6 +37,7 @@ export const setupDevelopmentConfig = (config: MooDConfig): MooDConfig => {
 
   config.functions = config.functions ?? {
     errorOccurred: () => null,
+    navigate: () => null,
     inputChanged: () => null,
     dataChanged: () => null,
     updateOutput: () => null,
