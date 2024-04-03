@@ -111,9 +111,10 @@ export function createForceLayout (config) {
     //
     // The force simulation mutates links and nodes, so create a copy
     // so that re-evaluating this cell produces the same result.
+    // Ignore links from and to the same node. If this needs to change, update ticked() function to handle such links
     //
     links = data.links
-      .filter(link => nodeMap[link.source.id] && nodeMap[link.target.id])
+      .filter(link => nodeMap[link.source.id] && nodeMap[link.target.id] && link.source.id !== link.target.id)
       .map(link => createLink(
         nodeMap[link.source.id],
         nodeMap[link.target.id],
