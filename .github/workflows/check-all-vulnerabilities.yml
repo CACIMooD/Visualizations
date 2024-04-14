@@ -84,3 +84,8 @@ jobs:
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Templates/WebpackReactVisualizationTemplate'
+
+      - name: Check TypeScriptWebpackReactVisualizationTemplate (full)
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Templates/TypeScriptWebpackReactVisualizationTemplate'
