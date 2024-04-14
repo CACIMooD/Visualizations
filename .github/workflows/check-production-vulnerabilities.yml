@@ -99,7 +99,7 @@ jobs:
           working-directory: './Templates/WebpackReactVisualizationTemplate'
           options: '--omit=dev'
 
-      - name: Check TypeScriptWebpackReactVisualizationTemplate (full)
+      - name: Check TypeScriptWebpackReactVisualizationTemplate (production)
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Templates/TypeScriptWebpackReactVisualizationTemplate'
