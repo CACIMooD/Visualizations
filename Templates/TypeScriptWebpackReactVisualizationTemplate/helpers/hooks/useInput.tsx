@@ -25,26 +25,32 @@ declare global {
 /**
  * Hooks into the custom visualization inputs and listens to updates
  * @param input - The key for the input requested
+ * @param debounce - How long the input needs to be unchanged before the hook registers the update
  * @returns - The input hook
  */
 export function useInput<TInput extends keyof Vis.Inputs>(
-  input: TInput
+  input: TInput,
+  debounce?: number
 ): Vis.Inputs[TInput] extends SinglePickList | MultiPickList | Elements
   ? Readonly<string[]>
-  : Readonly<Partial<Vis.Inputs[TInput]>> {
+  : undefined | Readonly<Partial<Vis.Inputs[TInput]>> {
   const config = useContext(ConfigContext);
   const [value, setValue] = useState<Vis.Inputs[TInput]>(
     getVisualizationInputs()?.[input]
   );
 
   useEffect(() => {
+    let debounceTimeout: number | undefined;
     const updateSetValue = (event: updateInputEvent) => {
       if (event.detail.key != input) return;
-      setValue(getVisualizationInputs()?.[event.detail.key] as any);
+      debounceTimeout = setTimeout(() => {
+        setValue(getVisualizationInputs()?.[event.detail.key] as any);
+      }, debounce);
     };
     document.addEventListener(updateInputEventKey, updateSetValue);
     return () => {
       document.removeEventListener(updateInputEventKey, updateSetValue);
+      clearTimeout(debounceTimeout);
     };
   }, [config]);
 
@@ -68,7 +74,7 @@ export function useInput<TInput extends keyof Vis.Inputs>(
     inputConfigType === "elements"
   ) {
     // elements can be provided as an array by default so we don't need to convert it
-    if (Array.isArray(typeof value)) return value as any;
+    if (Array.isArray(value)) return value as any;
     return Object.freeze(
       ((value as string) ?? "")
         .split(",")
