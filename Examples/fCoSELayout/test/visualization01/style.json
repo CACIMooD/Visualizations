@@ -3,13 +3,30 @@
     "style": {
         "ignoreUnknownNodes": false,
         "nodeLabelSize": 12,
+        "nodeLabelWeight": "normal",
+        "nodeLabelStyle": "normal",
+        "nodeLabelFamily": "Sans-Serif",
         "nodeLabelPos": "center",
         "nodeLabelMarginX": 0,
         "nodeLabelMarginY": 0,
+        "nodeOpacity": 0.5,
+        "nodeHighlightOpacity": 1.0,
+        "nodeHighlightColour": "green",
         "parentLabelSize": 20,
+        "parentLabelWeight": "normal",
+        "parentLabelStyle": "normal",
+        "parentLabelFamily": "Sans-Serif",
         "parentLabelPos": "bottom",
         "parentLabelMarginX": 0,
-        "parentLabelMarginY": 5
+        "parentLabelMarginY": 5,
+        "parentOpacity": 0.5,
+        "parentHighlightOpacity": 1.0,
+        "parentHighlightColour": "red",
+        "edgeOpacity": 0.5,
+        "edgeHighlightOpacity": 1.0,
+        "edgeHighlightColour": "black",
+        "edgeCurveStyle": "unbundled-bezier",
+        "edgeArrowShape": "triangle"
     },
     "editable": false
 }

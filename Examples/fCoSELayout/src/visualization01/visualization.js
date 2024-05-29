@@ -38,6 +38,10 @@ export function visualization (config) {
   const superInputChanged = config.functions.inputChanged
   config.functions.inputChanged = inputChanged
 
+  const edgeHoverClass = 'edge-hover'
+  const nodeHoverClass = 'node-hover'
+  const parentHoverClass = 'parent-hover'
+
   /**
  * Handle change to input.
  * There is only a single input which controls which nodes are highlighted
@@ -203,12 +207,35 @@ export function visualization (config) {
 
     cy.on('mouseover', 'node', function (event) {
       const node = event.target
+      node.addClass(nodeHoverClass)
       config.functions.updateOutput('hoverNode', node.id())
+    })
+
+    cy.on('mouseout', 'node', function (event) {
+      const node = event.target
+      node.removeClass(nodeHoverClass)
+    })
+
+    cy.on('mouseover', 'node:parent', function (event) {
+      const node = event.target
+      node.addClass(parentHoverClass)
+      config.functions.updateOutput('hoverNode', node.id())
+    })
+
+    cy.on('mouseout', 'node:parent', function (event) {
+      const node = event.target
+      node.removeClass(parentHoverClass)
     })
 
     cy.on('mouseover', 'edge', function (event) {
       const edge = event.target
+      edge.addClass(edgeHoverClass)
       config.functions.updateOutput('hoverLink', edge.id())
+    })
+
+    cy.on('mouseout', 'edge', function (event) {
+      const edge = event.target
+      edge.removeClass(edgeHoverClass)
     })
 
     cy.on('tap', 'edge', function (event) {
@@ -295,14 +322,30 @@ export function visualization (config) {
     const edgeType = (edge) => edge.attr().linkType || 'solid'
     const dashPattern = (edge) => edge.attr().linkDashPattern || '5 5'
     const nodeLabelFontSize = style.nodeLabelSize || 12
+    const nodeLabelFontWeight = style.nodeLabelWeight || 'normal'
+    const nodeLabelFontStyle = style.nodeLabelStyle || 'normal'
+    const nodeLabelFontFamily = style.nodeLabelFamily || 'Sans-Serif'
     const nodeLabelPos = style.nodeLabelPos || 'center'
     const nodeLabelMarginX = style.nodeLabelMarginX || 0
     const nodeLabelMarginY = style.nodeLabelMarginY || 0
+    const nodeOpacity = style.nodeOpacity || 0.5
+    const nodeHighlightOpacity = style.nodeHighlightOpacity || 1.0
+    const nodeHighlightColour = style.nodeHighlightColour
     const parentLabelFontSize = style.parentLabelSize || 14
+    const parentLabelFontWeight = style.nodeLabelWeight || 'normal'
+    const parentLabelFontStyle = style.nodeLabelStyle || 'normal'
+    const parentLabelFontFamily = style.nodeLabelFamily || 'Sans-Serif'
     const parentLabelMarginX = style.parentLabelMarginX || 0
     const parentLabelMarginY = style.parentLabelMarginY || 0
     const parentLabelPos = style.parentLabelPos || 'bottom'
-
+    const parentOpacity = style.parentOpacity || 0.5
+    const parentHighlightOpacity = style.parentHighlightOpacity || 1.0
+    const parentHighlightColour = style.parentHighlightColour
+    const edgeOpacity = style.edgeOpacity || 0.5
+    const edgeHighlightOpacity = style.edgeHighlightOpacity || 1.0
+    const edgeHighlightColour = style.edgeHighlightColour
+    const edgeCurveStyle = style.edgeCurveStyle || 'unbundled-bezier'
+    const edgeArrowShape = style.edgeArrowShape || 'triangle'
     // define default stylesheet
     const defaultStylesheet = [
       {
@@ -313,56 +356,107 @@ export function visualization (config) {
           height: nodeSize,
           shape: nodeShape,
           label: nodeLabel,
+          'font-family': nodeLabelFontFamily,
           'font-size': nodeLabelFontSize,
+          'font-weight': nodeLabelFontWeight,
+          'font-style': nodeLabelFontStyle,
           'text-margin-x': nodeLabelMarginX,
           'text-margin-y': nodeLabelMarginY,
           'text-valign': nodeLabelPos,
-          'background-opacity': 0.7
+          'background-opacity': nodeOpacity
         }
       },
 
       {
         selector: ':parent',
         style: {
-          //      'background-opacity': 0.333,
           // 'background-color': '#e8ffe8',
           'border-color': '#DADADA',
           //      'border-width': 3,
+          'font-family': parentLabelFontFamily,
           'font-size': parentLabelFontSize,
+          'font-weight': parentLabelFontWeight,
+          'font-style': parentLabelFontStyle,
           'text-margin-x': parentLabelMarginX,
           'text-margin-y': parentLabelMarginY,
-          'text-valign': parentLabelPos
+          'text-valign': parentLabelPos,
+          'background-opacity': parentOpacity
         }
       },
 
       {
         selector: 'edge',
         style: {
-          'curve-style': 'unbundled-bezier',
-          'target-arrow-shape': 'triangle',
+          'curve-style': edgeCurveStyle,
+          'target-arrow-shape': edgeArrowShape,
           'line-color': edgeColour,
           'target-arrow-color': edgeColour,
           width: edgeWidth,
           'line-style': edgeType,
-          'line-dash-pattern': dashPattern
-        }
-      },
-
-      {
-        selector: 'node:selected',
-        style: {
-          'background-color': '#33ff00',
-          'border-color': '#22ee00'
-        }
-      },
-
-      {
-        selector: 'edge:selected',
-        style: {
-          'line-color': '#33ff00'
+          'line-dash-pattern': dashPattern,
+          'line-opacity': edgeOpacity
         }
       }
     ]
+
+    const nodeHoverStyle =
+      {
+        selector: '.' + nodeHoverClass,
+        style: {
+          'background-opacity': nodeHighlightOpacity
+        }
+      }
+
+    if (nodeHighlightColour) {
+      nodeHoverStyle.style['background-color'] = nodeHighlightColour
+    }
+
+    defaultStylesheet.push(nodeHoverStyle)
+
+    const parentHoverStyle =
+      {
+        selector: '.' + parentHoverClass,
+        style: {
+          'background-opacity': parentHighlightOpacity
+        }
+      }
+
+    if (parentHighlightColour) {
+      parentHoverStyle.style['background-color'] = parentHighlightColour
+    }
+
+    defaultStylesheet.push(parentHoverStyle)
+
+    const edgeHoverStyle =
+      {
+        selector: '.' + edgeHoverClass,
+        style: {
+          'line-opacity': edgeHighlightOpacity
+        }
+      }
+
+    if (edgeHighlightColour) {
+      edgeHoverStyle.style['line-color'] = edgeHighlightColour
+      edgeHoverStyle.style['target-arrow-color'] = edgeHighlightColour
+    }
+
+    defaultStylesheet.push(edgeHoverStyle)
+    // {
+    //   selector: 'node:selected',
+    //   style: {
+    //     'background-color': '#33ff00',
+    //     'border-color': '#22ee00'
+    //   }
+    // },
+
+    // {
+    //   selector: 'edge:selected',
+    //   style: {
+    //     'line-color': '#33ff00',
+    //     'target-arrow-color': '#33ff00',
+    //     'line-opacity': 0.9
+    //   }
+    // },
 
     return defaultStylesheet
   }
