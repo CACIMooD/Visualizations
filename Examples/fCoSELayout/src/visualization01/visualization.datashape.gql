@@ -11,6 +11,7 @@ type node implements MooDElement{
 	colour: Colour @UI(name:"Colour of node")
 	shape: String @UI(name: "Shape of Node")
 	size: Int @UI(name:"Size of Shape")
+	zIndex: Int @UI(name:"Drawing Order")
 }
 
 type link implements MooDElement{

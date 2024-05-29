@@ -1,7 +1,7 @@
 {
 	"data": {
     "nodes": [
-      {"id": "55-F1EB22135FB141349223D415FA706F22", "name": "149.171.126.10", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
+      {"id": "55-F1EB22135FB141349223D415FA706F22", "name": "149.171.126.10", "colour": "#8FB1D5", "shape": "rectangle", "size": 20, "zIndex": 100},
       {"id": "55-FABFCD0CE5BC485C8916513710296B32", "name": "0", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
       {"id": "55-CD4B1D486F624C459C5865918BCE9CDC", "name": "110", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
       {"id": "55-2AFF6672F09D43D39609A6E5849588E2", "name": "111", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
@@ -102,7 +102,7 @@
       {"id": "55-F6F1BE668FF645B98C832F53C59F4C0A", "name": "80", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
       {"id": "55-E0246094DB9249B688FDE15DCE6B1A76", "name": "8009", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
       {"id": "55-118D43B2D8D34673A5C2E1BA4EE0D46B", "name": "8080", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
-      {"id": "55-FD3B8EA9982D4EBBB8B374CB0DF04B5E", "name": "149.171.126.15", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
+      {"id": "55-FD3B8EA9982D4EBBB8B374CB0DF04B5E", "name": "149.171.126.15", "colour": "#8FB1D5", "shape": "rectangle", "size": 20, "zIndex": 300},
       {"id": "55-0D7F094D7C474A2C9CEFF726F003E965", "name": "0", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
       {"id": "55-BB17E808F27740A4AE5BA48D587AB7A1", "name": "110", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
       {"id": "55-AFF0D303A2234B1AB366DE0445B2F458", "name": "111", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
@@ -169,7 +169,7 @@
       {"id": "55-C108919424F0409EB866ECE0A6F13805", "name": "80", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
       {"id": "55-4FD6F292F49047F4842FA58F0CC490F5", "name": "8009", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
       {"id": "55-F397E3B83F7F43C087E79E010A679416", "name": "8080", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
-      {"id": "55-AFD18F993479421B89B158A78B567EFA", "name": "149.171.126.18", "colour": "#FFFFFF", "shape": "rectangle", "size": 20},
+      {"id": "55-AFD18F993479421B89B158A78B567EFA", "name": "149.171.126.18", "colour": "#FFFFFF", "shape": "rectangle", "size": 20, "zIndex": 300},
       {"id": "55-A8B4EF015438478388B8CEE2E5BC0E07", "name": "0", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
       {"id": "55-AA613863AA6F4AA0A801A567E0CDD9C7", "name": "110", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},
       {"id": "55-9BCB8A6F3AA64C7C904C1188B22628F1", "name": "111", "colour": "#8FB1D5", "shape": "rectangle", "size": 20},

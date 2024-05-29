@@ -317,6 +317,7 @@ export function visualization (config) {
     const nodeShape = (node) => node.attr().shape || 'ellipse'
     const nodeSize = (node) => node.attr().size || 40
     const nodeColour = (node) => node.attr().colour || '#bdd3ff'
+    const nodezIndex = (node) => node.attr().zIndex || 1
     const edgeColour = (edge) => edge.attr().colour || '#ffd3d4'
     const edgeWidth = (edge) => edge.attr().width || 1
     const edgeType = (edge) => edge.attr().linkType || 'solid'
@@ -356,6 +357,7 @@ export function visualization (config) {
           height: nodeSize,
           shape: nodeShape,
           label: nodeLabel,
+          'z-index': nodezIndex,
           'font-family': nodeLabelFontFamily,
           'font-size': nodeLabelFontSize,
           'font-weight': nodeLabelFontWeight,
