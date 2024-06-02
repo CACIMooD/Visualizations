@@ -26,7 +26,9 @@
         "edgeHighlightOpacity": 1.0,
         "edgeHighlightColour": "black",
         "edgeCurveStyle": "unbundled-bezier",
-        "edgeArrowShape": "triangle"
+        "edgeArrowShape": "triangle",
+        "idealEdgeLength": 150,
+        "edgeElasticity": 0.1
     },
     "editable": false
 }

@@ -83,6 +83,9 @@ The properties are:
 * __edgeHighlightColour__: The colour of the edge line when the cursor is hovering over it. If null the colour is unchanged when the cursor is over it. __Default null__
 * __edgeCurveStyle__: The curving method used to separate two or more edges between two nodes; may be _haystack_ (default, very fast, bundled straight edges for which loops and compounds are unsupported), _straight_ (straight edges with all arrows supported), _straight-triangle_ (straight triangle edges), _bezier_ (bundled curved edges), _unbundled-bezier_ (curved edges for use with manual control points), _segments_ (a series of straight lines), _round-segments_ (a series of straight lines with rounded corners), _taxi_ (right-angled lines, hierarchically bundled), _round-taxi_ (right-angled lines, hierarchically bundled, with rounded corners). Note that haystack edges work best with ellipse, rectangle, or similar nodes. Smaller node shapes, like triangle, will not be as aesthetically pleasing. Also note that edge endpoint arrows are unsupported for haystack edges. __Default unbundled-bezier__
 * __edgeArrowShape__: The shape of the edge’s target arrow; may be one of: triangle, triangle-tee, circle-triangle, triangle-cross, triangle-backcurve, vee, tee, square, circle, diamond, chevron, none. __Default triangle__
+* __idealEdgeLength__: The ideal length of an edge. The length is altered by the node repulsion forces and the elasticity of the edges. __Default 150__
+* __edgeElasticity__: A divisor to compute edge forces, range 0 < elasticity < 1. A smaller number will generally lead to longer edges and more separated nodes. __Default 0.99__
+
 
 [Table of Contents](#table-of-contents)
 

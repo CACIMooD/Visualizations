@@ -75,6 +75,8 @@ export function visualization (config) {
     const el = document.getElementById(config.element)
 
     const styleSheet = getStylesheet(style)
+    const idealEdgeLength = style.idealEdgeLength || 150
+    const edgeElasticity = style.edgeElasticity || 0.99
     // console.log(JSON.stringify(styleSheet))
 
     const parentMap = {}
@@ -173,9 +175,9 @@ export function visualization (config) {
           // Node repulsion (non overlapping) multiplier
           nodeRepulsion: node => 4500 + node.connectedEdges().length * 4000,
           // Ideal edge (non nested) length
-          idealEdgeLength: edge => 150,
+          idealEdgeLength: edge => idealEdgeLength,
           // Divisor to compute edge forces
-          edgeElasticity: edge => 0.99
+          edgeElasticity: edge => edgeElasticity
         }
         const initialLayout = this.layout(layoutOptions)
         // initialLayout.pon('layoutstart').then(function( event ){
