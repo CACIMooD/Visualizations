@@ -86,7 +86,6 @@ The properties are:
 * __idealEdgeLength__: The ideal length of an edge. The length is altered by the node repulsion forces and the elasticity of the edges. __Default 150__
 * __edgeElasticity__: A divisor to compute edge forces, range 0 < elasticity < 1. A smaller number will generally lead to longer edges and more separated nodes. __Default 0.99__
 
-
 [Table of Contents](#table-of-contents)
 
 ## Inputs
