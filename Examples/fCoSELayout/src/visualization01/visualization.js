@@ -140,6 +140,21 @@ export function visualization (config) {
 
     const constraints = getConstraints()
 
+    const highlightEdges = (node) => {
+      node.connectedEdges().forEach(edge => {
+        if ((edge.source().id() === node.id() && style.nodeHighlightOutEdges) ||
+            (edge.target().id() === node.id() && style.nodeHighlightInEdges)) {
+          edge.addClass(edgeHoverClass)
+        }
+      })     
+    }
+
+    const unhighlightEdges = (node) => {
+      node.connectedEdges().forEach(edge => {
+        edge.removeClass(edgeHoverClass)
+      })
+    }
+   
     cytoscape.use(layoutUtilities)
     cytoscape.use(fcose)
     const cy = cytoscape({
@@ -210,23 +225,27 @@ export function visualization (config) {
     cy.on('mouseover', 'node', function (event) {
       const node = event.target
       node.addClass(nodeHoverClass)
+      highlightEdges(node)
       config.functions.updateOutput('hoverNode', node.id())
     })
 
     cy.on('mouseout', 'node', function (event) {
       const node = event.target
       node.removeClass(nodeHoverClass)
+      unhighlightEdges(node)
     })
 
     cy.on('mouseover', 'node:parent', function (event) {
       const node = event.target
       node.addClass(parentHoverClass)
+      highlightEdges(node)
       config.functions.updateOutput('hoverNode', node.id())
     })
 
     cy.on('mouseout', 'node:parent', function (event) {
       const node = event.target
       node.removeClass(parentHoverClass)
+      unhighlightEdges(node)
     })
 
     cy.on('mouseover', 'edge', function (event) {

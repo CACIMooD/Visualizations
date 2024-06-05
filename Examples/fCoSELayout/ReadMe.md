@@ -68,6 +68,8 @@ The properties are:
 * __nodeOpacity__: The opacity of the node fill colour, between 0 and 1. __Default 0.5__
 * __nodeHighlightOpacity__: The opacity of the node fill colour when the cursor is hovering over it, between 0 and 1. __Default 1.0__
 * __nodeHighlightColour__: The node fill colour when the cursor is hovering over it. If undefined the colour is unchanged when the cursor is over it. __Default null__
+* __nodeHighlightInEdges__: When the cursor is hovering over a node, including parent nodes, highlight edges flowing into the node. __Default false__
+* __nodeHighlightOutEdges__: When the cursor is hovering over a node, including parent nodes, highlight edges flowing out of the node. __Default false__
 * __parentLabelSize__: The size of the font for parent node labels. __Default 12__
 * __parentLabelFamily__: A font family or a comma separated list of font names to use for parent node labels. __Default Sans-Serif__
 * __parentLabelWeight__: The weight of the font for parent node labels: normal, bold, bolder, lighter. __Default normal__

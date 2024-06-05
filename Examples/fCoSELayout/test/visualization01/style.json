@@ -12,6 +12,8 @@
         "nodeOpacity": 0.5,
         "nodeHighlightOpacity": 1.0,
         "nodeHighlightColour": "green",
+        "nodeHighlightInEdges": true,
+        "nodeHighlightOutEdges": true,
         "parentLabelSize": 20,
         "parentLabelWeight": "normal",
         "parentLabelStyle": "normal",
