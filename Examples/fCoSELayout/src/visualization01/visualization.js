@@ -146,7 +146,7 @@ export function visualization (config) {
             (edge.target().id() === node.id() && style.nodeHighlightInEdges)) {
           edge.addClass(edgeHoverClass)
         }
-      })     
+      })
     }
 
     const unhighlightEdges = (node) => {
@@ -154,7 +154,7 @@ export function visualization (config) {
         edge.removeClass(edgeHoverClass)
       })
     }
-   
+
     cytoscape.use(layoutUtilities)
     cytoscape.use(fcose)
     const cy = cytoscape({
