@@ -1,6 +1,6 @@
 {
   "name": "mood-custom-visualizations",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "description": "Templates, examples and documentation enabling you to bring 3rd party visualizations into your MooD Repository.",
   "devDependencies": {
     "markdownlint": "^0.33.0",
