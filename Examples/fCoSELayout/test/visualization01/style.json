@@ -30,7 +30,15 @@
         "edgeCurveStyle": "unbundled-bezier",
         "edgeArrowShape": "triangle",
         "idealEdgeLength": 150,
-        "edgeElasticity": 0.1
-    },
+        "edgeElasticity": 0.1,
+        "zoomSensitivity": 0.3,
+        "nodeSeparation": 75,
+        "nodeRepulsion": 4500,
+        "busyNodeRepulsion": 1000,
+        "gravity": 0.25,
+        "gravityCompound": 1.0,
+        "samplingType": true,
+        "nodeDimensionsIncludeLabels": true
+        },
     "editable": false
 }

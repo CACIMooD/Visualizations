@@ -77,6 +77,14 @@ export function visualization (config) {
     const styleSheet = getStylesheet(style)
     const idealEdgeLength = style.idealEdgeLength || 150
     const edgeElasticity = style.edgeElasticity || 0.99
+    const zoomSensitivity = style.zoomSensitivity || 0.3
+    const nodeSeparation = style.nodeSeparation || 75
+    const nodeRepulsion = style.nodeRepulsion || 4500
+    const busyNodeRepulsion = style.busyNodeRepulsion !== undefined ? style.busyNodeRepulsion : 1000
+    const gravity = style.gravity || 0.25
+    const gravityCompound = style.gravityCompound || 1.0
+    const samplingType = style.samplingType !== undefined ? style.samplingType : true
+    const nodeDimensionsIncludeLabels = style.nodeDimensionsIncludeLabels !== undefined ? style.nodeDimensionsIncludeLabels : true
     // console.log(JSON.stringify(styleSheet))
 
     const parentMap = {}
@@ -185,14 +193,19 @@ export function visualization (config) {
           name: 'fcose',
           step: 'all',
           animationEasing: 'ease-out',
-          nodeSeparation: 300,
+          nodeSeparation,
           quality: 'proof',
           // Node repulsion (non overlapping) multiplier
-          nodeRepulsion: node => 4500 + node.connectedEdges().length * 4000,
+          nodeRepulsion: node => nodeRepulsion + node.connectedEdges().length * busyNodeRepulsion,
           // Ideal edge (non nested) length
           idealEdgeLength: edge => idealEdgeLength,
           // Divisor to compute edge forces
-          edgeElasticity: edge => edgeElasticity
+          edgeElasticity: edge => edgeElasticity,
+          gravity,
+          gravityCompound,
+          // nestingFactor: 1.0,
+          samplingType,
+          nodeDimensionsIncludeLabels
         }
         const initialLayout = this.layout(layoutOptions)
         // initialLayout.pon('layoutstart').then(function( event ){
@@ -210,9 +223,9 @@ export function visualization (config) {
       },
       fixedNodeConstraint: constraints.fixedNodeConstraint,
       alignmentConstraint: constraints.alignmentConstraint,
-      relativePlacementConstraint: constraints.relativePlacementConstraint
+      relativePlacementConstraint: constraints.relativePlacementConstraint,
       // pixelRatio: 1.0
-      // wheelSensitivity: 0.3
+      wheelSensitivity: zoomSensitivity
     })
 
     // cy.layoutUtilities("get").setOption("randomize", finalOptions.randomize);

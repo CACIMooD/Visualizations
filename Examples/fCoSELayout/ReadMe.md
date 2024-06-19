@@ -87,6 +87,14 @@ The properties are:
 * __edgeArrowShape__: The shape of the edge’s target arrow; may be one of: triangle, triangle-tee, circle-triangle, triangle-cross, triangle-backcurve, vee, tee, square, circle, diamond, chevron, none. __Default triangle__
 * __idealEdgeLength__: The ideal length of an edge. The length is altered by the node repulsion forces and the elasticity of the edges. __Default 150__
 * __edgeElasticity__: A divisor to compute edge forces, range 0 < elasticity < 1. A smaller number will generally lead to longer edges and more separated nodes. __Default 0.99__
+* __zoomSensitivity__: Sensitivity of mouse wheel to control zoom. This is a multiplier, with a lower number decreasing the zoom step size. __Default 0.3__
+* __nodeSeparation__: Separation amount between nodes. This setting appears to be largely constrained by the repulsive forces, edge elasticity and ideal edge length. __Default 75__
+* __nodeRepulsion__: The repulsive force between nodes. __Default 4500__
+* __busyNodeRepulsion__: An additional repulsive force, multiplied by the number of edges connected to the node, that the node exerts. This helps to separate nodes with lots of edges and avoid labels overlapping. __Default 1000__
+* __gravity__: Gravity force for nodes, attracting them to the centre point. __Default 0.25__
+* __gravityCompound__: Gravity force for compound nodes, attracting them to the centre point. __Default 1.0__
+* __samplingType__: Type of node sampling performed to generate layout: random (false) or greedy (true). __Default true__
+* __nodeDimensionsIncludeLabels__: Whether to include labels in node dimensions. When true this helps to avoid long node labels overlapping. __Default true__
 
 [Table of Contents](#table-of-contents)
 
