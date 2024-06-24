@@ -12,3 +12,11 @@ div { background-color: white;  }
     margin-top: 1px;
     margin-right: 1px;
   }
+  #reset {
+    float: right;
+    line-height: 12px;
+    font-size: 8pt;
+    font-family: tahoma;
+    margin-top: 1px;
+    margin-right: 1px;
+  }

@@ -102,6 +102,14 @@ export function visualization (config) {
       saveButton.innerHTML = 'Save'
       saveButton.onclick = saveClick
       containerElement.appendChild(saveButton)
+      function resetClick () {
+        console.log('Reset Click')
+      }
+      const resetButton = document.createElement('button')
+      resetButton.id = 'reset'
+      resetButton.innerHTML = 'Reset'
+      resetButton.onclick = resetClick
+      containerElement.appendChild(resetButton)
     }
 
     const parentMap = {}
