@@ -91,15 +91,15 @@ export function visualization (config) {
     // State data was introduced in MooD Customer Release 6 (16.082)
     //
     const editable = config.state && config.state.editable
-    const stateValue = config.state && config.state.value
+    // const stateValue = config.state && config.state.value
 
     if (editable) {
-      function saveClick() {
-        console.log("Save Click")
+      function saveClick () {
+        console.log('Save Click')
       }
-      const saveButton = document.createElement("button")
-      saveButton.id = "save"
-      saveButton.innerHTML = "Save"
+      const saveButton = document.createElement('button')
+      saveButton.id = 'save'
+      saveButton.innerHTML = 'Save'
       saveButton.onclick = saveClick
       containerElement.appendChild(saveButton)
     }
