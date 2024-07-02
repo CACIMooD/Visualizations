@@ -95,6 +95,7 @@ The properties are:
 * __gravityCompound__: Gravity force for compound nodes, attracting them to the centre point. __Default 1.0__
 * __samplingType__: Type of node sampling performed to generate layout: random (false) or greedy (true). __Default true__
 * __nodeDimensionsIncludeLabels__: Whether to include labels in node dimensions. When true this helps to avoid long node labels overlapping. __Default true__
+* __layerGap__: Vertical gap between horizontal layer groups. __Default 150__
 
 [Table of Contents](#table-of-contents)
 
@@ -132,6 +133,7 @@ The visualization has one event. This can be configured to trigger actions in Mo
     * __Shape of node__: The shape to draw for the node. See [Shapes](#shapes) for valid values.
     * __Size of Shape__: Size specifying both the height and width of the shape
     * __Drawing Order__: The drawing order determines which nodes appear on top of others. A node with a higher value will be drawn on top of a node with a lower value. __Default 1__
+    * __Horizontal grouping identifier__: Numerical identity of a horizontal grouping of nodes (layers). Nodes with the same group will be laid out horizontally. Groups with a lower identity value will be laid out above groups with a higher value. The separation of layers is controlled by the layerGap style value.
 1. __Links__ - Zero or more relationships; the list of links between nodes
     * __Source__: The source node of the link
         * __Name__: The name of the source node

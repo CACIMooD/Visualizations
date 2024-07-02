@@ -1,8 +1,8 @@
 import {visualization} from '../../src/visualization01/visualization';
 import MooDConfig from './MooDConfig.json';
-// import dataConfig from './data.json';
+import dataConfig from './data.json';
 // import dataConfig from './data2.json';
-import dataConfig from './data3.json'; // based on data from https://rdm.uq.edu.au/files/c31a9f50-ef99-11ed-ab7b-c7846b13c8a9
+// import dataConfig from './data3.json'; // based on data from https://rdm.uq.edu.au/files/c31a9f50-ef99-11ed-ab7b-c7846b13c8a9
 import styleConfig from './style.json';
 import inputsConfig from './inputs.json';
 

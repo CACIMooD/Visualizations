@@ -12,6 +12,7 @@ type node implements MooDElement{
 	shape: String @UI(name: "Shape of Node")
 	size: Int @UI(name:"Size of Shape")
 	zIndex: Int @UI(name:"Drawing Order")
+	hGrouping: Int @UI(name: "Horizontal grouping identifier")
 }
 
 type link implements MooDElement{
