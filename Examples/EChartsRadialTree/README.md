@@ -103,7 +103,7 @@ The visualization has no actions.
         * __Name__: the name of the parent element.
     * __Target__: The target (child) node
         * __Name__: the name of the child element.
-        * __Value__: the value of the child element. This is only required for leaf nodes in the tree hierarchy
+        * __Value__: the value of the child element. This is optional and then only applicable to leaf nodes in the tree hierarchy
 1. __level2Relationship__ – zero or more relationships. Same structure as __level1Relationship__
 1. __level3Relationship__ – zero or more relationships. Same structure as __level1Relationship__
 1. __level4Relationship__ – zero or more relationships. Same structure as __level1Relationship__
