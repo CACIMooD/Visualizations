@@ -47,11 +47,23 @@ export function visualization (config) {
   const seriesData = {}
   const flatData = []
   const superInputChanged = config.functions.inputChanged
+  const style = config.style
+
   let chart
   let option
   try {
     const containerWidth = parseFloat(config.width)
     const containerHeight = parseFloat(config.height)
+    const showLabel = style.series.label
+      ? (style.series.label.show !== undefined
+          ? style.series.label.show
+          : true)
+      : true
+    const emphasisFocus = style.series.emphasis
+      ? (style.series.emphasis.focus !== undefined
+          ? style.series.emphasis.focus
+          : 'descendant')
+      : 'descendant'
 
     config.functions.inputChanged = inputChanged
 
@@ -69,10 +81,10 @@ export function visualization (config) {
 
     chart.hideLoading()
     option = {
-      tooltip: {
-        trigger: 'item',
-        triggerOn: 'mousemove'
-      },
+      // tooltip: {
+      //   trigger: 'item',
+      //   triggerOn: 'mousemove'
+      // },
       series: [
         {
           type: 'tree',
@@ -84,13 +96,19 @@ export function visualization (config) {
           symbolSize: config.style.series.symbolSize,
           initialTreeDepth: treeDepth,
           animationDurationUpdate: 750,
+          label: {
+            show: showLabel
+          },
           emphasis: {
-            focus: 'descendant'
+            focus: emphasisFocus
           }
         }
       ]
     }
     chart.setOption(option)
+    chart.on('mouseover', function (params) {
+      config.functions.updateOutput('hoverNode', params.data.key)
+    })
   } catch (e) {
     //
     // Write error message to the canvas
@@ -157,7 +175,7 @@ function buildData (moodData, seriesData, flatData) {
   }
 
   function hierarchicalNode (link) {
-    const node = { name: link.target.name }
+    const node = { key: link.target.key, name: link.target.name }
     if (link.target.value) {
       node.value = link.target.value
     }
@@ -178,6 +196,7 @@ function buildData (moodData, seriesData, flatData) {
     flatData.push(flatNode(seriesNode, level))
   }
 
+  seriesData.key = moodData.rootNode.key
   seriesData.name = moodData.rootNode.name
   seriesData.children = []
 

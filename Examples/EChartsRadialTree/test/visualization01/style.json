@@ -11,6 +11,9 @@
             },
             "label": {
                 "show": true
+            },
+            "emphasis": {
+                "focus": "relative"
             }
         }
     }

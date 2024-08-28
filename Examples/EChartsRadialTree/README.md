@@ -62,6 +62,13 @@ The properties mirror the properties in the __options__ object used to configure
     * __color__: the colour of the node symbol. Supports setting as solid color using rgb(255,255,255), rgba(255,255,255,1), #fff. __Default rgba(180, 180, 180, 0.2)__
   * __label__: Describes the style of the text corresponding to each node.
     * __show__: Defines if the labels are to be shown (true) or not (false). __Default true__
+  * __emphasis__: Describes the style of emphasis when the mouse hovers over a node.
+    * __focus__: Defines the nodes to highlight (not fade out). __Default descendant__. Can be one of
+      * __none__ - Do not fade out other data
+      * __self__ - Only focus (not fade out) the element of the currently highlighted node
+      * __ancestor__ - Focus on all ancestor nodes
+      * __descendant__ - Focus on all descendant nodes
+      * __relative__ - Focus on all ancestor and descendant nodes
 
 [Table of Contents](#table-of-contents)
 
@@ -75,7 +82,9 @@ The visualization has one input.
 
 ## Outputs
 
-The visualization has no outputs.
+The visualization has one output.
+
+* __Node__: the identity of the node that the cursor is hovering over
 
 [Table of Contents](#table-of-contents)
 

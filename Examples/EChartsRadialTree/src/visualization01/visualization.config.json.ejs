@@ -17,6 +17,13 @@
       "type": "Number"
     }
   ],
+  "outputs": [
+    {
+      "name": "hoverNode",
+      "displayName": "Node",
+      "type": "elements"
+    }
+  ],
   "style": {
     "backgroundColor": "rgba(255, 255, 255, 1)",
     "series": {
@@ -29,6 +36,9 @@
       },
       "label": {
         "show": true
+      },
+      "emphasis": {
+          "focus": "descendant"
       }
     }
   }

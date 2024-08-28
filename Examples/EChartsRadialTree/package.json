@@ -1,11 +1,11 @@
 {
   "name": "echarts-radial-chart",
   "description": "ECharts Radial Tree Visualization",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "license": "MIT",
   "dependencies": {
     "core-js": "3.19.0",
-    "echarts": "5.3.0"
+    "echarts": "^5.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.22.9",
