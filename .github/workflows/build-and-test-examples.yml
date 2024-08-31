@@ -1,5 +1,6 @@
 name: Build and test example packages with npm
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'Examples/EChartsBarChart/**'
