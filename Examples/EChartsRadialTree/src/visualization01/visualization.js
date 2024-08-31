@@ -54,19 +54,45 @@ export function visualization (config) {
   try {
     const containerWidth = parseFloat(config.width)
     const containerHeight = parseFloat(config.height)
+    const showTooltip = style.series.showTooltip !== undefined
+      ? style.series.showTooltip
+      : false
     const showLabel = style.series.label
       ? (style.series.label.show !== undefined
           ? style.series.label.show
           : true)
       : true
+    const labelFontSize = style.series.label
+      ? (style.series.label.fontSize !== undefined
+          ? style.series.label.fontSize
+          : 12)
+      : 12
+    const labelRotation = style.series.label
+      ? (style.series.label.rotate !== undefined
+          ? style.series.label.rotate
+          : 0)
+      : 0
+    const showLeafLabel = style.series.leafLabel
+      ? (style.series.leafLabel.show !== undefined
+          ? style.series.leafLabel.show
+          : true)
+      : true
+    const leafLabelFontSize = style.series.leafLabel
+      ? (style.series.leafLabel.fontSize !== undefined
+          ? style.series.leafLabel.fontSize
+          : 12)
+      : 12
     const emphasisFocus = style.series.emphasis
       ? (style.series.emphasis.focus !== undefined
           ? style.series.emphasis.focus
           : 'descendant')
       : 'descendant'
     const layout = ['orthogonal', 'radial'].includes(style.series.layout)
-          ? style.series.layout
-          : 'radial'
+      ? style.series.layout
+      : 'radial'
+    const orientation = ['LR', 'RL', 'TB', 'BT'].includes(style.series.orient)
+      ? style.series.orient
+      : 'LR'
 
     config.functions.inputChanged = inputChanged
 
@@ -84,23 +110,14 @@ export function visualization (config) {
 
     chart.hideLoading()
     option = {
-      // tooltip: {
-      //   trigger: 'item',
-      //   triggerOn: 'mousemove',
-      //   formatter: '{b} {c}'
-      // },
-      // dataZoom: {
-      //   type: 'inside',
-      //   disabled: false
-      // },
       series: [
         {
           type: 'tree',
           data: [seriesData],
           top: config.style.series.top,
           bottom: config.style.series.bottom,
-          layout: layout,
-          orient: 'LR',
+          layout,
+          orient: orientation,
           symbol: config.style.series.symbol,
           symbolSize: config.style.series.symbolSize,
           initialTreeDepth: treeDepth,
@@ -108,8 +125,8 @@ export function visualization (config) {
           animationDurationUpdate: 750,
           label: {
             show: showLabel,
-            fontSize: 12,
-            rotate: 45
+            fontSize: labelFontSize,
+            rotate: labelRotation
           },
           emphasis: {
             focus: emphasisFocus,
@@ -119,49 +136,56 @@ export function visualization (config) {
           },
           leaves: {
             label: {
-              show: true,
-              fontSize: 8
+              show: showLeafLabel,
+              fontSize: leafLabelFontSize
             },
             emphasis: {
               label: {
-                show: true,
-                fontSize: 12
+                show: true
               }
             }
           }
         }
       ]
     }
+    if (showTooltip) {
+      option.tooltip = {
+        trigger: 'item',
+        triggerOn: 'mousemove',
+        formatter: '{b} {c}'
+      }
+    }
+    console.log("Options: " + JSON.stringify(option))
     chart.setOption(option)
     chart.on('mouseover', function (params) {
-      const labelOn = {
-        series: [
-          {
-            expandAndCollapse: true,
-            label: {
-              show: true
-            }
-          }
-        ]
-      }
+      // const labelOn = {
+      //   series: [
+      //     {
+      //       expandAndCollapse: true,
+      //       label: {
+      //         show: true
+      //       }
+      //     }
+      //   ]
+      // }
       // option.series[0].label.show = true
       // chart.setOption(labelOn)
       config.functions.updateOutput('hoverNode', params.data.key)
     })
-    chart.on('mouseout', function (params) {
-      const resetLabel = {
-        series: [
-          {
-            expandAndCollapse: false,
-            label: {
-              show: showLabel
-            }
-          }
-        ]
-      }
-      // option.series[0].label.show = showLabel
-      // chart.setOption(resetLabel)
-    })
+    // chart.on('mouseout', function (params) {
+    //   const resetLabel = {
+    //     series: [
+    //       {
+    //         expandAndCollapse: false,
+    //         label: {
+    //           show: showLabel
+    //         }
+    //       }
+    //     ]
+    //   }
+    //   // option.series[0].label.show = showLabel
+    //   // chart.setOption(resetLabel)
+    // })
   } catch (e) {
     //
     // Write error message to the canvas

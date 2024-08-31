@@ -17,10 +17,13 @@ Apache ECharts Radial Tree chart
 
 ## Purpose
 
-The radial tree chart renders the data as a tree with each level drawn in a circle with lines drawn to parent at lower (inner) level.
+The tree chart renders the data as a tree in a choice of two layouts: orthogonal or radial.
+
+The orthognal layout renders the data as a dendrogram.
 
 The custom visualization is based on the ECharts Radial Tree example.
 
+![orthogonal tree](images/orthogonal-tree.png)
 [![radial tree](images/radial-tree.png "radial tree")](https://echarts.apache.org/examples/en/editor.html?c=tree-radial)
 
 [Table of Contents](#table-of-contents)
@@ -57,6 +60,7 @@ The properties mirror the properties in the __options__ object used to configure
   * __top__: Distance between tree component and the top side of the container. __Default 18%__
   * __bottom__: Distance between tree component and the bottom side of the container. __Default 14%__
   * __layout__: The layout of the tree, which can be __orthogonal__ or __radial__. The orthogonal layout is horizontal and vertical like a dendrogram. The radial layout refers to the view that the root node as the center and each layer of nodes as a ring. __Default radial__
+  * __orient__: The orientation of the tree when the __layout__ is __orthogonal__. Can be one __LR__, __RL__, __TB__ or __BT__. __Default LR__
   * __symbol__: Type of symbol drawn at each node. Can be one of __emptyCircle__, __circle__, __rect__, __roundRect__, __triangle__, __diamond__, __pin__, __arrow__, __none__. __Default emptyCircle__
 
   * __symbolSize__: Symbol size. It can be set to single numbers like 10, or use an array to represent width and height. For example, [20, 10] means symbol width is 20, and height is 10. __Default 7__
@@ -64,6 +68,11 @@ The properties mirror the properties in the __options__ object used to configure
     * __color__: the colour of the node symbol. Supports setting as solid color using rgb(255,255,255), rgba(255,255,255,1), #fff. __Default rgba(180, 180, 180, 0.2)__
   * __label__: Describes the style of the text corresponding to each node.
     * __show__: Defines if the labels are to be shown (true) or not (false). __Default true__
+    * __fontSize__: The size of the font for the label. __Default 12__
+    * __rotate__: The angle in degrees to rotate the label text. __Default 0__
+  * __leafLabel__: Describes the style of the text corresponding to the leaf nodes.
+    * __show__: Defines if the labels are to be shown (true) or not (false) on leaf nodes. __Default true__
+    * __fontSize__: The size of the font for the label on leaf nodes. __Default 12__
   * __emphasis__: Describes the style of emphasis when the mouse hovers over a node.
     * __focus__: Defines the nodes to highlight (not fade out). __Default descendant__. Can be one of
       * __none__ - Do not fade out other data

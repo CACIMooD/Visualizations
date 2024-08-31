@@ -5,14 +5,22 @@
             "top": "18%",
             "bottom": "14%",
             "layout": "orthogonal",
+            "orient": "LR",
+            "showTooltip": true,
             "symbol": "emptyCircle",
             "symbolSize": 7,
             "itemStyle": {
                 "color": "rgba(180, 180, 180, 0.2)"
             },
             "label": {
-                "show": true
+                "show": true,
+                "fontSize": 12,
+                "rotate": 45
             },
+            "leafLabel": {
+                "show": false,
+                "fontSize": 8
+              },
             "emphasis": {
                 "focus": "relative"
             }
