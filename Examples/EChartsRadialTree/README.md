@@ -56,7 +56,9 @@ The properties mirror the properties in the __options__ object used to configure
 * __series__: styling properties for the chart elements
   * __top__: Distance between tree component and the top side of the container. __Default 18%__
   * __bottom__: Distance between tree component and the bottom side of the container. __Default 14%__
-  * __symbol__: Type of symbol drawn at each node. __Default emptyCircle__
+  * __layout__: The layout of the tree, which can be __orthogonal__ or __radial__. The orthogonal layout is horizontal and vertical like a dendrogram. The radial layout refers to the view that the root node as the center and each layer of nodes as a ring. __Default radial__
+  * __symbol__: Type of symbol drawn at each node. Can be one of __emptyCircle__, __circle__, __rect__, __roundRect__, __triangle__, __diamond__, __pin__, __arrow__, __none__. __Default emptyCircle__
+
   * __symbolSize__: Symbol size. It can be set to single numbers like 10, or use an array to represent width and height. For example, [20, 10] means symbol width is 20, and height is 10. __Default 7__
   * __itemStyle__: Defines the style for the chart nodes.
     * __color__: the colour of the node symbol. Supports setting as solid color using rgb(255,255,255), rgba(255,255,255,1), #fff. __Default rgba(180, 180, 180, 0.2)__

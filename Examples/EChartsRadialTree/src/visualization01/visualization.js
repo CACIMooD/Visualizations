@@ -64,6 +64,9 @@ export function visualization (config) {
           ? style.series.emphasis.focus
           : 'descendant')
       : 'descendant'
+    const layout = ['orthogonal', 'radial'].includes(style.series.layout)
+          ? style.series.layout
+          : 'radial'
 
     config.functions.inputChanged = inputChanged
 
@@ -83,7 +86,12 @@ export function visualization (config) {
     option = {
       // tooltip: {
       //   trigger: 'item',
-      //   triggerOn: 'mousemove'
+      //   triggerOn: 'mousemove',
+      //   formatter: '{b} {c}'
+      // },
+      // dataZoom: {
+      //   type: 'inside',
+      //   disabled: false
       // },
       series: [
         {
@@ -91,23 +99,68 @@ export function visualization (config) {
           data: [seriesData],
           top: config.style.series.top,
           bottom: config.style.series.bottom,
-          layout: 'radial',
+          layout: layout,
+          orient: 'LR',
           symbol: config.style.series.symbol,
           symbolSize: config.style.series.symbolSize,
           initialTreeDepth: treeDepth,
+          expandAndCollapse: true,
           animationDurationUpdate: 750,
           label: {
-            show: showLabel
+            show: showLabel,
+            fontSize: 12,
+            rotate: 45
           },
           emphasis: {
-            focus: emphasisFocus
+            focus: emphasisFocus,
+            label: {
+              show: true
+            }
+          },
+          leaves: {
+            label: {
+              show: true,
+              fontSize: 8
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: 12
+              }
+            }
           }
         }
       ]
     }
     chart.setOption(option)
     chart.on('mouseover', function (params) {
+      const labelOn = {
+        series: [
+          {
+            expandAndCollapse: true,
+            label: {
+              show: true
+            }
+          }
+        ]
+      }
+      // option.series[0].label.show = true
+      // chart.setOption(labelOn)
       config.functions.updateOutput('hoverNode', params.data.key)
+    })
+    chart.on('mouseout', function (params) {
+      const resetLabel = {
+        series: [
+          {
+            expandAndCollapse: false,
+            label: {
+              show: showLabel
+            }
+          }
+        ]
+      }
+      // option.series[0].label.show = showLabel
+      // chart.setOption(resetLabel)
     })
   } catch (e) {
     //
@@ -151,6 +204,7 @@ export function visualization (config) {
       newDepth = Math.max(Math.min(value, 4), 1)
       expand(flatData, newDepth)
       collapse(flatData, newDepth)
+      option.series[0].initialTreeDepth = newDepth
       chart.setOption(option)
     }
 

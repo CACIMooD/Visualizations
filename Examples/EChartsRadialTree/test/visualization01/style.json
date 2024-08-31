@@ -4,6 +4,7 @@
         "series": {
             "top": "18%",
             "bottom": "14%",
+            "layout": "orthogonal",
             "symbol": "emptyCircle",
             "symbolSize": 7,
             "itemStyle": {
