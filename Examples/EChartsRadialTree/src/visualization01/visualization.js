@@ -155,7 +155,6 @@ export function visualization (config) {
         formatter: '{b} {c}'
       }
     }
-    console.log("Options: " + JSON.stringify(option))
     chart.setOption(option)
     chart.on('mouseover', function (params) {
       // const labelOn = {
