@@ -85,8 +85,8 @@ export function visualization (config) {
     const emphasisFocus = style.series.emphasis
       ? (style.series.emphasis.focus !== undefined
           ? style.series.emphasis.focus
-          : 'descendant')
-      : 'descendant'
+          : 'relative')
+      : 'relative'
     const layout = ['orthogonal', 'radial'].includes(style.series.layout)
       ? style.series.layout
       : 'radial'

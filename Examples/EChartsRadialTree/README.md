@@ -74,7 +74,7 @@ The properties mirror the properties in the __options__ object used to configure
     * __show__: Defines if the labels are to be shown (true) or not (false) on leaf nodes. __Default true__
     * __fontSize__: The size of the font for the label on leaf nodes. __Default 12__
   * __emphasis__: Describes the style of emphasis when the mouse hovers over a node.
-    * __focus__: Defines the nodes to highlight (not fade out). __Default descendant__. Can be one of
+    * __focus__: Defines the nodes to highlight (not fade out). __Default relative__. Can be one of
       * __none__ - Do not fade out other data
       * __self__ - Only focus (not fade out) the element of the currently highlighted node
       * __ancestor__ - Focus on all ancestor nodes
