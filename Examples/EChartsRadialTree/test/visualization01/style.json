@@ -4,7 +4,7 @@
         "series": {
             "top": "18%",
             "bottom": "14%",
-            "layout": "orthogonal",
+            "layout": "radial",
             "orient": "LR",
             "showTooltip": true,
             "symbol": "emptyCircle",
@@ -15,10 +15,10 @@
             "label": {
                 "show": true,
                 "fontSize": 12,
-                "rotate": 45
+                "rotate": null
             },
             "leafLabel": {
-                "show": false,
+                "show": true,
                 "fontSize": 8
               },
             "emphasis": {

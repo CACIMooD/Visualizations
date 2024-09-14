@@ -69,7 +69,7 @@ The properties mirror the properties in the __options__ object used to configure
   * __label__: Describes the style of the text corresponding to each node.
     * __show__: Defines if the labels are to be shown (true) or not (false). __Default true__
     * __fontSize__: The size of the font for the label. __Default 12__
-    * __rotate__: The angle in degrees to rotate the label text. __Default 0__
+    * __rotate__: The angle in degrees to rotate all label text from the horizontal. If null or undefined the text is aligned with the lines coming in to the node. __Default null__
   * __leafLabel__: Describes the style of the text corresponding to the leaf nodes.
     * __show__: Defines if the labels are to be shown (true) or not (false) on leaf nodes. __Default true__
     * __fontSize__: The size of the font for the label on leaf nodes. __Default 12__

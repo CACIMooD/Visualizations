@@ -68,10 +68,10 @@ export function visualization (config) {
           : 12)
       : 12
     const labelRotation = style.series.label
-      ? (style.series.label.rotate !== undefined
+      ? (style.series.label.rotate !== undefined && style.series.label.rotate !== null
           ? style.series.label.rotate
-          : 0)
-      : 0
+          : undefined)
+      : undefined
     const showLeafLabel = style.series.leafLabel
       ? (style.series.leafLabel.show !== undefined
           ? style.series.leafLabel.show
