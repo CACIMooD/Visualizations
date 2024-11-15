@@ -15,6 +15,7 @@ import {
   ForceNodeDatum,
   ForceEdgeDatum,
 } from "v-network-graph/lib/force-layout"
+import { removeNodesAlreadyInChildren } from "@core/node"
 
 interface Config {
   [name: string]: any
@@ -70,6 +71,7 @@ const eventHandlers: vNG.EventHandlers = {
 
 const data = getVisualizationData(false)
 const nodes: vNG.Nodes = {}
+const childNodes: vNG.Nodes = {}
 const edges: vNG.Edges = {}
 const layouts: vNG.Layouts = {nodes: {}}
 // const unorderedPaths: vNG.Paths = {}
@@ -80,7 +82,15 @@ const configs = vNG.defineConfigs(getConfig())
 if (data) {
   data.nodes?.forEach((node) => {
     if (node.id) {
-      nodes[node.id] = {name: node.name, icon: node.icon}
+
+      // Convert array of child nodes to vNG.Nodes
+      node.children?.forEach((child) => {
+        if(child.id) {
+          childNodes[child.id] = {id: child.id, name: child.name, icon: node.icon}
+        }
+      });
+
+      nodes[node.id] = {name: node.name, icon: node.icon, collapse: node.collapse, children: childNodes}
 
       if (node.x !== undefined && node.y !== undefined) {
         // layouts.nodes[node.id] = {x: node.x, y: node.y}
@@ -88,6 +98,11 @@ if (data) {
     }
   })
 
+  // Remove nodes that are already children of parent nodes
+  removeNodesAlreadyInChildren(nodes);
+
+  console.log(nodes);
+  
   data.edges?.forEach((edge) => {
     if (edge.id && edge.source?.id && edge.target?.id) {
       edges[edge.id] = {source: edge.source.id, target: edge.target.id}

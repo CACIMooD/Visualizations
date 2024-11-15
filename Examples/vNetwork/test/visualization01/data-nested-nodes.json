@@ -1,0 +1,76 @@
+{
+	"data": {
+		"nodes": [
+      {
+			  "id":"groupA","name":"Group A","collapse": false,"children": [{"id": "node1", "name": "Node 1"}, {"id": "node2", "name": "Node 2"}]
+		  },{
+        "id":"groupB","name":"Group B","collapse": false,"children": [{"id": "node3", "name": "Node 3"}, {"id": "node4", "name": "Node 4"},{"id": "node5", "name": "Node 5"}]
+      },{
+			  "id":"node1","name":"Node 1","x": 0, "y": 0
+		  },{
+			  "id":"node2","name":"Node 2","x": 100, "y": 60
+      },{
+        "id":"node3","name":"Node 3","x": 0, "y": 110
+      },{
+        "id":"node4","name":"Node 4","x": 250, "y": 60
+      },{
+        "id":"node5","name":"Node 5","x": 350, "y": 10
+      },{
+        "id":"node6","name":"Node 6","x": 350, "y": 110
+      },{
+        "id":"node7","name":"Node 7","x": 450, "y": 10
+      },{
+        "id":"node8","name":"Node 8","x": 450, "y": 60
+      },{
+        "id":"node9","name":"Node 9","x": 450, "y": 110
+      },{
+        "id":"node10","name":"Node 10","x": 450, "y": 160
+      },{
+        "id":"node11","name":"Node 11","x": 450, "y": 160
+      },{
+        "id":"node12","name":"Node 12","x": 450, "y": 160
+      }
+    ],
+    "edges":[
+      {
+        "id": "edge01", "name": "Edge 01", "source": { "id": "groupA", "name": "Group A" }, "target": { "id": "groupB", "name": "Group B" }
+      },
+      {
+        "id": "edgeA1", "name": "Edge A1", "source": { "id": "groupA", "name": "Group A" }, "target": { "id": "node1", "name": "Node 1" }
+      },
+      {
+        "id": "edgeA2", "name": "Edge A2", "source": { "id": "groupA", "name": "Group A" }, "target": { "id": "node2", "name": "Node 2" }
+      },
+      {
+        "id": "edgeB1", "name": "Edge B1", "source": { "id": "groupB", "name": "Group B" }, "target": { "id": "node3", "name": "Node 3" }
+      },
+      {
+        "id": "edgeB2", "name": "Edge B2", "source": { "id": "groupB", "name": "Group B" }, "target": { "id": "node4", "name": "Node 4" }
+      },
+      {
+        "id": "edgeB3", "name": "Edge B3", "source": { "id": "groupB", "name": "Group B" }, "target": { "id": "node5", "name": "Node 5" }
+      },
+      {
+        "id": "edge02", "name": "Edge 02", "source": { "id": "node6", "name": "Node 6" }, "target": { "id": "groupA", "name": "Group A" }
+      },
+      {
+        "id": "edge03", "name": "Edge 03", "source": { "id": "node7", "name": "Node 7" }, "target": { "id": "groupA", "name": "Group A" }
+      },
+      {
+        "id": "edge04", "name": "Edge 04", "source": { "id": "node8", "name": "Node 8" }, "target": { "id": "groupA", "name": "Group A" }
+      },
+      {
+        "id": "edge05", "name": "Edge 05", "source": { "id": "node9", "name": "Node 9" }, "target": { "id": "groupB", "name": "Group B" }
+      },
+      {
+        "id": "edge06", "name": "Edge 06", "source": { "id": "node10", "name": "Node 10" }, "target": { "id": "groupB", "name": "Group B" }
+      },
+      {
+        "id": "edge07", "name": "Edge 07", "source": { "id": "node11", "name": "Node 11" }, "target": { "id": "groupB", "name": "Group B" }
+      }
+    ],
+    "paths":[
+      
+    ]
+  }
+}

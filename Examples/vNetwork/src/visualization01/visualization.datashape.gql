@@ -10,6 +10,8 @@ type Node implements MooDElement {
   x: Int @UI(name: "X Coordinate")
   y: Int @UI(name: "Y Coordinate")
   icon: String @UI(name: "Icon Name")
+  collapse: Boolean @UI(name: "Collapse", default: false)
+  children: [Node]
 }
 
 type Edge implements MooDElement {

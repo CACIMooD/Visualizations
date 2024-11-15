@@ -15,6 +15,8 @@ declare namespace Vis.Data {
     x?: number
     y?: number
     icon?: string
+    collapse?: boolean
+    children?: Vis.Data.Node[]
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
