@@ -1,7 +1,7 @@
 {
   "name": "mood-v-network",
   "description": "MooD Custom Visualisation based on v-network-graph using Vue JS TypeScript framework",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "license": "MIT",
   "dependencies": {
     "@babel/polyfill": "~7.2",
