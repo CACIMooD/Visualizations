@@ -34,7 +34,7 @@ export class Node {
   }
 
   /**
-   * 
+   *
    * @returns the difference between the number of edges flowing into the node and the number flowing out
    */
   public flowMismatch (): number {

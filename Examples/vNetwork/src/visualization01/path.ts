@@ -165,97 +165,107 @@ export class Path {
     if (this.startNode == null) {
       throw new DOMException('Path ' + this.id + ': orderEdges called on invalid or unvalidated path')
     }
-    const orderedPath = this.findPath(this.startNode, this.startNode, undefined)
-    if (orderedPath.orderedEdgeIds.length !== this.originalEdgeOrder.length) {
+    const orderedPath = this.findPath(this.startNode)
+    if (orderedPath.length !== this.originalEdgeOrder.length) {
       report = 'Path ' + this.id + ' is not contiguous'
     } else {
-      this.vNGpath.edges = orderedPath.orderedEdgeIds
+      this.vNGpath.edges = orderedPath
     }
 
     return report
   }
 
   /**
-   * Find the route from the starting node to either the end of a loop or
-   * the sink node (no edges flowing out)
-   * @param startNode where to start the route
-   * @param endOfLoopNode where to terminate a loop
-   * @param initialEdge the edge to follow out of the start node
-   * @returns The identity of the edges in the route and an indication of whether the route
-   * terminated at the sink node or at the end of a loop
+   * Mark the edge as traversed, add the edge to the path and return the target node
+   * @param edge The edge to traverse
+   * @param path The path to add the edge to
+   * @returns target node of edge
    */
-  protected findPath (startNode: Node, endOfLoopNode: Node, initialEdge: Edge | undefined): SubPath {
-    // console.log("Entry to findPath: (" + startNode.id + ", " + endOfLoopNode.id + ", " + initialEdge?.id)
+  protected traverseEdge (edge: Edge, path: SubPath): Node {
+    edge.traverse()
+    path.orderedEdgeIds.push(edge.id)
+    return this.node(edge.target)
+  }
+
+  /**
+   * Find the route from the start node
+   * @param startNode where to start the path
+   * @returns the list of ids of the ordered edges in the path
+   */
+  protected findPath (startNode: Node): string[] {
+    return this.findPathFromNode(startNode, startNode.id).orderedEdgeIds
+  }
+
+  /**
+   * Find the sub-path from a node
+   * @param startNode where to start the path
+   * @param endOfLoopNodeId where to terminate a loop
+   * @returns A sub-path containing ordered edges and an indicator if the sub-path is part of a loop
+   */
+  protected findPathFromNode (startNode: Node, endOfLoopNodeId: string): SubPath {
     const path: SubPath = { orderedEdgeIds: [], isLoop: false }
-    let currentNode: Node = startNode
-    let atEndOfPath: boolean = false
+    let finalSection: string[] = []
 
-    if (initialEdge != null) {
-      // console.log("Initial edge id: " + initialEdge.id)
-      path.orderedEdgeIds.push(initialEdge.id)
-    }
-
-    while (!atEndOfPath) {
-      // console.log("Current Node Id: " + currentNode.id)
-
-      if (currentNode.untraversedEdges().length === 0) {
-        // console.log("Ending path at node " + currentNode.id)
-        atEndOfPath = true
-      } else if (currentNode.untraversedEdges().length === 1) {
-        //
-        // Single edge out of the current node
-        //
-        const edge = currentNode.untraversedEdges()[0]
-        // console.log("Add edge: " + edge.id)
-        path.orderedEdgeIds.push(edge.id)
-        currentNode = this.node(edge.target)
-        edge.traverse()
-        if (currentNode.id === endOfLoopNode.id) {
-          atEndOfPath = true
-          path.isLoop = true
-        }
+    startNode.untraversedEdges().forEach(edge => {
+      const subPath = this.findPathFromEdge(edge, endOfLoopNodeId)
+      // Need to traverse loops before heading for final node in sub-path
+      // Save the sub-path to the final node to add at the end
+      //
+      if (subPath.isLoop && subPath.orderedEdgeIds.slice(-1)[0] !== endOfLoopNodeId) {
+        path.orderedEdgeIds = path.orderedEdgeIds.concat(subPath.orderedEdgeIds)
       } else {
-        //
+        finalSection = subPath.orderedEdgeIds
+      }
+    })
+
+    path.orderedEdgeIds = path.orderedEdgeIds.concat(finalSection)
+    path.isLoop = finalSection.length === 0
+
+    return path
+  }
+
+  /**
+   * Test if a node is at the end of a loop
+   * @param node The node to check
+   * @param startEdge The starting edge for the sub-path
+   * @param endOfLoopNodeId The end of a loop
+   * @returns true id node is at the end of a loop
+   */
+  protected isEndOfLoop (node: Node, startEdge: Edge, endOfLoopNodeId: string): boolean {
+    return node.id === startEdge.source || node.id === endOfLoopNodeId
+  }
+
+  /**
+   * Find the sub-path from an edge
+   * @param startEdge where to start the path
+   * @param endOfLoopNodeId where to terminate a loop
+   * @returns A sub-path containing ordered edges and an indicator if the sub-path is part of a loop
+   */
+  protected findPathFromEdge (startEdge: Edge, endOfLoopNodeId: string): SubPath {
+    const path: SubPath = { orderedEdgeIds: [], isLoop: false }
+    let finalSection: string[] = []
+    let currentNode = this.traverseEdge(startEdge, path)
+
+    while (currentNode.untraversedEdges().length > 0 &&
+           !this.isEndOfLoop(currentNode, startEdge, endOfLoopNodeId)) {
+      const untraversedEdges = currentNode.untraversedEdges()
+
+      if (untraversedEdges.length === 1) {
+        currentNode = this.traverseEdge(untraversedEdges[0], path)
+      } else {
         // Branch in the path
-        // Need to traverse loops before heading for sink node but don't know at this point
-        // which edge(s) leads to a loop and which edge leads to the sink node
-        //
-        // console.log("Branch at node: " + currentNode.id)
-        let finalPath: string[] = []
-        let newNode: Node | undefined
-        currentNode.untraversedEdges().forEach(edge => {
-          // console.log("Processing edge: " + edge.id)
-          const nextNode = this.node(edge.target)
-          edge.traverse()
-          if (nextNode.id === currentNode.id) {
-            // Add single edge loop to current sub path
-            // console.log("Single node loop, edgeId: " + edge.id)
-            path.orderedEdgeIds.push(edge.id)
-          } else {
-            // build new sub path from edge so that
-            // final sub-path can be added after loop sub-paths
-            const subPath = this.findPath(nextNode, currentNode, edge)
-            if (subPath.isLoop) {
-              // console.log("Add subpath:" + JSON.stringify(subPath.orderedEdgeIds))
-              path.orderedEdgeIds = path.orderedEdgeIds.concat(subPath.orderedEdgeIds)
-            } else {
-              // sub-path lead to sink node
-              // console.log("Final path: " + JSON.stringify(subPath.orderedEdgeIds))
-              finalPath = subPath.orderedEdgeIds
-              newNode = nextNode
-            }
-          }
-        })
-        // console.log("Add final path node: " + JSON.stringify(finalPath))
-        path.orderedEdgeIds = path.orderedEdgeIds.concat(finalPath)
-        if (newNode == null) {
-          throw new DOMException('Path ' + this.id + ' has invalid branches in it')
+        const subPath = this.findPathFromNode(currentNode, endOfLoopNodeId)
+
+        if (subPath.isLoop) {
+          path.orderedEdgeIds = path.orderedEdgeIds.concat(subPath.orderedEdgeIds)
+        } else {
+          finalSection = subPath.orderedEdgeIds
         }
-        currentNode = newNode
       }
     }
+    path.orderedEdgeIds = path.orderedEdgeIds.concat(finalSection)
+    path.isLoop = this.isEndOfLoop(currentNode, startEdge, endOfLoopNodeId)
 
-    // console.log("Sub-path" + JSON.stringify(path))
     return path
   }
 }
