@@ -33,6 +33,10 @@ export class Node {
     return this.outEdges.length !== this.inEdges.length
   }
 
+  /**
+   * 
+   * @returns the difference between the number of edges flowing into the node and the number flowing out
+   */
   public flowMismatch (): number {
     return this.outEdges.length - this.inEdges.length
   }
@@ -45,17 +49,9 @@ export class Node {
     return this.outEdges.filter(edge => !edge.isTraversed())
   }
 
-  public isSource (): boolean {
-    return this.inEdges.length === 0
-  }
-
   public isValidPathSource (): boolean {
     return this.inEdges.length === 0 &&
      this.outEdges.length === 1
-  }
-
-  public isSink (): boolean {
-    return this.outEdges.length === 0
   }
 
   public isValidPathSink (): boolean {

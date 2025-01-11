@@ -1,0 +1,77 @@
+{
+	"data": {
+		"nodes": [
+      {
+			  "id":"node1","name":"Node 1","x": 0, "y": 0
+		  },{
+			  "id":"node2","name":"Node 2","x": 100, "y": 60
+      },{
+        "id":"node3","name":"Node 3","x": 0, "y": 110
+      },{
+        "id":"node4","name":"Node 4","x": 250, "y": 60
+      },{
+        "id":"node5","name":"Node 5","x": 350, "y": 10
+      },{
+        "id":"node6","name":"Node 6","x": 350, "y": 110
+      },{
+        "id":"node7","name":"Node 7","x": 450, "y": 10
+      },{
+        "id":"node8","name":"Node 8","x": 450, "y": 60
+      },{
+        "id":"node9","name":"Node 9","x": 450, "y": 110
+      },{
+        "id":"node10","name":"Node 10","x": 450, "y": 160
+      },{
+        "id":"node11","name":"Node 11","x": 450, "y": 160
+      },{
+        "id":"node12","name":"Node 12","x": 450, "y": 160
+      }
+    ],
+    "edges":[
+      {
+        "id": "edge01", "name": "Edge 01", "source":{"id":"node1", "name":"Node 1"},"target":{"id":"node2", "name":"Node 2"}
+      },{
+        "id": "edge02", "name": "Edge 02", "source":{"id":"node3", "name":"Node 3"},"target":{"id":"node2", "name":"Node 2"}
+      },{
+        "id": "edge03", "name": "Edge 03", "source":{"id":"node2", "name":"Node 2"},"target":{"id":"node4", "name":"Node 4"}
+      },{
+        "id": "edge04", "name": "Edge 04", "source":{"id":"node2", "name":"Node 2"},"target":{"id":"node4", "name":"Node 4"}
+      },{
+        "id": "edge05", "name": "Edge 05", "source":{"id":"node4", "name":"Node 4"},"target":{"id":"node5", "name":"Node 5"}
+      },{
+        "id": "edge06", "name": "Edge 06", "source":{"id":"node4", "name":"Node 4"},"target":{"id":"node6", "name":"Node 6"}
+      },{
+        "id": "edge07", "name": "Edge 07", "source":{"id":"node5", "name":"Node 5"},"target":{"id":"node7", "name":"Node 7"}
+      },{
+        "id": "edge08", "name": "Edge 08", "source":{"id":"node5", "name":"Node 5"},"target":{"id":"node8", "name":"Node 8"}
+      },{
+        "id": "edge09", "name": "Edge 09", "source":{"id":"node6", "name":"Node 6"},"target":{"id":"node9", "name":"Node 9"}
+      },{
+        "id": "edge10", "name": "Edge 10", "source":{"id":"node6", "name":"Node 6"},"target":{"id":"node10", "name":"Node 10"}
+      },{
+        "id": "edge11", "name": "Edge 11", "source":{"id":"node7", "name":"Node 7"},"target":{"id":"node7", "name":"Node 7"}
+      },{
+        "id": "edge12", "name": "Edge 12", "source":{"id":"node5", "name":"Node 5"},"target":{"id":"node5", "name":"Node 5"}
+      },{
+        "id": "edge13", "name": "Edge 13", "source":{"id":"node5", "name":"Node 5"},"target":{"id":"node11", "name":"Node 11"}
+      },{
+        "id": "edge14", "name": "Edge 14", "source":{"id":"node11", "name":"Node11"},"target":{"id":"node12", "name":"Node 12"}
+      },{
+        "id": "edge15", "name": "Edge 15", "source":{"id":"node12", "name":"Node 12"},"target":{"id":"node5", "name":"Node 5"}
+      }
+    ],
+    "paths":[
+      {
+        "id": "path1.4", "name": "path1.4", "path":{"id":"path1", "name":"Path 1"},"edge":{"id":"edge11", "name":"edge11"}
+      },{
+        "id": "path1.5", "name": "path1.5", "path":{"id":"path1", "name":"Path 1"},"edge":{"id":"edge07", "name":"edge07"}
+      },{
+        "id": "path1.7", "name": "path1.7", "path":{"id":"path1", "name":"Path 1"},"edge":{"id":"edge13", "name":"edge13"}
+      },{
+        "id": "path1.8", "name": "path1.8", "path":{"id":"path1", "name":"Path 1"},"edge":{"id":"edge14", "name":"edge14"}
+      },{
+        "id": "path1.9", "name": "path1.9", "path":{"id":"path1", "name":"Path 1"},"edge":{"id":"edge15", "name":"edge15"}
+      }
+    ]
+  }
+}

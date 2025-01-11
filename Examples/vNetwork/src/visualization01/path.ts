@@ -58,8 +58,11 @@ export class Path {
   }
 
   /**
-   * Test if the path has a valid source node
-   * @returns true if the path has a valid source node
+   * Test if the path has a valid source node. A path consisting of a loop will have no specific
+   * single source node.
+   * Raises an exception if there are is than one source node as it is not possible to build a path
+   * that can start at more than one sink node.
+   * @returns Source node if the path has a valid (single) source node or undefined otherwise
    */
   protected validSourceNode (): Node | undefined {
     let returnNode: Node | undefined
@@ -74,8 +77,11 @@ export class Path {
   }
 
   /**
-   * Test if the path has a valid sink node
-   * @returns true if the path has a valid sink node
+   * Test if the path has a valid sink node. A path consisting of a loop will have no specific
+   * single sink node.
+   * Raises an exception if there is more than one sink node as it is not possible to build a path
+   * that can visit more than one sink node.
+   * @returns Sink node if the path has a valid (single) sink node or undefined otherwise
    */
   protected validSinkNode (): Node | undefined {
     let returnNode: Node | undefined
@@ -124,15 +130,21 @@ export class Path {
           unbalancedNodes[0].flowMismatch() + unbalancedNodes[1].flowMismatch() === 0) {
           // the path is a loop with a branch out towards the sink node
           // start path at node in loop where the path branches out to the sink
-          this.startNode = unbalancedNodes[0]
+          this.startNode = unbalancedNodes[0].id === sinkNode.id ? unbalancedNodes[1] : unbalancedNodes[0]
         } else {
           throw new DOMException('Path ' + this.id + ' has invalid branches in it')
         }
       } else { // no source nor sink nodes
         if (unbalancedNodes.length === 0) {
-          // with no source nor sink nodes the path is a loop
+          // with no source nor sink nodes the path is a single loop
           // start path at arbitrary node
           this.startNode = Object.values(this.nodes)[0]
+        } else if (unbalancedNodes.length === 2 &&
+          unbalancedNodes[0].flowMismatch() + unbalancedNodes[1].flowMismatch() === 0) {
+          // with no source nor sink nodes the path starts in a loop
+          // and ends in a different loop
+          // start path at node in loop where the path branches out to the other loop
+          this.startNode = unbalancedNodes[0].flowMismatch() < 0 ? unbalancedNodes[1] : unbalancedNodes[0]
         } else {
           throw new DOMException('Path ' + this.id + ' has invalid branches in it')
         }
@@ -151,7 +163,7 @@ export class Path {
   public orderEdges (): string | undefined {
     let report: string | undefined
     if (this.startNode == null) {
-      throw new DOMException('Path ' + this.id + ': orderEdges called on invalid or unvalidate path')
+      throw new DOMException('Path ' + this.id + ': orderEdges called on invalid or unvalidated path')
     }
     const orderedPath = this.findPath(this.startNode, this.startNode, undefined)
     if (orderedPath.orderedEdgeIds.length !== this.originalEdgeOrder.length) {
@@ -205,7 +217,8 @@ export class Path {
       } else {
         //
         // Branch in the path
-        // Need to traverse loops before heading for sink node
+        // Need to traverse loops before heading for sink node but don't know at this point
+        // which edge(s) leads to a loop and which edge leads to the sink node
         //
         // console.log("Branch at node: " + currentNode.id)
         let finalPath: string[] = []
@@ -226,6 +239,7 @@ export class Path {
               // console.log("Add subpath:" + JSON.stringify(subPath.orderedEdgeIds))
               path.orderedEdgeIds = path.orderedEdgeIds.concat(subPath.orderedEdgeIds)
             } else {
+              // sub-path lead to sink node
               // console.log("Final path: " + JSON.stringify(subPath.orderedEdgeIds))
               finalPath = subPath.orderedEdgeIds
               newNode = nextNode
