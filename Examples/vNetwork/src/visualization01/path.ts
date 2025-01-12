@@ -207,7 +207,7 @@ export class Path {
       const subPath = this.findPathFromEdge(edge, endOfLoopNodeId)
       // Need to traverse loops before heading for final node in sub-path
       //
-      if (subPath.lastNodeId() === endOfLoopNodeId) {
+      if (subPath.isEndCurrentLoop()) {
         // Save the sub-path to the end of current loop to add later
         endCurrentLoop = subPath
       } else if (subPath.isLoop()) {
