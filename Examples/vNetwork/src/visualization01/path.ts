@@ -1,14 +1,10 @@
 import * as vNG from 'v-network-graph'
 import { Edge } from './edge'
 import { Node } from './node'
+import { SubPath } from './sub-path'
 
 interface NodeMap {
   [name: string]: Node
-}
-
-interface SubPath {
-  orderedEdges: Edge[]
-  isLoop: boolean
 }
 
 export class Path {
@@ -183,17 +179,8 @@ export class Path {
    */
   protected traverseEdge (edge: Edge, path: SubPath): Node {
     edge.traverse()
-    path.orderedEdges.push(edge)
+    path.addEdge(edge)
     return this.node(edge.target)
-  }
-
-  /**
-   * 
-   * @param path Return the ids of the edges in the path
-   * @returns the ordered list of edge ids
-   */
-  protected orderedEdgeIds(path: SubPath): string[] {
-    return path.orderedEdges.map(edge => edge.id)
   }
 
   /**
@@ -202,7 +189,7 @@ export class Path {
    * @returns the list of ids of the ordered edges in the path
    */
   protected findPath (startNode: Node): string[] {
-    return this.orderedEdgeIds(this.findPathFromNode(startNode, startNode.id))
+    return this.findPathFromNode(startNode, startNode.id).orderedEdgeIds()
   }
 
   /**
@@ -212,26 +199,27 @@ export class Path {
    * @returns A sub-path containing ordered edges and an indicator if the sub-path is part of a loop
    */
   protected findPathFromNode (startNode: Node, endOfLoopNodeId: string): SubPath {
-    const path: SubPath = { orderedEdges: [], isLoop: false }
-    let finalSection: Edge[] = []
-    let endCurrentLoop: Edge[] = []
+    const path = new SubPath()
+    let finalSection = new SubPath()
+    let endCurrentLoop = new SubPath()
 
     startNode.untraversedEdges().forEach(edge => {
       const subPath = this.findPathFromEdge(edge, endOfLoopNodeId)
       // Need to traverse loops before heading for final node in sub-path
       // Save the sub-path to the final node to add at the end
       //
-      if (subPath.orderedEdges.slice(-1)[0].target === endOfLoopNodeId) {
-        endCurrentLoop = subPath.orderedEdges
+      if (subPath.lastNodeId() === endOfLoopNodeId) {
+        endCurrentLoop = subPath
       } else if (subPath.isLoop) {
-        path.orderedEdges = path.orderedEdges.concat(subPath.orderedEdges)
+        path.addSubPath(subPath)
       } else {
-        finalSection = subPath.orderedEdges
+        finalSection = subPath
       }
     })
 
-    path.orderedEdges = path.orderedEdges.concat(endCurrentLoop, finalSection)
-    path.isLoop = finalSection.length === 0
+    path.addSubPath(endCurrentLoop)
+    path.addSubPath(finalSection)
+    path.isLoop = finalSection.length() === 0
 
     return path
   }
@@ -254,7 +242,7 @@ export class Path {
    * @returns A sub-path containing ordered edges and an indicator if the sub-path is part of a loop
    */
   protected findPathFromEdge (startEdge: Edge, endOfLoopNodeId: string): SubPath {
-    const path: SubPath = { orderedEdges: [], isLoop: false }
+    const path = new SubPath()
     let currentNode = this.traverseEdge(startEdge, path)
 
     while (currentNode.untraversedEdges().length > 0 &&
@@ -268,10 +256,10 @@ export class Path {
         // as end of current loop or the sink node
         const subPath = this.findPathFromNode(currentNode, endOfLoopNodeId)
 
-        path.orderedEdges = path.orderedEdges.concat(subPath.orderedEdges)
+        path.addSubPath(subPath)
       }
     }
-    path.isLoop = this.isEndOfLoop(path.orderedEdges.slice(-1)[0].target, startEdge, endOfLoopNodeId)
+    path.isLoop = this.isEndOfLoop(path.lastNodeId(), startEdge, endOfLoopNodeId)
 
     return path
   }
