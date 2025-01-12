@@ -7,7 +7,7 @@ interface NodeMap {
 }
 
 interface SubPath {
-  orderedEdgeIds: string[]
+  orderedEdges: Edge[]
   isLoop: boolean
 }
 
@@ -183,8 +183,17 @@ export class Path {
    */
   protected traverseEdge (edge: Edge, path: SubPath): Node {
     edge.traverse()
-    path.orderedEdgeIds.push(edge.id)
+    path.orderedEdges.push(edge)
     return this.node(edge.target)
+  }
+
+  /**
+   * 
+   * @param path Return the ids of the edges in the path
+   * @returns the ordered list of edge ids
+   */
+  protected orderedEdgeIds(path: SubPath): string[] {
+    return path.orderedEdges.map(edge => edge.id)
   }
 
   /**
@@ -193,7 +202,7 @@ export class Path {
    * @returns the list of ids of the ordered edges in the path
    */
   protected findPath (startNode: Node): string[] {
-    return this.findPathFromNode(startNode, startNode.id).orderedEdgeIds
+    return this.orderedEdgeIds(this.findPathFromNode(startNode, startNode.id))
   }
 
   /**
@@ -203,22 +212,25 @@ export class Path {
    * @returns A sub-path containing ordered edges and an indicator if the sub-path is part of a loop
    */
   protected findPathFromNode (startNode: Node, endOfLoopNodeId: string): SubPath {
-    const path: SubPath = { orderedEdgeIds: [], isLoop: false }
-    let finalSection: string[] = []
+    const path: SubPath = { orderedEdges: [], isLoop: false }
+    let finalSection: Edge[] = []
+    let endCurrentLoop: Edge[] = []
 
     startNode.untraversedEdges().forEach(edge => {
       const subPath = this.findPathFromEdge(edge, endOfLoopNodeId)
       // Need to traverse loops before heading for final node in sub-path
       // Save the sub-path to the final node to add at the end
       //
-      if (subPath.isLoop && subPath.orderedEdgeIds.slice(-1)[0] !== endOfLoopNodeId) {
-        path.orderedEdgeIds = path.orderedEdgeIds.concat(subPath.orderedEdgeIds)
+      if (subPath.orderedEdges.slice(-1)[0].target === endOfLoopNodeId) {
+        endCurrentLoop = subPath.orderedEdges
+      } else if (subPath.isLoop) {
+        path.orderedEdges = path.orderedEdges.concat(subPath.orderedEdges)
       } else {
-        finalSection = subPath.orderedEdgeIds
+        finalSection = subPath.orderedEdges
       }
     })
 
-    path.orderedEdgeIds = path.orderedEdgeIds.concat(finalSection)
+    path.orderedEdges = path.orderedEdges.concat(endCurrentLoop, finalSection)
     path.isLoop = finalSection.length === 0
 
     return path
@@ -231,8 +243,8 @@ export class Path {
    * @param endOfLoopNodeId The end of a loop
    * @returns true id node is at the end of a loop
    */
-  protected isEndOfLoop (node: Node, startEdge: Edge, endOfLoopNodeId: string): boolean {
-    return node.id === startEdge.source || node.id === endOfLoopNodeId
+  protected isEndOfLoop (nodeId: string, startEdge: Edge, endOfLoopNodeId: string): boolean {
+    return nodeId === startEdge.source || nodeId === endOfLoopNodeId
   }
 
   /**
@@ -242,29 +254,24 @@ export class Path {
    * @returns A sub-path containing ordered edges and an indicator if the sub-path is part of a loop
    */
   protected findPathFromEdge (startEdge: Edge, endOfLoopNodeId: string): SubPath {
-    const path: SubPath = { orderedEdgeIds: [], isLoop: false }
-    let finalSection: string[] = []
+    const path: SubPath = { orderedEdges: [], isLoop: false }
     let currentNode = this.traverseEdge(startEdge, path)
 
     while (currentNode.untraversedEdges().length > 0 &&
-           !this.isEndOfLoop(currentNode, startEdge, endOfLoopNodeId)) {
+           !this.isEndOfLoop(currentNode.id, startEdge, endOfLoopNodeId)) {
       const untraversedEdges = currentNode.untraversedEdges()
 
       if (untraversedEdges.length === 1) {
         currentNode = this.traverseEdge(untraversedEdges[0], path)
       } else {
-        // Branch in the path
+        // Branch in the path, traverse all edges out of this node as far
+        // as end of current loop or the sink node
         const subPath = this.findPathFromNode(currentNode, endOfLoopNodeId)
 
-        if (subPath.isLoop) {
-          path.orderedEdgeIds = path.orderedEdgeIds.concat(subPath.orderedEdgeIds)
-        } else {
-          finalSection = subPath.orderedEdgeIds
-        }
+        path.orderedEdges = path.orderedEdges.concat(subPath.orderedEdges)
       }
     }
-    path.orderedEdgeIds = path.orderedEdgeIds.concat(finalSection)
-    path.isLoop = this.isEndOfLoop(currentNode, startEdge, endOfLoopNodeId)
+    path.isLoop = this.isEndOfLoop(path.orderedEdges.slice(-1)[0].target, startEdge, endOfLoopNodeId)
 
     return path
   }
