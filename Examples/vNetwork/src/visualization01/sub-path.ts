@@ -1,12 +1,40 @@
 import { Edge } from './edge'
 
 export class SubPath {
+  readonly endOfCurrentLoopNodeId: string
   protected orderedEdges: Edge[]
-  public isLoop: boolean
 
-  constructor () {
+  /**
+   * Construct a SubPath object
+   * @param endOfCurrentLoopNodeId The id of the node at the end of the current loop
+   */
+  constructor (endOfCurrentLoopNodeId: string) {
+    this.endOfCurrentLoopNodeId = endOfCurrentLoopNodeId
     this.orderedEdges = []
-    this.isLoop = false
+  }
+
+  /**
+   * Test if the path is a loop
+   * @returns true if the path is a loop
+   */
+  public isLoop (): boolean {
+    let retVal: boolean = false
+    if (this.length() > 0) {
+      retVal = this.lastNodeId() === this.orderedEdges[0].source
+    }
+    return retVal
+  }
+
+  /**
+   * Test if the path ends completes the current loop
+   * @returns true if path completes the current loop
+   */
+  public isEndCurrentLoop (): boolean {
+    let retVal: boolean = false
+    if (this.length() > 0) {
+      retVal = this.lastNodeId() === this.endOfCurrentLoopNodeId
+    }
+    return retVal
   }
 
   /**

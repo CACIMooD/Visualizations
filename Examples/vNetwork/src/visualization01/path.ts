@@ -184,7 +184,7 @@ export class Path {
   }
 
   /**
-   * Find the route from the start node
+   * Find the complete path from the start node
    * @param startNode where to start the path
    * @returns the list of ids of the ordered edges in the path
    */
@@ -199,40 +199,29 @@ export class Path {
    * @returns A sub-path containing ordered edges and an indicator if the sub-path is part of a loop
    */
   protected findPathFromNode (startNode: Node, endOfLoopNodeId: string): SubPath {
-    const path = new SubPath()
-    let finalSection = new SubPath()
-    let endCurrentLoop = new SubPath()
+    const path = new SubPath(endOfLoopNodeId)
+    let finalSection = new SubPath(endOfLoopNodeId)
+    let endCurrentLoop = new SubPath(endOfLoopNodeId)
 
     startNode.untraversedEdges().forEach(edge => {
       const subPath = this.findPathFromEdge(edge, endOfLoopNodeId)
       // Need to traverse loops before heading for final node in sub-path
-      // Save the sub-path to the final node to add at the end
       //
       if (subPath.lastNodeId() === endOfLoopNodeId) {
+        // Save the sub-path to the end of current loop to add later
         endCurrentLoop = subPath
-      } else if (subPath.isLoop) {
+      } else if (subPath.isLoop()) {
         path.addSubPath(subPath)
       } else {
+        // Save the sub-path to the final node to add at the end
         finalSection = subPath
       }
     })
 
     path.addSubPath(endCurrentLoop)
     path.addSubPath(finalSection)
-    path.isLoop = finalSection.length() === 0
 
     return path
-  }
-
-  /**
-   * Test if a node is at the end of a loop
-   * @param node The node to check
-   * @param startEdge The starting edge for the sub-path
-   * @param endOfLoopNodeId The end of a loop
-   * @returns true id node is at the end of a loop
-   */
-  protected isEndOfLoop (nodeId: string, startEdge: Edge, endOfLoopNodeId: string): boolean {
-    return nodeId === startEdge.source || nodeId === endOfLoopNodeId
   }
 
   /**
@@ -242,11 +231,12 @@ export class Path {
    * @returns A sub-path containing ordered edges and an indicator if the sub-path is part of a loop
    */
   protected findPathFromEdge (startEdge: Edge, endOfLoopNodeId: string): SubPath {
-    const path = new SubPath()
+    const path = new SubPath(endOfLoopNodeId)
     let currentNode = this.traverseEdge(startEdge, path)
 
     while (currentNode.untraversedEdges().length > 0 &&
-           !this.isEndOfLoop(currentNode.id, startEdge, endOfLoopNodeId)) {
+           !path.isEndCurrentLoop() &&
+           !path.isLoop()) {
       const untraversedEdges = currentNode.untraversedEdges()
 
       if (untraversedEdges.length === 1) {
@@ -259,7 +249,6 @@ export class Path {
         path.addSubPath(subPath)
       }
     }
-    path.isLoop = this.isEndOfLoop(path.lastNodeId(), startEdge, endOfLoopNodeId)
 
     return path
   }
