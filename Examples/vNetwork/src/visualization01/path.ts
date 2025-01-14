@@ -167,7 +167,6 @@ export class Path {
       throw new DOMException('Path ' + this.id + ': orderEdges called on invalid or unvalidated path')
     }
     const orderedPath = this.findPath(this.startNode)
-    console.log("orderEdges: " + JSON.stringify(orderedPath))
     if (orderedPath.length !== this.originalEdgeOrder.length) {
       report = 'Path ' + this.id + ' is not contiguous'
     } else {
