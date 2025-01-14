@@ -55,7 +55,7 @@
       },{
         "id": "edge27", "name": "Edge 27", "source":{"id":"node7", "name":"Node 7"},"target":{"id":"node7", "name":"Node 7"}
       },{
-        "id": "edge12", "name": "Edge 12", "source":{"id":"node5", "name":"Node 5"},"target":{"id":"node5", "name":"Node 5"}
+        "id": "edge20", "name": "Edge 20", "source":{"id":"node5", "name":"Node 5"},"target":{"id":"node5", "name":"Node 5"}
       },{
         "id": "edge21", "name": "Edge 21", "source":{"id":"node5", "name":"Node 5"},"target":{"id":"node11", "name":"Node 11"}
       },{
@@ -87,6 +87,8 @@
         "id": "path1.12", "name": "path1.12", "path":{"id":"path1", "name":"Path 1"},"edge":{"id":"edge24", "name":"edge24"}
       },{
         "id": "path1.13", "name": "path1.13", "path":{"id":"path1", "name":"Path 1"},"edge":{"id":"edge23", "name":"edge23"}
+      },{
+        "id": "path1.10", "name": "path1.10", "path":{"id":"path1", "name":"Path 1"},"edge":{"id":"edge20", "name":"edge20"}
       }
     ]
   }

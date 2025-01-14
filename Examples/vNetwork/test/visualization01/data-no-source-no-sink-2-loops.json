@@ -25,6 +25,8 @@
         "id":"node11","name":"Node 11","x": 450, "y": 160
       },{
         "id":"node12","name":"Node 12","x": 450, "y": 160
+      },{
+        "id":"node14","name":"Node 14","x": 450, "y": 160
       }
     ],
     "edges":[
@@ -58,6 +60,10 @@
         "id": "edge14", "name": "Edge 14", "source":{"id":"node11", "name":"Node11"},"target":{"id":"node12", "name":"Node 12"}
       },{
         "id": "edge15", "name": "Edge 15", "source":{"id":"node12", "name":"Node 12"},"target":{"id":"node5", "name":"Node 5"}
+      },{
+        "id": "edge23", "name": "Edge 23", "source":{"id":"node12", "name":"Node 12"},"target":{"id":"node14", "name":"Node 14"}
+      },{
+        "id": "edge24", "name": "Edge 24", "source":{"id":"node14", "name":"Node 14"},"target":{"id":"node12", "name":"Node 12"}
       }
     ],
     "paths":[
@@ -71,6 +77,12 @@
         "id": "path1.8", "name": "path1.8", "path":{"id":"path1", "name":"Path 1"},"edge":{"id":"edge14", "name":"edge14"}
       },{
         "id": "path1.9", "name": "path1.9", "path":{"id":"path1", "name":"Path 1"},"edge":{"id":"edge15", "name":"edge15"}
+      },{
+        "id": "path1.10", "name": "path1.10", "path":{"id":"path1", "name":"Path 1"},"edge":{"id":"edge12", "name":"edge12"}
+      },{
+        "id": "path1.12", "name": "path1.12", "path":{"id":"path1", "name":"Path 1"},"edge":{"id":"edge24", "name":"edge24"}
+      },{
+        "id": "path1.13", "name": "path1.13", "path":{"id":"path1", "name":"Path 1"},"edge":{"id":"edge23", "name":"edge23"}
       }
     ]
   }

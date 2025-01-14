@@ -13,6 +13,7 @@ export class Path {
   protected readonly edges: vNG.Edges = {}
   readonly originalEdgeOrder: string[]
   protected startNode: Node | undefined
+  protected initialLoopEndNodeId: string | undefined
   protected readonly vNGpath: vNG.Path
 
   constructor (pathId: string, path: vNG.Path, edges: vNG.Edges) {
@@ -127,23 +128,27 @@ export class Path {
           // the path is a loop with a branch out towards the sink node
           // start path at node in loop where the path branches out to the sink
           this.startNode = unbalancedNodes[0].id === sinkNode.id ? unbalancedNodes[1] : unbalancedNodes[0]
+          // record the id of the node at the end of the initial loop so that a sub-path can terminate there
+          this.initialLoopEndNodeId = this.startNode.id
         } else {
           throw new DOMException('Path ' + this.id + ' has invalid branches in it')
         }
       } else { // no source nor sink nodes
         if (unbalancedNodes.length === 0) {
-          // with no source nor sink nodes the path is a single loop
+          // with no source nor sink nodes the path is a single loop, with possible lobes off it
           // start path at arbitrary node
           this.startNode = Object.values(this.nodes)[0]
         } else if (unbalancedNodes.length === 2 &&
           unbalancedNodes[0].flowMismatch() + unbalancedNodes[1].flowMismatch() === 0) {
-          // with no source nor sink nodes the path starts in a loop
+          // with no source nor sink nodes the path starts in a loop, with possible lobes off it
           // and ends in a different loop
           // start path at node in loop where the path branches out to the other loop
           this.startNode = unbalancedNodes[0].flowMismatch() < 0 ? unbalancedNodes[1] : unbalancedNodes[0]
         } else {
           throw new DOMException('Path ' + this.id + ' has invalid branches in it')
         }
+        // record the id of the node at the end of the initial loop so that a sub-path can terminate there
+        this.initialLoopEndNodeId = this.startNode.id
       }
     } catch (e) {
       report = (e.name as string) + ': ' + (e.message as string)
@@ -162,6 +167,7 @@ export class Path {
       throw new DOMException('Path ' + this.id + ': orderEdges called on invalid or unvalidated path')
     }
     const orderedPath = this.findPath(this.startNode)
+    console.log("orderEdges: " + JSON.stringify(orderedPath))
     if (orderedPath.length !== this.originalEdgeOrder.length) {
       report = 'Path ' + this.id + ' is not contiguous'
     } else {
@@ -189,36 +195,35 @@ export class Path {
    * @returns the list of ids of the ordered edges in the path
    */
   protected findPath (startNode: Node): string[] {
-    return this.findPathFromNode(startNode, startNode.id).orderedEdgeIds()
+    return this.findPathFromNode(startNode).orderedEdgeIds()
   }
 
   /**
    * Find the sub-path from a node
    * @param startNode where to start the path
-   * @param endOfLoopNodeId where to terminate a loop
    * @returns A sub-path containing ordered edges and an indicator if the sub-path is part of a loop
    */
-  protected findPathFromNode (startNode: Node, endOfLoopNodeId: string): SubPath {
-    const path = new SubPath(endOfLoopNodeId)
-    let finalSection = new SubPath(endOfLoopNodeId)
-    let endCurrentLoop = new SubPath(endOfLoopNodeId)
+  protected findPathFromNode (startNode: Node): SubPath {
+    const path = new SubPath(this.initialLoopEndNodeId)
+    let finalSection = new SubPath(this.initialLoopEndNodeId)
+    let endInitialLoop = new SubPath(this.initialLoopEndNodeId)
 
     startNode.untraversedEdges().forEach(edge => {
-      const subPath = this.findPathFromEdge(edge, endOfLoopNodeId)
+      const subPath = this.findPathFromEdge(edge)
       // Need to traverse loops before heading for final node in sub-path
       //
-      if (subPath.isEndCurrentLoop()) {
-        // Save the sub-path to the end of current loop to add later
-        endCurrentLoop = subPath
-      } else if (subPath.isLoop()) {
+      if (subPath.isLoop()) {
         path.addSubPath(subPath)
+      } else if (subPath.isEndInitialLoop()) {
+        // Save the sub-path to the end of initial loop to add later
+        endInitialLoop = subPath
       } else {
         // Save the sub-path to the final node to add at the end
         finalSection = subPath
       }
     })
 
-    path.addSubPath(endCurrentLoop)
+    path.addSubPath(endInitialLoop)
     path.addSubPath(finalSection)
 
     return path
@@ -227,15 +232,14 @@ export class Path {
   /**
    * Find the sub-path from an edge
    * @param startEdge where to start the path
-   * @param endOfLoopNodeId where to terminate a loop
    * @returns A sub-path containing ordered edges and an indicator if the sub-path is part of a loop
    */
-  protected findPathFromEdge (startEdge: Edge, endOfLoopNodeId: string): SubPath {
-    const path = new SubPath(endOfLoopNodeId)
+  protected findPathFromEdge (startEdge: Edge): SubPath {
+    const path = new SubPath(this.initialLoopEndNodeId)
     let currentNode = this.traverseEdge(startEdge, path)
 
     while (currentNode.untraversedEdges().length > 0 &&
-           !path.isEndCurrentLoop() &&
+           !path.isEndInitialLoop() &&
            !path.isLoop()) {
       const untraversedEdges = currentNode.untraversedEdges()
 
@@ -243,8 +247,8 @@ export class Path {
         currentNode = this.traverseEdge(untraversedEdges[0], path)
       } else {
         // Branch in the path, traverse all edges out of this node as far
-        // as end of current loop or the sink node
-        const subPath = this.findPathFromNode(currentNode, endOfLoopNodeId)
+        // as end of initial loop or the sink node
+        const subPath = this.findPathFromNode(currentNode)
 
         path.addSubPath(subPath)
       }
