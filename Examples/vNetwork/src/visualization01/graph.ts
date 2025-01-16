@@ -52,6 +52,9 @@ export function createForceLayoutHandler (): LayoutHandler {
         .force('edge', forceLink.distance(40).strength(0.5))
         .force('charge', d3.forceManyBody().strength(-800))
         .force('center', d3.forceCenter().strength(0.05))
+        // .force('edge', forceLink.distance(40).strength(0.1))
+        // .force('charge', d3.forceManyBody().strength(-100))
+        // .force('center', d3.forceCenter().strength(1.8))
         .alphaMin(0.001)
 
       // * The following are the default parameters for the simulation.

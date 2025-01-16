@@ -6,6 +6,31 @@ import { SubPath } from './sub-path'
 interface NodeMap {
   [name: string]: Node
 }
+/*
+ * Notes:
+ *   1 - A valid path can have either zero or two unbalanced nodes in it.
+ *   2 - A valid path with zero unbalanced nodes is a single loop, but may have lobes, i.e.
+ *       loops that start and finish at the same node within the loop. Lobes can themselves
+ *       have sub-lobes ad infinitum.
+ *   3 - A valid node can only have unbalanced nodes where there is a difference of only one
+ *       between the number of edges flowing in and flowing out.
+ *   4 - A node in a loop will have an edge flowing out and an edge (the same edge for single edge loop)
+ *       flowing in in order to balance the node.
+ *   5 - A node can be in more than one loop, but all, or all but one of the loops must start and end at
+ *       such a node.
+ *   6 - A valid path can have any number of loops where the path enters the loop and exits the loop at
+ *       the same node. All nodes within such loops are balanced nodes
+ * There are following cases of unbalanced nodes in a valid path:
+ *   1 - Source node with no edges flowing in. For a valid path there can only be one edge flowing
+ *       out of a Source node as there is no way to return to the node to traverse other edges out of it
+ *   2 - Sink node with no edges flowing out. For a valid path there can only be one edge flowing
+ *       into a Sink node.
+ *   3 - Final Loop entry node, i.e. where the path enters the loop. There is one more edge flowing into
+ *       the node than flowing out. The path will terminate at this node after traversing the loop
+ *   4 - Initial Loop exit node, i.e. where the path exits the loop. There is one more edge flowing out
+ *       of the node than flowing in. This node is the start of the path, which traverses the loop prior
+ *       to exiting the loop at this node.
+ */
 
 export class Path {
   readonly id: string
@@ -235,21 +260,23 @@ export class Path {
    */
   protected findPathFromEdge (startEdge: Edge): SubPath {
     const path = new SubPath(this.initialLoopEndNodeId)
-    let currentNode = this.traverseEdge(startEdge, path)
+    if (!startEdge.isTraversed()) {
+      let currentNode = this.traverseEdge(startEdge, path)
 
-    while (currentNode.untraversedEdges().length > 0 &&
-           !path.isEndInitialLoop() &&
-           !path.isLoop()) {
-      const untraversedEdges = currentNode.untraversedEdges()
+      while (currentNode.untraversedEdges().length > 0 &&
+            !path.isEndInitialLoop() &&
+            !path.isLoop()) {
+        const untraversedEdges = currentNode.untraversedEdges()
 
-      if (untraversedEdges.length === 1) {
-        currentNode = this.traverseEdge(untraversedEdges[0], path)
-      } else {
-        // Branch in the path, traverse all edges out of this node as far
-        // as end of initial loop or the sink node
-        const subPath = this.findPathFromNode(currentNode)
+        if (untraversedEdges.length === 1) {
+          currentNode = this.traverseEdge(untraversedEdges[0], path)
+        } else {
+          // Branch in the path, traverse all edges out of this node as far
+          // as end of initial loop or the sink node
+          const subPath = this.findPathFromNode(currentNode)
 
-        path.addSubPath(subPath)
+          path.addSubPath(subPath)
+        }
       }
     }
 

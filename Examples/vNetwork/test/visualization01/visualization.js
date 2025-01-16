@@ -4,6 +4,7 @@ import { visualization } from "../../src/visualization01/visualization";
 
 import MooDConfiguration from "./MooDConfig.json";
 // import dataConfig from "./data.json";
+// import dataConfig from "./data-all-valid-path-types.json";
 // import dataConfig from "./data-no-source-one-sink.json";
 import dataConfig from "./data-no-source-no-sink-2-loops.json";
 // import dataConfig from "./data-two-source-node-path.json";
