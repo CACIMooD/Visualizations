@@ -30,7 +30,7 @@ export class Node {
   }
 
   /**
-   * Indicates if the node has an unbalanced number of edges, i.e. not the same number flowing in as 
+   * Indicates if the node has an unbalanced number of edges, i.e. not the same number flowing in as
    * flowing out.
    * @returns Returns true if the number of edges flowing into the node is not the same as flowing out
    */
