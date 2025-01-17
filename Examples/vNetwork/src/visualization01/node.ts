@@ -63,4 +63,14 @@ export class Node {
     return this.outEdges.length === 0 &&
      this.inEdges.length === 1
   }
+
+  /**
+   * Tests if the node has a valid balance of edges flowing in and out.
+   * If the difference between the number of edges flowing in and out
+   * is more than one it is not possible to include all the edges in a path
+   * @returns Returns true if the node has a valid balance of edges
+   */
+  public isValidPathNode (): boolean {
+    return Math.abs(this.flowMismatch()) <= 1
+  }
 }

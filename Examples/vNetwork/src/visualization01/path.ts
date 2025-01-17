@@ -127,10 +127,15 @@ export class Path {
   public validate (): string | undefined {
     let report: string | undefined
     try {
+      const invalidNodes = Object.values(this.nodes)
+        .filter(node => !node.isValidPathNode())
       const sourceNode = this.validSourceNode()
       const sinkNode = this.validSinkNode()
       const unbalancedNodes = Object.values(this.nodes)
         .filter(node => node.isUnbalanced())
+      if (invalidNodes.length > 0) {
+        throw new DOMException('Path ' + this.id + ' has nodes with invalid balance of edges in it')
+      }
       if ((sourceNode !== undefined) && (sinkNode !== undefined)) { // both sink and source nodes
         if (unbalancedNodes.length === 2 &&
           unbalancedNodes[0].flowMismatch() + unbalancedNodes[1].flowMismatch() === 0) {
