@@ -9,6 +9,7 @@ A solution for Mood to provide an improved, accessible and user friendly DataGri
 For user guidance, see [Tabulator Guide](./UserGuide.md)
 
 ## File Structure
+
 - root
   - Files which are used by Node
   - The final `tabulator.zip` file
@@ -38,25 +39,25 @@ For user guidance, see [Tabulator Guide](./UserGuide.md)
 - node_modules
   - Another automatically generated output folder
 
-# Installation
+## Installation
 
-## Prerequisites
+### Prerequisites
 
 Node version 20.17.0 or later.
 
-## Suggested Development Tools
+### Suggested Development Tools
 
 VS Code v1.89.1 or later.\
 Prettier VS Code Extension v10.4.0 or later.\
 ESLint VS Code Extension v2.4.4 or later.
 
-# Getting Started
+## Getting Started
 
 1. Set up Visual Studio Code and Node, see [Development Environment](../../README.md#development-environment)
 2. Open this file: ```WebpackVisualization.code-workspace```
 3. Run `npm install` to install the relevant node modules
 
-# How To Use
+## How To Use
 
 - src\package.json.ejs
 - src\visualizer\package.json.ejs
@@ -89,26 +90,27 @@ Interesting files:
 - TabulatorDemo.js: Hooks the template page in to the main visualization code.
 - sample-data.json: This file passes fixed test data in to your tabulator demo page.
 
-# Test Strategy
+## Test Strategy
 
-## Testing that is currently implemented
+### Testing that is currently implemented
 
 - Jest for unit testing
 
-## Coding Structure
+### Coding Structure
 
 Tests are grouped in describe blocks based on either functionality that they share or a component they are testing.
 
-## How to run these tests
+### How to run these tests
 
-### Unit Tests
+#### Unit Tests
+
 1. Run `npm run test .` to run all unit tests
 2. Run `npm run test -- --coverage .` for the coverage of all tests
 
-## Test Pass Rates
+### Test Pass Rates
 
 > visualizer, 2/2 tests pass (100% pass rate)
 
-## Average Line Coverage
+### Average Line Coverage
 
 > visualizer has an average line coverage of 00.00% of all files
