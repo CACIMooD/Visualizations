@@ -1,20 +1,20 @@
-const dateFormats = ["datetime", "date", "time"];
+const dateFormats = ['datetime', 'date', 'time']
 
 export const getEditorType = (format) => {
   if (!format) {
-    return;
+    return
   }
   if (format === 'star') {
-    return true;
+    return true
   }
 
   if (format.includes('%')) {
-    return 'date';
+    return 'date'
   }
 
   if (dateFormats.includes(format)) {
-    return 'date';
+    return 'date'
   }
 
-  return 'input';
-};
+  return 'input'
+}

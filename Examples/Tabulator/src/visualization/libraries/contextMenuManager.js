@@ -1,96 +1,96 @@
 export class ContextMenuManager {
-  constructor(navigable, navigateFunc, menuItems) {
-    this.menu = null;
-    this.navigable = navigable;
-    this.navigateFunc = navigateFunc;
-    this.menuItems = menuItems;
-    this.menuItemHandlers = [];
-    this.focusedItemIndex = 0;
+  constructor (navigable, navigateFunc, menuItems) {
+    this.menu = null
+    this.navigable = navigable
+    this.navigateFunc = navigateFunc
+    this.menuItems = menuItems
+    this.menuItemHandlers = []
+    this.focusedItemIndex = 0
   }
 
   createMenu = (event, cell) => {
-    event.preventDefault();
-    this.cleanup();
-    if (!this.menuItems.length || (!this.navigable && !cell.getColumn()?.getDefinition()?.editor)) return;
+    event.preventDefault()
+    this.cleanup()
+    if (!this.menuItems.length || (!this.navigable && !cell.getColumn()?.getDefinition()?.editor)) return
 
-    this.menu = document.createElement("div");
-    this.menu.classList.add("custom-context-menu");
-    this.menu.setAttribute("role", "menu");
-    this.menu.setAttribute("tabindex", "-1");
+    this.menu = document.createElement('div')
+    this.menu.classList.add('custom-context-menu')
+    this.menu.setAttribute('role', 'menu')
+    this.menu.setAttribute('tabindex', '-1')
 
     this.menuItems.forEach((item, index) => {
-      const menuItem = document.createElement("div");
-      menuItem.className = "context-menu-item";
-      menuItem.textContent = item.text;
-      menuItem.setAttribute("data-action", item.action)
-      menuItem.setAttribute("role", "menuitem")
-      menuItem.setAttribute("tabindex", index === 0 ? "0" : "-1");
+      const menuItem = document.createElement('div')
+      menuItem.className = 'context-menu-item'
+      menuItem.textContent = item.text
+      menuItem.setAttribute('data-action', item.action)
+      menuItem.setAttribute('role', 'menuitem')
+      menuItem.setAttribute('tabindex', index === 0 ? '0' : '-1')
       const onClick = (e) => {
-        if (item.action === "navigate" && this.navigateFunc) {
-          this.navigateFunc(e, cell);
-        } else if (item.action === "edit") {
-          cell.edit();
+        if (item.action === 'navigate' && this.navigateFunc) {
+          this.navigateFunc(e, cell)
+        } else if (item.action === 'edit') {
+          cell.edit()
         }
-        this.cleanup();
-      };
-      menuItem.addEventListener("click", onClick);
-      this.menuItemHandlers.push(onClick);
-      this.menu.appendChild(menuItem);
-    });
+        this.cleanup()
+      }
+      menuItem.addEventListener('click', onClick)
+      this.menuItemHandlers.push(onClick)
+      this.menu.appendChild(menuItem)
+    })
 
-    const cellRect = cell.getElement().getBoundingClientRect();
-    this.menu.style.position = "absolute";
-    this.menu.style.left = `${cellRect.left}px`;
-    this.menu.style.top = `${cellRect.bottom}px`;
+    const cellRect = cell.getElement().getBoundingClientRect()
+    this.menu.style.position = 'absolute'
+    this.menu.style.left = `${cellRect.left}px`
+    this.menu.style.top = `${cellRect.bottom}px`
 
-    document.body.appendChild(this.menu);
+    document.body.appendChild(this.menu)
 
-    document.querySelector('.context-menu-item[tabindex="0"]')?.focus();
+    document.querySelector('.context-menu-item[tabindex="0"]')?.focus()
 
-    document.body.addEventListener("click", this.cleanupHelper);
-    document.addEventListener("contextmenu", this.contextListener);
-    this.menu.addEventListener("keydown", this.handleKeydown);
+    document.body.addEventListener('click', this.cleanupHelper)
+    document.addEventListener('contextmenu', this.contextListener)
+    this.menu.addEventListener('keydown', this.handleKeydown)
   }
 
   cleanupHelper = (e) => {
-    let button = e.which || e.button; // Firefox - Right click check
+    const button = e.which || e.button // Firefox - Right click check
     if (button && button !== 1) {
-      return;
+      return
     }
-    this.cleanup();
+    this.cleanup()
   }
 
   cleanup = () => {
     if (this.menu) {
-      this.focusedItemIndex = 0;
-      this.menu.removeEventListener("keydown", this.handleKeydown);
-      document.body.removeEventListener("click", this.cleanupHelper);
-      document.removeEventListener("contextmenu", this.contextListener);
+      this.focusedItemIndex = 0
+      this.menu.removeEventListener('keydown', this.handleKeydown)
+      document.body.removeEventListener('click', this.cleanupHelper)
+      document.removeEventListener('contextmenu', this.contextListener)
       this.menuItemHandlers.forEach((handler) => {
-        document.removeEventListener("click", handler);
-      });
-      this.menuItemHandlers = [];
-      this.menu.remove();
-      this.menu = null;
+        document.removeEventListener('click', handler)
+      })
+      this.menuItemHandlers = []
+      this.menu.remove()
+      this.menu = null
     }
   }
 
   contextListener = (e) => {
-    let element = e.srcElement || e.target;
+    const element = e.srcElement || e.target
     if (
-      element.classList.contains("tabulator-cell") ||
-      element.classList.contains("context-menu-item")
+      element.classList.contains('tabulator-cell') ||
+      element.classList.contains('context-menu-item')
     ) {
-      return;
+      return
     }
-    this.cleanup();
-  };
+    this.cleanup()
+  }
 
   updateFocusedItem = (menuItems, focusedItemIndex) => {
     menuItems.forEach((item, index) => {
-      item.tabIndex = index === focusedItemIndex ? "0" : "-1";
-    });
-    menuItems[index].focus();
+      item.tabIndex = index === focusedItemIndex ? '0' : '-1'
+    })
+    menuItems[focusedItemIndex].focus()
   }
 
   handleKeydown = (event) => {
@@ -100,33 +100,33 @@ export class ContextMenuManager {
       event.isComposing ||
       event.keyCode === 229
     ) {
-      return;
+      return
     }
 
-    const menuItems = this.menu.querySelectorAll(".context-menu-item");
+    const menuItems = this.menu.querySelectorAll('.context-menu-item')
 
     switch (event.keyCode) {
       case 13: // Enter
-        event.preventDefault();
-        menuItems[this.focusedItemIndex].click();
-        break;
+        event.preventDefault()
+        menuItems[this.focusedItemIndex].click()
+        break
 
       case 27: // Escape
-        event.preventDefault();
-        this.cleanup();
-        break;
+        event.preventDefault()
+        this.cleanup()
+        break
 
       case 38: // ArrowUp
-        event.preventDefault();
-        this.focusedItemIndex = (this.focusedItemIndex - 1 + menuItems.length) % menuItems.length;
-        updateFocusedItem(menuItems, this.focusedItemIndex);
-        break;
+        event.preventDefault()
+        this.focusedItemIndex = (this.focusedItemIndex - 1 + menuItems.length) % menuItems.length
+        this.updateFocusedItem(menuItems, this.focusedItemIndex)
+        break
 
-      case 38: // ArrowDown
-        event.preventDefault();
-        this.focusedItemIndex = (this.focusedItemIndex + 1) % menuItems.length;
-        updateFocusedItem(menuItems, this.focusedItemIndex);
-        break;
+      case 40: // ArrowDown
+        event.preventDefault()
+        this.focusedItemIndex = (this.focusedItemIndex + 1) % menuItems.length
+        this.updateFocusedItem(menuItems, this.focusedItemIndex)
+        break
     }
   }
 }
