@@ -91,7 +91,7 @@ To define the content source, you will need to select a value from your reposito
   - Global setting `Header Filtering` needs to be enabled (see [Global Settings](#global-settings) for more details)
 - `Column Sorter` - Enable column sorting.
   - Global setting `Column Sorting` needs to be enabled (see [Global Settings](#global-settings) for more details)
-- `Resizable` - Set whether this column can be resized by dragging its edges. 
+- `Resizable` - Set whether this column can be resized by dragging its edges.
   - Global setting `Resizable` needs to be enabled (see [Global Settings](#global-settings) for more details)
 - `Top Calculation` - Show column calculations at the top of the column.
   - Global setting `Top Column Calculations` needs to be enabled (see [Global Settings](#global-settings) for more details)
