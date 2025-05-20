@@ -93,7 +93,7 @@ const themePresets = {
   default: {
     properties: {},
     initialColumnBorders: [
-      '.tabulator-row .tabulator-cell.tabulator-row-header {border-left: 10px solid #3759d7}'
+      '.tabulator-row .tabulator-cell.tabulator-row-header {border-left: 10px solid rgb(1,177,188)}'
       // Predefined themes cannot be overwritten, potential fix could be to:
       // [1] Use CSS variables and if one doesn't exist (commented out?) then use fall back default color
       // [2] Changes to style.css such as commenting variables by default and stating to the user to uncomment what they'd like to change/overwrite?

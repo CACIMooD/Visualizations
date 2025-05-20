@@ -106,10 +106,7 @@ const createFilters = (data, tabulatorElement, table) => {
     filterCell.id = 'filter-' + field
     filterCell.className = 'tabulator-col'
     filterCell.role = 'columnheader'
-    filterCell.style.minWidth = '40px'
     filterCell.style.width = width + 'px'
-    filterCell.style.borderTop = '1px solid #ddd'
-    filterCell.style.height = '100%'
 
     const filterCellContent = document.createElement('div')
     filterCellContent.className = 'tabulator-col-content'

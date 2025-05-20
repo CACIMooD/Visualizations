@@ -6,17 +6,17 @@
   --font-family: Arial, sans-serif;
 
   /* Header Styling */
-  --header-bg: rgb(33, 35, 48);
+  --header-bg: rgb(1,177,188);
   --header-text: rgb(240, 240, 240);
-  --header-border: rgb(53, 55, 68);
+  --header-border: rgb(83,95,104);
   --header-separator: rgb(71, 95, 160);
-  --header-hover-bg: rgb(50, 52, 62);
+  --header-hover-bg: rgb(1,157,168);
   --header-hover-text: rgb(240, 240, 240);
-  --header-range-selected-bg: rgb(45, 47, 60);
+  --header-range-selected-bg: rgb(83,95,104);
   --header-range-selected-text: rgb(240, 240, 240);
   --header-sort-icon-active: rgb(240, 240, 240);
   --header-sort-icon-inactive: rgb(180, 180, 180);
-  --header-filter-bg: rgb(44, 53, 73);
+  --header-filter-bg: rgb(142,154,164);
   --header-filter-box: rgb(255, 255, 255);
   --header-filter-text: rgb(20, 20, 50);
   --header-filter-icon: rgb(240, 240, 240);
@@ -44,8 +44,8 @@
   /* Miscellaneous */
   --context-menu-bg: rgb(255, 255, 255);
   --context-menu-text: rgb(0, 0, 0);
-  --edit-box: rgb(29, 104, 205);
-  --error: rgb(220, 50, 50);
+  --edit-box: rgb(17,138,178);
+  --error: rgb(213, 63, 40);
 }
 
 /* Tabulator Base */
@@ -99,6 +99,9 @@
 
 [id^="filter-"] {
   background-color: var(--header-filter-bg) !important;
+  min-width: 40px;
+  border-top: 1px solid #ddd;
+  height: 100%;
 }
 
 /* Header */

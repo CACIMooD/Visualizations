@@ -4,8 +4,13 @@ export const getEditorType = (format) => {
   if (!format) {
     return
   }
+
   if (format === 'star') {
     return true
+  }
+
+  if (format === 'money') {
+    return 'number'
   }
 
   if (format.includes('%')) {
