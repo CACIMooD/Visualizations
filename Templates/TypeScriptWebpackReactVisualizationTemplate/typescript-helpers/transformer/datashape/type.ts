@@ -19,19 +19,4 @@ export function convertTypeLine(line: string): string {
   }
 
   return lineSplit.join(" ");
-
-  // if (lineSplit[lineSplit.length - 1].search(/{/) != -1)
-  //   return lineSplit
-  //     .filter((line) => {
-  //       return line != "";
-  //     })
-  //     .join(" ");
-
-  // return (
-  //   lineSplit
-  //     .filter((line) => {
-  //       return line != "";
-  //     })
-  //     .join(" ") + " {"
-  // );
 }

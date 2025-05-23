@@ -1,11 +1,10 @@
 declare namespace Vis {
   interface State {
     [key: string | number | symbol]: JSONValue | undefined;
-    ExampleState: boolean;
-    eeeExampleState: boolean;
-    hello: Hello;
+    ExampleState1: boolean;
+    ExampleState2: ExampleState2;
   }
-  interface Hello {
-    test: boolean;
+  interface ExampleState2 {
+    StateBoolean: boolean;
   }
 }
