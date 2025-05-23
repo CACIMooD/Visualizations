@@ -92,7 +92,7 @@ interface MoodOutputChangedAction extends MooDActionBase {}
  * The Visualization is expected to override (assign) new functions to those that it wants to react to, all functions have an implementation which should not raise exceptions.
  */
 type MooDFunctions = {
-  errorOccurred: (error: String) => void;
+  errorOccurred: (error: string) => void;
 
   navigate: (
     windowId: string,
