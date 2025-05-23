@@ -2,11 +2,11 @@
 
 Templates, examples and documentation enabling you to bring 3rd party visualizations into your MooD Repository.
 
-See the [MooD Supportal](https://supportportal.moodinternational.com/hc/en-us/sections/360004957339-Custom-Visualizations) for more articles and guides. Follow our [Quick Start Guide](docs/QuickStart/QuickStart.md) for a fast and simple way to get started.
+Follow our [Quick Start Guide](docs/QuickStart/QuickStart.md) for a fast and simple way to get started.
 
 __Note:__ __The easiest way to get started is to clone this repository and then modify the various examples / templates inside Visual Studio Code__
 
-Please note that the documentation and code in this repository is issued under the [MIT licence](https://mit-license.org/). Therefore CACI Ltd do not provide any warranties to the fitness of purpose, effectiveness, or maintenance of custom visualisations; and any use of custom visualizations are at your own risk. Our customer support agreements do not include support, training, consultation or issue resolution for custom visualization development, although we welcome you to report any fundamental issues with the underlying mechanism to our support email (<support@moodsupport.zendesk.com>). CACI Ltd are also not responsible for the training and education in the use of the tools, environments and languages used (i.e. JavaScript, NPM, GraphQL) in order to create custom visualizations.
+Please note that the documentation and code in this repository is issued under the [MIT licence](https://mit-license.org/). Therefore CACI Ltd do not provide any warranties to the fitness of purpose, effectiveness, or maintenance of custom visualisations; and any use of custom visualizations are at your own risk. Our customer support agreements do not include support, training, consultation or issue resolution for custom visualization development, although we welcome you to report any fundamental issues with the underlying mechanism to our support email (<MooDSupport@caci.co.uk>). CACI Ltd are also not responsible for the training and education in the use of the tools, environments and languages used (i.e. JavaScript, NPM, GraphQL) in order to create custom visualizations.
 
 ## Table of Contents
 
