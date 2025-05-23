@@ -43,17 +43,16 @@ for (key in inputsConfig) {
   }
 }
 
-//    console.log(JSON.stringify(config));
 addCSSFile(css);
 
-var el = document.getElementById(config.element);
+const el = document.getElementById(config.element);
 el.style.height = config.height;
 el.style.width = config.width;
 visualization(config);
 
 function addCSSFile(cssURL) {
   if (cssURL !== undefined && cssURL !== null) {
-    var link = document.createElement("link");
+    const link = document.createElement("link");
     link.href = cssURL;
     link.type = "text/css";
     link.rel = "stylesheet";

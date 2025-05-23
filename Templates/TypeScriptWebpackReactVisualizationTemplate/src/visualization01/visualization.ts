@@ -58,7 +58,7 @@ export function visualization(config: MooDConfig) {
             config.functions.errorOccurred(error.name);
             config.functions.errorOccurred(error.message);
             config.functions.errorOccurred(error.stack ?? "");
-            config.functions.errorOccurred(info.componentStack);
+            config.functions.errorOccurred(info.componentStack ?? "");
           } else {
             config.functions.errorOccurred(
               "An unrecoverable error has occurred with the custom visualization" +

@@ -6,5 +6,4 @@ interface Document {
     listener: (this: Window, ev: WindowEventMap[K]) => any,
     useCapture?: boolean
   ): void;
-  dispatchEvent<K extends keyof WindowEventMap>(ev: WindowEventMap[K]): void;
 }

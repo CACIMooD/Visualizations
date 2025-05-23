@@ -2,7 +2,7 @@
  * Used by MooD to determine that the variable being passed is a MooD Element
  */
 interface MooDElement {
-  key: string;
+  key: ID;
 }
 
 /**
@@ -64,4 +64,14 @@ type Elements = (string | string[]) & { __brand: "Elements" };
 /**
  * Used by MooD to allow any type of variable to be passed in/out
  */
-type Any = boolean | number | string | MooDDate;
+type Any =
+  | boolean
+  | number
+  | MooDDate
+  | Elements
+  | SinglePickList
+  | MultiPickList
+  | Color
+  | Shape
+  | Image
+  | string;

@@ -18,7 +18,7 @@ Remember to run: ```npm install``` before doing anything else, this will install
   - Files that are already set up to be passed to each visualization
     - Context stores React context files that can be useful anywhere
     - Hooks stores Reacts hooks files that allow reading/writing data to/from MooD
-- typescript-transformer
+- typescript-helpers
   - Files that are used in the process of transforming the configuration files into TypeScript
 - src
   - visualization01

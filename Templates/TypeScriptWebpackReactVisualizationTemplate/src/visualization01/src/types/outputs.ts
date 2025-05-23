@@ -4,14 +4,14 @@ export enum OutputsEnum {
 }
 
 export interface OutputsTypes {
-  [OutputsEnum.Example_Output]: SinglePickList | MultiPickList,
-  [OutputsEnum.Example_Output_2]: number
+  [OutputsEnum.Example_Output]: SinglePickList | MultiPickList;
+  [OutputsEnum.Example_Output_2]: number;
 }
 
 declare global {
   namespace Vis {
     type Outputs = {
       [key in OutputsEnum]: OutputsTypes[key];
-    }
+    };
   }
 }
