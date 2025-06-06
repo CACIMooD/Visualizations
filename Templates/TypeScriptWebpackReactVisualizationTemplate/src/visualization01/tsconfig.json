@@ -23,15 +23,17 @@
     "baseUrl": ".",
     "paths": {
       "@helpers/*": ["../../helpers/*"],
-      "@moodtypes/*": ["../../typescript-helpers/types/*"],
+      "@moodtypes/*": ["../../typescript-transformer/types/*"],
       "@core/*": ["./*"]
     }
   },
   "include": [
     "../../helpers/**/*",
     "../../globals/*",
-    "../../typescript-helpers/types/*",
-    "./**/*"
+    "../../typescript-transformer/types/*",
+    "./**/*",
+    "../../helpers/context/configContext.ts",
+    "../../helpers/hooks/useInput.tsx"
   ],
-  "exclude": ["./*.json", "**/*.json", "../../node_modules/**"]
+  "exclude": ["./*.json", "**/*.json"]
 }

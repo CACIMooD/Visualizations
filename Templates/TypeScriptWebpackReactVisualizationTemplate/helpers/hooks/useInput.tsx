@@ -40,11 +40,11 @@ export function useInput<TInput extends keyof Vis.Inputs>(
   );
 
   useEffect(() => {
-    let debounceTimeout: ReturnType<typeof setTimeout>;
+    let debounceTimeout: number | undefined;
     const updateSetValue = (event: updateInputEvent) => {
       if (event.detail.key != input) return;
       debounceTimeout = setTimeout(() => {
-        setValue(getVisualizationInputs()[event.detail.key]);
+        setValue(getVisualizationInputs()?.[event.detail.key] as any);
       }, debounce);
     };
     document.addEventListener(updateInputEventKey, updateSetValue);
@@ -57,14 +57,14 @@ export function useInput<TInput extends keyof Vis.Inputs>(
   const inputConfigType =
     visualizationConfig.inputs.length == 0
       ? ""
-      : ((
+      : (
           visualizationConfig.inputs as {
             name: keyof Vis.Inputs;
             type: string;
           }[]
         )
           .find((inputConfig) => inputConfig.name == input)
-          ?.type.toLowerCase() ?? "");
+          ?.type.toLowerCase() ?? "";
 
   // If the input type is one of a potential array then we convert it to always be an array
   if (

@@ -74,7 +74,7 @@ export function useOutput<TOutput extends keyof Vis.Outputs>(
     return [
       updateOutput,
       Object.freeze(
-        ((value ?? "") as string)
+        ((value as string) ?? "")
           .split(",")
           .filter((val: string) => val != "") as any
       ),

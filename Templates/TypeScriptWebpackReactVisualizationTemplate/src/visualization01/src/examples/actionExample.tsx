@@ -22,8 +22,8 @@ export const ActionExample = () => {
   // Get the first valid data for the third ExampleVariable if it has a value
   const [exampleVariable3] = useData(
     (data: Vis.Data): Vis.Data.Query | void => {
-      for (let i = 0; i < (data.ExampleVariable3?.length ?? 0); i++) {
-        if (data.ExampleVariable3?.[i].Value != null)
+      for (let i = 0; i < data.ExampleVariable3?.length; i++) {
+        if (data.ExampleVariable3[i].Value != null)
           return data.ExampleVariable3[i];
       }
     }
