@@ -6,7 +6,6 @@ import {
   updateFrozenVisualizationInputs,
   updateFrozenVisualizationOutputs,
   updateFrozenVisualizationSize,
-  updateFrozenVisualizationState,
   updateFrozenVisualizationStyle,
 } from "./config";
 import { updateDataEventKey } from "./hooks/useData";
@@ -24,7 +23,7 @@ import Logger from "./logger";
 export const setupProductionConfig = (config: MooDConfig): MooDConfig => {
   //This allows us to listen to any errors that MooD tells us about
   const errorOccurredSuper = config.functions.errorOccurred;
-  config.functions.errorOccurred = (error: String) => {
+  config.functions.errorOccurred = (error: string) => {
     errorOccurredSuper?.(error);
     if (Logger.developmentMode) {
       Logger.Error(error);
