@@ -70,9 +70,13 @@ module.exports = merge(common, {
   devServer: {
       allowedHosts: "all",
       port: 8080,
-      proxy: {
-          "/api": "http://localhost:8080"
-      }
+      proxy: [
+          {
+              context: ["/api"],
+              target: "http://localhost:8080",
+              changeOrigin: true,
+          },
+      ],
   },
   devtool: "eval-cheap-module-source-map"
 });
