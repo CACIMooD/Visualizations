@@ -643,8 +643,11 @@ function defineSubProcess (gridSize, elementSize, verticalSwimlanes) {
         height: 'calc(h)'
       },
       label: {
-        refWidth: 0.8,
-        refHeight: 1,
+        textWrap: {
+          width: 'calc(0.8*w)',
+          height: 'calc(h)',
+          ellipsis: false
+        },
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
         transform: 'translate(calc(0.5 * w), calc(0.5 * h))'
@@ -689,8 +692,11 @@ function defineProcess () {
         height: 'calc(h)'
       },
       label: {
-        refWidth: 0.8,
-        refHeight: 1,
+        textWrap: {
+          width: 'calc(0.8*w)',
+          height: 'calc(h)',
+          ellipsis: false
+        },
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
         transform: 'translate(calc(0.5 * w), calc(0.5 * h))'
@@ -822,10 +828,11 @@ function defineDecision (verticalSwimlanes) {
       label: {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        // width: 'calc(w)',
-        // height: 'calc(h)',
-        refWidth: 0.95,
-        refHeight: 0.95,
+        textWrap: {
+          width: 'calc(0.95*w)',
+          height: 'calc(0.95*h)',
+          ellipsis: false
+        },
         transform: 'translate(calc(0.5 * w), calc(0.5 * h))'
       },
       title: {
@@ -921,7 +928,11 @@ function defineExternalData () {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
         transform: 'translate(calc(0.4 * w), calc(0.5 * h))',
-        refWidth: 0.8
+        textWrap: {
+          width: 'calc(0.8*w)',
+          height: 'calc(h)',
+          ellipsis: false
+        },
       },
       title: {
       }
@@ -959,7 +970,11 @@ function defineDatabase () {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
         transform: 'translate(calc(0.35 * w), calc(0.5 * h))',
-        refWidth: 0.8
+        textWrap: {
+          width: 'calc(0.8*w)',
+          height: 'calc(h)',
+          ellipsis: false
+        },
       },
       title: {
       }
@@ -996,7 +1011,6 @@ function defineDocument () {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
         transform: 'translate(calc(0.5 * w), calc(0.4 * h))',
-        refWidth: 1.0
       },
       title: {
       }
@@ -1032,7 +1046,6 @@ function defineData () {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
         transform: 'translate(calc(0.5 * w), calc(0.5 * h))',
-        refWidth: 1.0
       },
       title: {
       }
@@ -1068,7 +1081,6 @@ function defineOther () {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
         transform: 'translate(calc(0.5 * w), calc(0.6 * h))',
-        refWidth: 1.0
       },
       title: {
       }
@@ -1105,8 +1117,11 @@ function defineOffPageOutput () {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
         transform: 'translate(calc(0.5 * w), calc(0.33 * h))',
-        refWidth: 1.0,
-        refHeight: 0.75
+        textWrap: {
+          width: 'calc(w)',
+          height: 'calc(0.75*h)',
+          ellipsis: false
+        },
       },
       title: {
       }
@@ -1143,8 +1158,11 @@ function defineOffPageInput () {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
         transform: 'translate(calc(0.5 * w), calc(0.33 * h))',
-        refWidth: 1.0,
-        refHeight: 0.75
+        textWrap: {
+          width: 'calc(w)',
+          height: 'calc(0.75*h)',
+          ellipsis: false
+        },
       },
       title: {
       }
@@ -1176,7 +1194,6 @@ function defineStepGroup () {
       label: {
         textVerticalAnchor: 'bottom',
         textAnchor: 'start',
-        refWidth: 1.0
       }
     }
   }, {
