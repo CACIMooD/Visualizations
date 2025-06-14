@@ -339,7 +339,7 @@
             },
             {
                 "id": "55-Step052", 
-                "name": "", 
+                "name": "Inclusive", 
                 "type": "BPMN Inclusive Gateway", 
                 "navigable": true, 
                 "swimlanes": [{"id": "x", "actor": {"id": "55-263A0114FA2743FF99955B0FB701A78A", "name": "Store"}, "minIndex": 1}], 

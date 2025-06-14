@@ -1,4 +1,4 @@
-import * as joint from 'jointjs'
+import * as joint from '@joint/core'
 import * as Ports from './element-port-names'
 import * as Types from './element-types'
 import { OrientedDimensions, OrientedCoords } from './oriented'
@@ -266,8 +266,8 @@ export function createAssociation (id) {
 function defineActor (renderSwimlaneWatermarks, verticalSwimlanes) {
   const attrs = {
     body: {
-      refWidth: 1,
-      refHeight: 1,
+      width: 'calc(w)',
+      height: 'calc(h)',
       even: 'false'
     }
   }
@@ -285,7 +285,7 @@ function defineActor (renderSwimlaneWatermarks, verticalSwimlanes) {
     }
     if (verticalSwimlanes) {
       attrs.text = {
-        refX: 0.5,
+        x: 'calc(0.5*w)',
         y: 2,
         textVerticalAnchor: 'top',
         textAnchor: 'middle'
@@ -299,8 +299,8 @@ function defineActor (renderSwimlaneWatermarks, verticalSwimlanes) {
       }
     }
     attrs.watermark = {
-      refWidth: 1,
-      refHeight: 1,
+      width: 'calc(w)',
+      height: 'calc(h)',
       fillOpacity: 0
     }
     markup.push({
@@ -337,8 +337,8 @@ function defineSwimlane () {
   return joint.dia.Element.define('MooD.Swimlane', {
     attrs: {
       body: {
-        refWidth: 1,
-        refHeight: 1,
+        width: 'calc(w)',
+        height: 'calc(h)',
         fillOpacity: 0
       }
     }
@@ -474,14 +474,13 @@ function defineStart (verticalSwimlanes) {
       body: {
         rx: 20,
         refRy: '50%',
-        refWidth: 1,
-        refHeight: 1
+        width: 'calc(w)',
+        height: 'calc(h)'
       },
       label: {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        refX: 0.5,
-        refY: 0.5
+        transform: 'translate(calc(0.5 * w), calc(0.5 * h))'
       },
       title: {
       }
@@ -635,22 +634,20 @@ function defineSubProcess (gridSize, elementSize, verticalSwimlanes) {
     },
     attrs: {
       body: {
-        refX: 0,
-        refWidth: 1,
-        refHeight: 1
+        width: 'calc(w)',
+        height: 'calc(h)'
       },
       inner: {
-        refX: 0.1,
-        refWidth: 0.8,
-        refHeight: 1
+        x: 'calc(0.1*w)',
+        width: 'calc(0.8*w)',
+        height: 'calc(h)'
       },
       label: {
         refWidth: 0.8,
         refHeight: 1,
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        refX: 0.5,
-        refY: 0.5
+        transform: 'translate(calc(0.5 * w), calc(0.5 * h))'
       },
       title: {
       }
@@ -683,22 +680,20 @@ function defineProcess () {
   return joint.dia.Element.define('MooD.Process', {
     attrs: {
       body: {
-        refX: 0,
-        refWidth: 1,
-        refHeight: 1
+        width: 'calc(w)',
+        height: 'calc(h)'
       },
       inner: {
-        refX: 0.1,
-        refWidth: 0.8,
-        refHeight: 1
+        x: 'calc(0.1*w)',
+        width: 'calc(0.8*w)',
+        height: 'calc(h)'
       },
       label: {
         refWidth: 0.8,
         refHeight: 1,
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        refX: 0.5,
-        refY: 0.5
+        transform: 'translate(calc(0.5 * w), calc(0.5 * h))'
       },
       title: {
       }
@@ -737,14 +732,13 @@ function defineProcessStep (gridSize, elementSize, verticalSwimlanes) {
     },
     attrs: {
       body: {
-        refWidth: 1,
-        refHeight: 1
+        width: 'calc(w)',
+        height: 'calc(h)'
       },
       label: {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        refX: 0.5,
-        refY: 0.5,
+        transform: 'translate(calc(0.5 * w), calc(0.5 * h))',
         fontSize: ''
       },
       title: {
@@ -819,7 +813,7 @@ function defineDecision (verticalSwimlanes) {
       ]
     },
     attrs: {
-      path: {
+      body: {
         refDResetOffset:
                   'M 50 0 L 100 50 ' +
                   'L 50 100 ' +
@@ -828,28 +822,30 @@ function defineDecision (verticalSwimlanes) {
       label: {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
+        // width: 'calc(w)',
+        // height: 'calc(h)',
         refWidth: 0.95,
         refHeight: 0.95,
-        refX: 0.5,
-        refY: 0.5
+        transform: 'translate(calc(0.5 * w), calc(0.5 * h))'
       },
       title: {
       }
     }
   }, {
-    markup: [{
-      tagName: 'path',
-      selector: 'body',
-      groupSelector: 'bodyGroup',
-      className: 'mood-graph-step'
-    }, {
-      tagName: 'text',
-      selector: 'label',
-      className: 'mood-graph-step-label'
-    }, {
-      tagName: 'title',
-      selector: 'title'
-    }]
+    markup: [
+      {
+        tagName: 'path',
+        selector: 'body',
+        groupSelector: 'bodyGroup',
+        className: 'mood-graph-step'
+      }, {
+        tagName: 'text',
+        selector: 'label',
+        className: 'mood-graph-step-label'
+      }, {
+        tagName: 'title',
+        selector: 'title'
+      }]
   })
 }
 
@@ -857,14 +853,13 @@ function defineVerticalLabel (verticalSwimlanes) {
   const labelDefaults = {
     attrs: {
       body: {
-        refWidth: 1,
-        refHeight: 1
+        width: 'calc(w)',
+        height: 'calc(h)'
       },
       label: {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        refX: 0.5,
-        refY: 0.5
+        transform: 'translate(calc(0.5 * w), calc(0.5 * h))'
       },
       title: {
       }
@@ -884,7 +879,7 @@ function defineVerticalLabel (verticalSwimlanes) {
     }]
   }
   if (verticalSwimlanes) {
-    labelDefaults.attrs.label.transform = 'rotate(-90)'
+    labelDefaults.attrs.label.transform += ' rotate(-90)'
   }
   return joint.dia.Element.define('MooD.VLabel', labelDefaults, labelProtoProps)
 }
@@ -898,7 +893,7 @@ function definePhaseExtent (verticalSwimlanes) {
   }
   return joint.dia.Element.define('MooD.PhaseExtent', {
     attrs: {
-      path: {
+      body: {
         refDResetOffset:
                   path
       }
@@ -915,7 +910,7 @@ function definePhaseExtent (verticalSwimlanes) {
 function defineExternalData () {
   return joint.dia.Element.define('MooD.ExternalData', {
     attrs: {
-      path: {
+      body: {
         refDResetOffset:
                   'M 20 0 L 100 0 ' +
                   'A 20 20 0 0 0 100 40 ' +
@@ -925,8 +920,7 @@ function defineExternalData () {
       label: {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        refX: 0.4,
-        refY: 0.5,
+        transform: 'translate(calc(0.4 * w), calc(0.5 * h))',
         refWidth: 0.8
       },
       title: {
@@ -952,7 +946,7 @@ function defineExternalData () {
 function defineDatabase () {
   return joint.dia.Element.define('MooD.Database', {
     attrs: {
-      path: {
+      body: {
         refDResetOffset:
                   'M 20 0 L 100 0 ' +
                   'A 20 20 0 0 0 100 40 ' +
@@ -964,8 +958,7 @@ function defineDatabase () {
       label: {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        refX: 0.35,
-        refY: 0.5,
+        transform: 'translate(calc(0.35 * w), calc(0.5 * h))',
         refWidth: 0.8
       },
       title: {
@@ -991,7 +984,7 @@ function defineDatabase () {
 function defineDocument () {
   return joint.dia.Element.define('MooD.Document', {
     attrs: {
-      path: {
+      body: {
         refDResetOffset:
                   'M 0 0 L 100 0 ' +
                   'L 100 35 ' +
@@ -1002,8 +995,7 @@ function defineDocument () {
       label: {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        refX: 0.5,
-        refY: 0.4,
+        transform: 'translate(calc(0.5 * w), calc(0.4 * h))',
         refWidth: 1.0
       },
       title: {
@@ -1029,7 +1021,7 @@ function defineDocument () {
 function defineData () {
   return joint.dia.Element.define('MooD.Data', {
     attrs: {
-      path: {
+      body: {
         refDResetOffset:
                   'M 20 0 L 100 0 ' +
                   'L 80 40 ' +
@@ -1039,8 +1031,7 @@ function defineData () {
       label: {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        refX: 0.5,
-        refY: 0.5,
+        transform: 'translate(calc(0.5 * w), calc(0.5 * h))',
         refWidth: 1.0
       },
       title: {
@@ -1066,7 +1057,7 @@ function defineData () {
 function defineOther () {
   return joint.dia.Element.define('MooD.Other', {
     attrs: {
-      path: {
+      body: {
         refDResetOffset:
                   'M 0 10 L 100 0 ' +
                   'L 100 40 ' +
@@ -1076,8 +1067,7 @@ function defineOther () {
       label: {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        refX: 0.5,
-        refY: 0.6,
+        transform: 'translate(calc(0.5 * w), calc(0.6 * h))',
         refWidth: 1.0
       },
       title: {
@@ -1103,7 +1093,7 @@ function defineOther () {
 function defineOffPageOutput () {
   return joint.dia.Element.define('MooD.OffPageOutput', {
     attrs: {
-      path: {
+      body: {
         refDResetOffset:
                   'L 100 0 ' +
                   'L 100 30 ' +
@@ -1114,8 +1104,7 @@ function defineOffPageOutput () {
       label: {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        refX: 0.5,
-        refY: 0.33,
+        transform: 'translate(calc(0.5 * w), calc(0.33 * h))',
         refWidth: 1.0,
         refHeight: 0.75
       },
@@ -1142,7 +1131,7 @@ function defineOffPageOutput () {
 function defineOffPageInput () {
   return joint.dia.Element.define('MooD.OffPageInput', {
     attrs: {
-      path: {
+      body: {
         refDResetOffset:
                   'L 100 0 ' +
                   'L 100 40 ' +
@@ -1153,8 +1142,7 @@ function defineOffPageInput () {
       label: {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        refX: 0.5,
-        refY: 0.33,
+        transform: 'translate(calc(0.5 * w), calc(0.33 * h))',
         refWidth: 1.0,
         refHeight: 0.75
       },
@@ -1182,14 +1170,12 @@ function defineStepGroup () {
   return joint.dia.Element.define('MooD.StepGroup', {
     attrs: {
       body: {
-        refWidth: 1,
-        refHeight: 1
+        width: 'calc(w)',
+        height: 'calc(h)'
       },
       label: {
         textVerticalAnchor: 'bottom',
         textAnchor: 'start',
-        refX: '0%',
-        refY: '0%',
         refWidth: 1.0
       }
     }
@@ -1255,14 +1241,13 @@ function buildBPMNEvent (gridSize, elementSize, verticalSwimlanes, eventClass, e
       items: portItems
     },
     attrs: {
-      path: {
+      body: {
         refDResetOffset: symbolPath
       },
       label: {
         textVerticalAnchor: 'top',
         textAnchor: 'middle',
-        refX: 0.5,
-        refY: 0.99,
+        transform: 'translate(calc(0.5 * w), calc(0.99 * h))',
         refWidth: 2.0,
         refHeight: 2.0
       },
@@ -1474,7 +1459,7 @@ function defineBPMNExclusiveGateway (verticalSwimlanes) {
       ]
     },
     attrs: {
-      path: {
+      body: {
         refDResetOffset:
                   'M 50 0 L 100 50 ' +
                   'L 50 100 ' +
@@ -1485,8 +1470,7 @@ function defineBPMNExclusiveGateway (verticalSwimlanes) {
       label: {
         textVerticalAnchor: 'top',
         textAnchor: 'middle',
-        refX: 0.5,
-        refY: 0.99,
+        transform: 'translate(calc(0.5 * w), calc(0.99 * h))',
         refWidth: 2.0,
         refHeight: 2.0
       },
@@ -1562,7 +1546,7 @@ function defineBPMNParallelGateway (verticalSwimlanes) {
       ]
     },
     attrs: {
-      path: {
+      body: {
         refDResetOffset:
                   'M 50 0 L 100 50 ' +
                   'L 50 100 ' +
@@ -1573,8 +1557,7 @@ function defineBPMNParallelGateway (verticalSwimlanes) {
       label: {
         textVerticalAnchor: 'top',
         textAnchor: 'middle',
-        refX: 0.5,
-        refY: 0.99,
+        transform: 'translate(calc(0.5 * w), calc(0.99 * h))',
         refWidth: 2.0,
         refHeight: 2.0
       },
@@ -1650,7 +1633,7 @@ function defineBPMNInclusiveGateway (verticalSwimlanes) {
       ]
     },
     attrs: {
-      path: {
+      body: {
         refDResetOffset:
             'M 50 0 l -50 50' + // Draw diamond (anti-clockwise)
             'l 50 50 ' +
@@ -1662,8 +1645,7 @@ function defineBPMNInclusiveGateway (verticalSwimlanes) {
       label: {
         textVerticalAnchor: 'top',
         textAnchor: 'middle',
-        refX: 0.5,
-        refY: 0.99,
+        transform: 'translate(calc(0.5 * w), calc(0.99 * h))',
         refWidth: 2.0,
         refHeight: 2.0
       },
@@ -1716,14 +1698,13 @@ function buildBPMNDataObject (gridSize, elementSize, verticalSwimlanes, styleNam
   const portItems = processPortItems()
   const bodyClass = 'bpmn-data-object'
   const attrs = {
-    path: {
+    body: {
       refDResetOffset: artefactPath
     },
     label: {
       textVerticalAnchor: 'top',
       textAnchor: 'middle',
-      refX: 0.5,
-      refY: 0.99,
+      transform: 'translate(calc(0.5 * w), calc(0.99 * h))',
       refWidth: 2.0,
       refHeight: 2.0
     },
@@ -1752,16 +1733,14 @@ function buildBPMNDataObject (gridSize, elementSize, verticalSwimlanes, styleNam
       fill: 'none',
       stroke: 'none',
       ref: 'body',
-      refWidth: 0.45,
-      refHeight: 0.25,
-      refX: 0.1,
-      refY: 0.1
+      width: 'calc(0.45*w)',
+      height: 'calc(0.25*h)',
+      transform: 'translate(calc(0.1 * w), calc(0.1 * h))'
     }
     attrs.inner = {
       ref: 'styleBox',
       refDResetOffset: stylePath,
-      refX: 0.0,
-      refY: 0.1
+      transform: 'translate(0, calc(0.1 * h))'
     }
     markup.push({
       tagName: 'rect',
@@ -1823,14 +1802,13 @@ function defineBPMNDataStorage (gridSize, elementSize, verticalSwimlanes) {
       items: portItems
     },
     attrs: {
-      path: {
+      body: {
         refDResetOffset: symbolPath
       },
       label: {
         textVerticalAnchor: 'top',
         textAnchor: 'middle',
-        refX: 0.5,
-        refY: 0.99,
+        transform: 'translate(calc(0.5 * w), calc(0.99 * h))',
         refWidth: 2.0,
         refHeight: 2.0
       },
