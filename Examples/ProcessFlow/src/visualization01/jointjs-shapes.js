@@ -932,7 +932,7 @@ function defineExternalData () {
           width: 'calc(0.8*w)',
           height: 'calc(h)',
           ellipsis: false
-        },
+        }
       },
       title: {
       }
@@ -974,7 +974,7 @@ function defineDatabase () {
           width: 'calc(0.8*w)',
           height: 'calc(h)',
           ellipsis: false
-        },
+        }
       },
       title: {
       }
@@ -1010,7 +1010,7 @@ function defineDocument () {
       label: {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        transform: 'translate(calc(0.5 * w), calc(0.4 * h))',
+        transform: 'translate(calc(0.5 * w), calc(0.4 * h))'
       },
       title: {
       }
@@ -1045,7 +1045,7 @@ function defineData () {
       label: {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        transform: 'translate(calc(0.5 * w), calc(0.5 * h))',
+        transform: 'translate(calc(0.5 * w), calc(0.5 * h))'
       },
       title: {
       }
@@ -1080,7 +1080,7 @@ function defineOther () {
       label: {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
-        transform: 'translate(calc(0.5 * w), calc(0.6 * h))',
+        transform: 'translate(calc(0.5 * w), calc(0.6 * h))'
       },
       title: {
       }
@@ -1121,7 +1121,7 @@ function defineOffPageOutput () {
           width: 'calc(w)',
           height: 'calc(0.75*h)',
           ellipsis: false
-        },
+        }
       },
       title: {
       }
@@ -1162,7 +1162,7 @@ function defineOffPageInput () {
           width: 'calc(w)',
           height: 'calc(0.75*h)',
           ellipsis: false
-        },
+        }
       },
       title: {
       }
@@ -1193,7 +1193,7 @@ function defineStepGroup () {
       },
       label: {
         textVerticalAnchor: 'bottom',
-        textAnchor: 'start',
+        textAnchor: 'start'
       }
     }
   }, {
