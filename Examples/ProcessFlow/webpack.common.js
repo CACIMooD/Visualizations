@@ -83,7 +83,7 @@ module.exports = {
         splitChunks: { //{ chunks: 'all' }
             cacheGroups: {
                 "jointjs" : {
-                    test: /[\\/]node_modules[\\/](@joint\/core*)[\\/]/,
+                    test: /[\\/]node_modules[\\/](@joint[\\/]core*)[\\/]/,
                     name: 'jointjs',
                     chunks: 'all',
                     priority: -3,
