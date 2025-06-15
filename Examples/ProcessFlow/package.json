@@ -1,12 +1,11 @@
 {
   "name": "process-flow",
   "description": "Visualisation of a Process Flow in swimlanes",
-  "version": "2.6.6",
+  "version": "2.7.0",
   "license": "MIT",
   "dependencies": {
-    "core-js": "3.22.0",
-    "jointjs": "3.4.4",
-    "jquery": "3.6.0"
+    "@joint/core": "^4.1.3",
+    "core-js": "3.22.0"
   },
   "devDependencies": {
     "@babel/core": "^7.22.9",

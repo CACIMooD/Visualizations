@@ -509,7 +509,7 @@
 			{
 				"id": "41-5AE6BBFDCFBC4FA6AF4F2DBA16FDD4DA", 
 				"target": {"id": "55-2DD9764D4BD24D3E96343641A40F21C4", "name": "01."}, 
-				"source": {"id": "55-63A12E17574C48029310ED0DB4AA17D9", "name": "Completed Test Forms", "shortName": null, "type": "Data", "navigable": false}, 
+				"source": {"id": "55-63A12E17574C48029310ED0DB4AA17D9", "name": "Completed Test Forms", "shortName": null, "type": "Other", "navigable": false}, 
 				"label": null
 			},
 			{

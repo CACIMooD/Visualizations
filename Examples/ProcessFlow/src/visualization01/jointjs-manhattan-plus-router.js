@@ -1,14 +1,14 @@
 //
 // This router avoids overlaying links on top of one another
 //
-// This is a copy of JointJS routers/manhattan.mjs version 3.4.1
+// This is a copy of JointJS routers/manhattan.mjs version 4.1.3
 // Sections of code that have been altered from the original are marked with
 // // *** Start
 // and
 // // *** End
 //
 // The code has also been altered for imports; these changes have not been marked
-import * as joint from 'jointjs'
+import * as joint from '@joint/core'
 
 // import * as g from '../g/index.mjs';
 // import * as util from '../util/index.mjs';
@@ -22,13 +22,13 @@ const config = {
   // the number of route finding loops that cause the router to abort
   // returns fallback route instead
   //
-  // *** Start of changes from original manhattan router code (JointJS version 3.4.1) ***
+  // *** Start of changes from original manhattan router code (JointJS version 4.1.3) ***
   // Increase loop limit
   maximumLoops: 3000,
 
   // the number of decimal places to round floating point coordinates
   precision: 0,
-  // *** End of changes from original manhattan router code (JointJS version 3.4.1) ***
+  // *** End of changes from original manhattan router code (JointJS version 4.1.3) ***
 
   // maximum change of direction
   maxAllowedDirectionChange: 90,
@@ -42,7 +42,7 @@ const config = {
   excludeEnds: [], // 'source', 'target'
 
   // should certain types of elements not be considered as obstacles?
-  excludeTypes: ['basic.Text'],
+  excludeTypes: [],
 
   // possible starting directions from an element
   startDirections: ['top', 'right', 'bottom', 'left'],
@@ -116,10 +116,10 @@ const config = {
   /* Deprecated */
   // a simple route used in situations when main routing method fails
   // (exceed max number of loop iterations, inaccessible)
-  // *** Start of changes from original manhattan router code (JointJS version 3.4.1) ***
+  // *** Start of changes from original manhattan router code (JointJS version 4.1.3) ***
   // avoid unused variable lint error
   fallbackRoute: function (from, to, opt) { // eslint-disable-line no-unused-vars
-  // *** End of changes from original manhattan router code (JointJS version 3.4.1) ***
+  // *** End of changes from original manhattan router code (JointJS version 4.1.3) ***
     return null // null result will trigger the fallbackRouter
 
     // left for reference:
@@ -140,7 +140,7 @@ const config = {
 // HELPER CLASSES //
 
 //
-// *** Start of changes from original manhattan router code (JointJS version 3.4.1) ***
+// *** Start of changes from original manhattan router code (JointJS version 4.1.3) ***
 // avoid routing lines on top of one another
 //
 // list of connector types not to jump over.
@@ -372,7 +372,7 @@ LineMap.prototype.action = function (startPoint, endPoint, sourcePoint, targetPo
   return returnValue
 }
 
-// *** End of changes from original manhattan router code (JointJS version 3.4.1) ***
+// *** End of changes from original manhattan router code (JointJS version 4.1.3) ***
 
 // Map of obstacles
 // Helper structure to identify whether a point lies inside an obstacle.
@@ -656,10 +656,10 @@ function normalizePoint (point) {
 // PATHFINDING //
 
 // reconstructs a route by concatenating points with their parents
-// *** Start of changes from original manhattan router code (JointJS version 3.4.1) ***
+// *** Start of changes from original manhattan router code (JointJS version 4.1.3) ***
 // avoid unused variable lint error
 function reconstructRoute (parents, points, tailPoint, from, to, grid, opt) { // eslint-disable-line no-unused-vars
-  // *** End of changes from original manhattan router code (JointJS version 3.4.1) ***
+  // *** End of changes from original manhattan router code (JointJS version 4.1.3) ***
   const route = []
 
   let prevDiff = normalizePoint(to.difference(tailPoint))
@@ -680,7 +680,7 @@ function reconstructRoute (parents, points, tailPoint, from, to, grid, opt) { //
     }
 
     //
-    // *** Start of changes from original manhattan router code (JointJS version 3.4.1) ***
+    // *** Start of changes from original manhattan router code (JointJS version 4.1.3) ***
     // avoid infinite loops
     //
     if (currentKey === getKey(parent)) {
@@ -689,7 +689,7 @@ function reconstructRoute (parents, points, tailPoint, from, to, grid, opt) { //
       console.log('and parent:' + JSON.stringify(parent))
       return null
     }
-    // *** End of changes from original manhattan router code (JointJS version 3.4.1) ***
+    // *** End of changes from original manhattan router code (JointJS version 4.1.3) ***
     // parent is assumed to be aligned already
     currentKey = getKey(parent)
     parent = parents[currentKey]
@@ -788,11 +788,11 @@ function getRectPoints (anchor, bbox, directionList, grid, opt) {
 // finds the route between two points/rectangles (`from`, `to`) implementing A* algorithm
 // rectangles get rect points assigned by getRectPoints()
 //
-// *** Start of changes from original manhattan router code (JointJS version 3.4.1) ***
+// *** Start of changes from original manhattan router code (JointJS version 4.1.3) ***
 // avoid routing lines on top of one another
 //
 function findRoute (from, to, isPointObstacle, lineMap, opt) {
-// *** End of changes from original manhattan router code (JointJS version 3.4.1) ***
+// *** End of changes from original manhattan router code (JointJS version 4.1.3) ***
   const precision = opt.precision
 
   // Get grid for this route.
@@ -934,7 +934,7 @@ function findRoute (from, to, isPointObstacle, lineMap, opt) {
         if (openSet.isClose(neighborKey) || isPointObstacle(neighborPoint)) continue
 
         //
-        // *** Start of changes from original manhattan router code (JointJS version 3.4.1) ***
+        // *** Start of changes from original manhattan router code (JointJS version 4.1.3) ***
         // avoid routing lines on top of one another
         //
         const action = lineMap.action(currentPoint, neighborPoint, sourceAnchor, targetAnchor)
@@ -992,7 +992,7 @@ function findRoute (from, to, isPointObstacle, lineMap, opt) {
           opt.previousDirectionAngle = previousDirectionAngle
           return reconstructRoute(parents, points, newPoint, start, end, grid, opt)
         }
-        // *** End of changes from original manhattan router code (JointJS version 3.4.1) ***
+        // *** End of changes from original manhattan router code (JointJS version 4.1.3) ***
 
         // We can only enter end points at an acceptable angle.
         if (endPointsKeys.indexOf(neighborKey) >= 0) { // neighbor is an end point
@@ -1080,15 +1080,16 @@ function router (vertices, opt, linkView) {
     map.build(linkView.paper.model, linkView.model)
     isPointObstacle = (point) => !map.isPointAccessible(point)
   }
+
   const oldVertices = joint.util.toArray(vertices).map(joint.g.Point)
   const newVertices = []
   let tailPoint = sourceAnchor // the origin of first route's grid, does not need snapping
   //
-  // *** Start of changes from original manhattan router code (JointJS version 3.4.1) ***
+  // *** Start of changes from original manhattan router code (JointJS version 4.1.3) ***
   // avoid routing lines on top of one another
   //
   const lineMap = (new LineMap(opt)).build(linkView.paper, linkView.model)
-  // *** End of changes from original manhattan router code (JointJS version 3.4.1) ***
+  // *** End of changes from original manhattan router code (JointJS version 4.1.3) ***
 
   // find a route by concatenating all partial routes (routes need to pass through vertices)
   // source -> vertex[1] -> ... -> vertex[n] -> target
@@ -1122,7 +1123,7 @@ function router (vertices, opt, linkView) {
 
     // if partial route has not been calculated yet use the main routing method to find one
     //
-    // *** Start of changes from original manhattan router code (JointJS version 3.4.1) ***
+    // *** Start of changes from original manhattan router code (JointJS version 4.1.3) ***
     // avoid routing lines on top of one another
     //
     partialRoute = partialRoute || findRoute.call(linkView, from, to, isPointObstacle, lineMap, opt)
@@ -1141,7 +1142,7 @@ function router (vertices, opt, linkView) {
       }
       return retRoute
     }
-    // *** End of changes from original manhattan router code (JointJS version 3.4.1) ***
+    // *** End of changes from original manhattan router code (JointJS version 4.1.3) ***
 
     const leadPoint = partialRoute[0]
 
@@ -1158,9 +1159,9 @@ function router (vertices, opt, linkView) {
 }
 
 // public function
-// *** Start of changes from original manhattan router code (JointJS version 3.4.1) ***
+// *** Start of changes from original manhattan router code (JointJS version 4.1.3) ***
 export const manhattanPlus = function (vertices, opt, linkView) {
   const routePoints = router(vertices, joint.util.assign({}, config, opt), linkView)
   return routePoints
 }
-// *** End of changes from original manhattan router code (JointJS version 3.4.1) ***
+// *** End of changes from original manhattan router code (JointJS version 4.1.3) ***

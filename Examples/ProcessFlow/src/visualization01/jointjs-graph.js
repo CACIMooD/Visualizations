@@ -1,5 +1,5 @@
 // See https://resources.jointjs.com/tutorial/elements
-import * as joint from 'jointjs'
+import * as joint from '@joint/core'
 import { mergeJumpover } from './jointjs-merge-jumpover'
 import { manhattanPlus } from './jointjs-manhattan-plus-router'
 import * as Shapes from './jointjs-shapes'
@@ -400,7 +400,9 @@ export class Graph {
       if (graphCells.length > 0) {
         const cell = graphCells[graphCells.length - 1]
         cell.toFront()
+        graphCells[0].toFront()
       }
+
       cells = []
       return drawingReport
     }
@@ -736,10 +738,7 @@ export class Graph {
           text: stepGroup.name(),
           textVerticalAnchor: labelConfig.textVerticalAnchor,
           textAnchor: labelConfig.textAnchor,
-          refX: labelConfig.refX,
-          refY: labelConfig.refY,
-          refX2: labelConfig.refX2,
-          refY2: labelConfig.refY2
+          transform: labelConfig.transform
         }
       })
       group.attr('label/text', stepGroup.name())
@@ -846,18 +845,18 @@ export class Graph {
          * @param {*} vertices
          * @param {*} args
          */
+
     joint.connectors.ioConnector = function (sourcePoint, targetPoint, vertices, args) {
       return joint.connectors.mergeJumpoverConnector.call(this, sourcePoint, targetPoint, vertices, args)
     }
-
     /**
      * Define a custom connector for that merges links that have the same target point.
      * The "merge" is achieved by not jumping over links with the same target point.
      * This is based on the jumpover connector
-     * @param {*} sourcePoint
-     * @param {*} targetPoint
-     * @param {*} vertices
-     * @param {*} args
+     * @param {g.Point} sourcePoint
+     * @param {g.Point} targetPoint
+     * @param {Array<g.Point>} vertices
+     * @param {object} args
      */
     joint.connectors.mergeJumpoverConnector = function (sourcePoint, targetPoint, vertices, args) {
       return mergeJumpover.call(this, sourcePoint, targetPoint, vertices, args)
