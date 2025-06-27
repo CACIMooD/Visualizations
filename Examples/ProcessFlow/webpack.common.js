@@ -45,7 +45,7 @@ module.exports = {
     ignoreWarnings: [
         {
             module: /jointjs-graph.js/,
-            message: /export.*\(imported as \'joint\'\) was not found in \'jointjs\'/
+            message: /export.*\(imported as \'joint\'\) was not found in '@joint\/core'/
         }
     ],
     entry: fs.readdirSync(path.join(__dirname, 'src'))
@@ -83,7 +83,7 @@ module.exports = {
         splitChunks: { //{ chunks: 'all' }
             cacheGroups: {
                 "jointjs" : {
-                    test: /[\\/]node_modules[\\/](jointjs*)[\\/]/,
+                    test: /[\\/]node_modules[\\/](@joint[\\/]core*)[\\/]/,
                     name: 'jointjs',
                     chunks: 'all',
                     priority: -3,

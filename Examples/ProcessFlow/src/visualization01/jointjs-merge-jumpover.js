@@ -1,7 +1,7 @@
 //
 // This connector avoids unwanted jumpovers at the intersections of links with the same target anchor point
 //
-// This is a copy of JointJS connectors/jumpover.mjs version 3.4.3
+// This is a copy of JointJS connectors/jumpover.mjs version 4.1.3
 // Sections of code that have been altered from the original are marked with
 // // *** Start
 // and
@@ -9,7 +9,7 @@
 //
 // The code has also been altered for imports; these changes have not been marked
 
-import * as joint from 'jointjs'
+import * as joint from '@joint/core'
 // import * as util from '../util/index.mjs';
 // import * as g from '../g/index.mjs';
 
@@ -32,6 +32,43 @@ const IGNORED_CONNECTORS = ['smooth']
 // internal constants for round segment
 const _13 = 1 / 3
 const _23 = 2 / 3
+
+function sortPointsAscending (p1, p2) {
+  let { x: x1, y: y1 } = p1
+  let { x: x2, y: y2 } = p2
+
+  if (x1 > x2) {
+    let swap = x1
+    x1 = x2
+    x2 = swap
+
+    swap = y1
+    y1 = y2
+    y2 = swap
+  }
+
+  if (y1 > y2) {
+    let swap = x1
+    x1 = x2
+    x2 = swap
+
+    swap = y1
+    y1 = y2
+    y2 = swap
+  }
+
+  return [new joint.g.Point(x1, y1), new joint.g.Point(x2, y2)]
+}
+
+function overlapExists (line1, line2) {
+  const [{ x: x1, y: y1 }, { x: x2, y: y2 }] = sortPointsAscending(line1.start, line1.end)
+  const [{ x: x3, y: y3 }, { x: x4, y: y4 }] = sortPointsAscending(line2.start, line2.end)
+
+  const xMatch = x1 <= x4 && x3 <= x2
+  const yMatch = y1 <= y4 && y3 <= y2
+
+  return xMatch && yMatch
+}
 
 /**
  * Transform start/end and route into series of lines
@@ -104,7 +141,7 @@ function updateJumpOver (paper) {
  * @return {joint.g.point[]} list of intersection points
  */
 //
-// *** Start of changes from original jumpover connector code (JointJS version 3.4.3) ***
+// *** Start of changes from original jumpover connector code (JointJS version 4.1.3) ***
 // avoid jumping over links where the intersection is at the end of either of the intersecting lines
 // limit jumps to be all on horizontal lines or all on vertical lines
 //
@@ -118,7 +155,7 @@ function findLineIntersections (line, crossCheckLines, jumpOverOnHorizontalLines
        !intersection.round().equals(line.end.round()) &&
        !intersection.round().equals(crossCheckLine.start.round()) &&
        !intersection.round().equals(crossCheckLine.end.round())) {
-    // *** End of changes from original jumpover connector code (JointJS version 3.4.3) ***
+    // *** End of changes from original jumpover connector code (JointJS version 4.1.3) ***
       res.push(intersection)
     }
     return res
@@ -127,8 +164,8 @@ function findLineIntersections (line, crossCheckLines, jumpOverOnHorizontalLines
 
 /**
  * Sorting function for list of points by their distance.
- * @param {joint.g.point} p1 first point
- * @param {joint.g.point} p2 second point
+ * @param {joint.g.Point} p1 first point
+ * @param {joint.g.Point} p2 second point
  * @return {number} squared distance between points
  */
 function sortPoints (p1, p2) {
@@ -138,7 +175,7 @@ function sortPoints (p1, p2) {
 /**
  * Split input line into multiple based on intersection points.
  * @param {joint.g.line} line input line to split
- * @param {joint.g.point[]} intersections points where to split the line
+ * @param {joint.g.Point[]} intersections points where to split the line
  * @param {number} jumpSize the size of jump arc (length empty spot on a line)
  * @return {joint.g.line[]} list of lines being split
  */
@@ -158,7 +195,7 @@ function createJumps (line, intersections, jumpSize) {
     let jumpEnd = joint.g.point(point).move(lastLine.start, +(jumpSize))
 
     //
-    // *** Start of changes from original jumpover connector code (JointJS version 3.4.3) ***
+    // *** Start of changes from original jumpover connector code (JointJS version 4.1.3) ***
     // handle jumping over more than 2 parallel lines
     //
     // now try to look at the next intersection points
@@ -183,7 +220,7 @@ function createJumps (line, intersections, jumpSize) {
       }
     }
     if (!moreIntersections) {
-      // *** End of changes from original jumpover connector code (JointJS version 3.4.3) ***
+      // *** End of changes from original jumpover connector code (JointJS version 4.1.3) ***
       // this block is inside of `if` as an optimization so the distance is
       // not calculated when we know there are no other intersection points
       const endDistance = jumpStart.distance(lastLine.end)
@@ -333,8 +370,6 @@ function buildRoundedSegment (offset, path, curr, prev, next) {
  * @return {string} created `D` attribute of SVG path
  */
 export const mergeJumpover = function (sourcePoint, targetPoint, route, opt) { // eslint-disable-line max-params
-  // console.log('Link target: ' + JSON.stringify(targetPoint))
-
   setupUpdating(this)
 
   const raw = opt.raw
@@ -343,12 +378,12 @@ export const mergeJumpover = function (sourcePoint, targetPoint, route, opt) { /
   const radius = opt.radius || RADIUS
   const ignoreConnectors = opt.ignoreConnectors || IGNORED_CONNECTORS
   //
-  // *** Start of changes from original jumpover connector code (JointJS version 3.4.3) ***
+  // *** Start of changes from original jumpover connector code (JointJS version 4.1.3) ***
   // avoid jumping over links where the intersection is at the end of either of the intersecting lines
   // limit jumps to be all on horizontal lines or all on vertical lines
   //
   const jumpOverOnHorizontalLines = opt.jumpOverOnHorizontalLines
-  // *** End of changes from original jumpover connector code (JointJS version 3.4.3) ***
+  // *** End of changes from original jumpover connector code (JointJS version 4.1.3) ***
 
   // grab the first jump type as a default if specified one is invalid
   if (JUMP_TYPES.indexOf(jumpType) === -1) {
@@ -369,18 +404,18 @@ export const mergeJumpover = function (sourcePoint, targetPoint, route, opt) { /
 
   const thisModel = this.model
   //
-  // *** Start of changes from original jumpover connector code (JointJS version 3.4.3) ***
+  // *** Start of changes from original jumpover connector code (JointJS version 4.1.3) ***
   // avoid jumping over links where the intersection is at the end of either of the intersecting lines
   // limit jumps to be all on horizontal lines or all on vertical lines
   //
   // const thisIndex = allLinks.indexOf(thisModel)
-  // *** End of changes from original jumpover connector code (JointJS version 3.4.3) ***
+  // *** End of changes from original jumpover connector code (JointJS version 4.1.3) ***
   const defaultConnector = paper.options.defaultConnector || {}
 
   // not all links are meant to be jumped over.
-  // *** Start of changes from original jumpover connector code (JointJS version 3.4.3) ***
+  // *** Start of changes from original jumpover connector code (JointJS version 4.1.3) ***
   const links = allLinks.filter(function (link, idx) { // eslint-disable-line no-unused-vars
-  // *** End of changes from original jumpover connector code (JointJS version 3.4.3) ***
+  // *** End of changes from original jumpover connector code (JointJS version 4.1.3) ***
     const connector = link.get('connector') || defaultConnector
 
     // avoid jumping over links with connector type listed in `ignored connectors`.
@@ -388,7 +423,7 @@ export const mergeJumpover = function (sourcePoint, targetPoint, route, opt) { /
     if (joint.util.toArray(ignoreConnectors).includes(connector.name)) {
       return false
     }
-    // *** Start of changes from original jumpover connector code (JointJS version 3.4.3) ***
+    // *** Start of changes from original jumpover connector code (JointJS version 4.1.3) ***
     // avoid jumping over links where the intersection is at the end of either of the intersecting lines
     // limit jumps to be all on horizontal lines or all on vertical lines
     //
@@ -397,7 +432,7 @@ export const mergeJumpover = function (sourcePoint, targetPoint, route, opt) { /
     // if (idx > thisIndex) {
     //   return false //connector.name !== 'mergeJumpoverConnector'
     // }
-    // *** End of changes from original jumpover connector code (JointJS version 3.4.3) ***
+    // *** End of changes from original jumpover connector code (JointJS version 4.1.3) ***
     return true
   })
 
@@ -433,17 +468,24 @@ export const mergeJumpover = function (sourcePoint, targetPoint, route, opt) { /
   const jumpingLines = thisLines.reduce(function (resultLines, thisLine) {
     // iterate all links and grab the intersections with this line
     // these are then sorted by distance so the line can be split more easily
-
     const intersections = links.reduce(function (res, link, i) {
       // don't intersection with itself
       if (link !== thisModel) {
+        const linkLinesToTest = linkLines[i].slice()
+        const overlapIndex = linkLinesToTest.findIndex((line) => overlapExists(thisLine, line))
+
+        // Overlap occurs and the end point of one segment lies on thisLine
+        if (overlapIndex > -1 && thisLine.containsPoint(linkLinesToTest[overlapIndex].end)) {
+          // Remove the next segment because there will never be a jump
+          linkLinesToTest.splice(overlapIndex + 1, 1)
+        }
         //
-        // *** Start of changes from original jumpover connector code (JointJS version 3.4.3) ***
+        // *** Start of changes from original jumpover connector code (JointJS version 4.1.3) ***
         // avoid jumping over links where the intersection is at the end of either of the intersecting lines
         // limit jumps to be all on horizontal lines or all on vertical lines
         //
-        const lineIntersections = findLineIntersections(thisLine, linkLines[i], jumpOverOnHorizontalLines)
-        // *** End of changes from original jumpover connector code (JointJS version 3.4.3) ***
+        const lineIntersections = findLineIntersections(thisLine, linkLinesToTest, jumpOverOnHorizontalLines)
+        // *** End of changes from original jumpover connector code (JointJS version 4.1.3) ***
         res.push.apply(res, lineIntersections)
       }
       return res
