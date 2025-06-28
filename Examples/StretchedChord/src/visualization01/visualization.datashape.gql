@@ -9,12 +9,14 @@ type link implements MooDElement{
 	target: endPoint!
 	id: ID!
 	size: Number! @UI(name:"Size")
-	colour: Colour!
+	colour: Colour
 }
 
 type node implements MooDElement{
 	name: Any! @UI(default:"name")
 	id: ID!
+	colour: Colour @UI(name:"Colour")
+	borderColour: Colour @UI(name:"Border Colour")
 }
 
 type endPoint implements MooDElement{

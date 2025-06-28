@@ -1,7 +1,7 @@
 import {createStretchedChord} from '../../src/visualization01/visualization';
 import MooDConfig from './MooDConfig.json';
-import dataConfig from './data.json';
-// import dataConfig from './DemandSignalData.json';
+// import dataConfig from './data.json';
+import dataConfig from './DemandSignalData.json';
 import styleConfig from './style.json';
 import inputsConfig from './inputs.json';
 

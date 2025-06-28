@@ -20,6 +20,8 @@ Stretched Chord visualization
 
 The Stretched Chord visualisation is a combination of a chord diagram and a Sankey diagram resulting in a more circular looking Sankey-like flow chart. Its primary purpose is to visualise the relationships between items in two distinct domains. For instance, showing how much your education defines where you end up working; visualising the number of people leaving education in various subjects entering careers in different areas of the economy. This implementation is based on work of [visualcinnamon.com](https://www.visualcinnamon.com/2015/08/stretched-chord) for Deloitte
 
+The chord diagram can also be used to visualise relationships within a single domain, i.e. where the list of items is the same on both the left and right hand sides of the chart. An example is how items within a domain influence each other.
+
 [![Stretched Chord](images/stretched-chord.png "Stretched Chord")](https://www.visualcinnamon.com/2015/08/stretched-chord)
 
 [Table of Contents](#table-of-contents)
@@ -98,13 +100,17 @@ The visualization  the following events. These can be configured to trigger acti
 
 1. __LHSnodes__ one or more elements
     * __Name__: the name of the node
+    * __Colour__: if specified, defines the colour of the node, otherwise the default colour defined in the style is used
+    * __Border Colour__: if specified, defines the colour of the border around the node, otherwise the default border colour defined in the style is used
 1. __RHSnodes__ one or more elements
     * __Name__: the name of the node
+    * __Colour__: if specified, defines the colour of the node, otherwise the default colour defined in the style is used
+    * __Border Colour__: if specified, defines the colour of the border around the node, otherwise the default border colour defined in the style is used
 1. __Links__: links between nodes, e.g. people entering a career with an education in a particular subject. The relationship can flow in either direction.
     * __Source__: the identity of the source node of the link. Should be a node in either __LHSnodes__ or __RHSnodes__
     * __Target__: the identity of the target node of the link. Should be a node in either __LHSnodes__ or __RHSnodes__ and the opposite side to the __Source__
     * __Size__: a numeric value on the relationship which is used to control the width of the chord displayed between the LHS and RHS
-    * __Colour__:  a colour on the relationship which defines the colour of the chord displayed
+    * __Colour__:  a colour on the relationship which defines the colour of the chord displayed. If not defined, the colour of the node on the left hand side is used
 
 [Table of Contents](#table-of-contents)
 

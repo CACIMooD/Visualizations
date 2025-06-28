@@ -77,7 +77,9 @@ export class StretchedChord {
         sizeOut: 0,
         lastLinkEndAngle: 0,
         lhs: false,
-        order: index
+        order: index,
+        colour: node.colour || config.style.nodeColour,
+        stroke: node.borderColour || config.style.nodeBorderColour
       }))
       // add nodes to the node dictionary for use with links
       rhsNodes.forEach(function (node) {
@@ -95,7 +97,9 @@ export class StretchedChord {
         sizeOut: 0,
         lastLinkEndAngle: 0,
         lhs: true,
-        order: index
+        order: index,
+        colour: node.colour || config.style.nodeColour,
+        stroke: node.borderColour || config.style.nodeBorderColour
       }))
       // add nodes to the node dictionary for use with links
       lhsNodes.forEach(function (node) {
@@ -114,7 +118,7 @@ export class StretchedChord {
           target: { id: link.target.id },
           id: link.id,
           size: link.size,
-          colour: link.colour,
+          colour: link.colour || sourceNode.colour,
           sourceNode,
           targetNode,
           lhsNode: sourceNode.lhs ? sourceNode : targetNode,
@@ -239,10 +243,6 @@ export class StretchedChord {
         // setup start and end angle
         node.startAngle = index === 0 ? offset * arcStartAngle : (nodeArray[index - 1].endAngle + (offset * StretchedChord.nodeSeparationAngle()))
         node.endAngle = node.startAngle + (offset * nodeSize)
-
-        // apply any colouring to the node
-        node.colour = config.style.nodeColour
-        node.stroke = config.style.nodeBorderColour
       }
 
       [lhsNodes, rhsNodes].forEach(nodes => {
