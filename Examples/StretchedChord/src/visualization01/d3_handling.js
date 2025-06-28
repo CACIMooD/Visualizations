@@ -276,7 +276,8 @@ function linkClick (performAction) {
 
 function nodeMouseover (updateOutput) {
   return function (event, d) {
-    d3.select('#links').selectAll('path').style('opacity', l => (l.source.id === d.id) || (l.target.id === d.id) ? highlightLinkOpacity : lowlightLinkOpacity)
+    d3.select('#links').selectAll('path')
+      .style('opacity', l => (l.lhsNode.id === d.id && d.lhs) || (l.rhsNode.id === d.id && !d.lhs) ? highlightLinkOpacity : lowlightLinkOpacity)
     updateOutput('hoverNode', d.id)
   }
 }

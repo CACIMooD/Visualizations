@@ -104,30 +104,33 @@ export class StretchedChord {
       StretchedChord.lhsNodes = () => lhsNodes
 
       // Copy links from configuration
-      const links = config.data.links.map(link => ({
-        source: { id: link.source.id },
-        target: { id: link.target.id },
-        id: link.id,
-        size: link.size,
-        colour: link.colour,
+      const links = config.data.links.map(link => {
         // lookup source and target nodes
-        sourceNode: nodeDict.find(link.source.id),
-        targetNode: nodeDict.findOnOtherSide(link.source.id, link.target.id)
-      })).filter(link => (
+        const sourceNode = nodeDict.find(link.source.id)
+        const targetNode = nodeDict.findOnOtherSide(link.source.id, link.target.id)
+
+        return {
+          source: { id: link.source.id },
+          target: { id: link.target.id },
+          id: link.id,
+          size: link.size,
+          colour: link.colour,
+          sourceNode,
+          targetNode,
+          lhsNode: sourceNode.lhs ? sourceNode : targetNode,
+          rhsNode: sourceNode.lhs ? targetNode : sourceNode
+        }
+      }).filter(link => (
         link.sourceNode !== undefined &&
           link.targetNode !== undefined &&
           link.sourceNode.lhs !== link.targetNode.lhs))
         .sort(function (a, b) {
         // arrange links based on node position to allow for better connection/less crossing
-          const aRHS = a.targetNode.lhs === false ? a.targetNode : a.sourceNode
-          const aLHS = a.targetNode.lhs === true ? a.targetNode : a.sourceNode
-          const bRHS = b.targetNode.lhs === false ? b.targetNode : b.sourceNode
-          const bLHS = b.targetNode.lhs === true ? b.targetNode : b.sourceNode
           let comparison
-          if (aRHS.order === bRHS.order) {
-            comparison = aLHS.order - bLHS.order
+          if (a.rhsNode.order === b.rhsNode.order) {
+            comparison = a.lhsNode.order - b.lhsNode.order
           } else {
-            comparison = aRHS.order - bRHS.order
+            comparison = a.rhsNode.order - b.rhsNode.order
           }
           return comparison
         })
