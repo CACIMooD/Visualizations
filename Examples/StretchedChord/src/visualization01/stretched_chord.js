@@ -121,8 +121,8 @@ export class StretchedChord {
           colour: link.colour || sourceNode.colour,
           sourceNode,
           targetNode,
-          lhsNode: sourceNode.lhs ? sourceNode : targetNode,
-          rhsNode: sourceNode.lhs ? targetNode : sourceNode
+          lhsNode: (sourceNode && sourceNode.lhs) ? sourceNode : targetNode,
+          rhsNode: (sourceNode && sourceNode.lhs) ? targetNode : sourceNode
         }
       }).filter(link => (
         link.sourceNode !== undefined &&
