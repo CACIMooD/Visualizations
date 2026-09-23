@@ -277,13 +277,13 @@ Running the following in the VS Code terminal will generate the visualization pa
 
 ## Installing the visualization in MooD BA
 
-Guidance for installing your visualization in a MooD repository are available in the [MooD Enterprise Knowledge Base](https://supportportal.moodinternational.com/hc/en-us/articles/360017346100-How-To-Custom-Visualisations-Solution-Developer)
+Guidance for installing your visualization in a MooD repository are available in the [MooD Enterprise Knowledge Base](https://my.support.moodsoftware.co.uk/servicedesk/customer/portal/3/topic/d41023f1-26a6-44f8-a1ae-5c2dfc540027/article/1047724033)
 
 [Table of Contents](#table-of-contents)
 
 ## Using the visualization in MooD BA
 
-Guidance for connecting data in your MooD repository to visualization are available in the [MooD Enterprise Knowledge Base](https://supportportal.moodinternational.com/hc/en-us/articles/360017346100-How-To-Custom-Visualisations-Solution-Developer)
+Guidance for connecting data in your MooD repository to visualization are available in the [MooD Enterprise Knowledge Base](https://my.support.moodsoftware.co.uk/servicedesk/customer/portal/3/topic/d41023f1-26a6-44f8-a1ae-5c2dfc540027/article/1047724033)
 
 [Table of Contents](#table-of-contents)
 
@@ -295,7 +295,7 @@ To protect against Cross-Site-Scripting attacks within the visualization, the vi
 
 If your visualization needs to perform operations which violate the Content-Security-Policy, e.g. requires connection to external sites to send or retrieve data or resources, the Content-Security-Policy may need modification.
 
-The Content Security Policy can be modified for __all__ Custom Visualizations. For details, read this [Supportal article](https://supportportal.moodinternational.com/hc/en-us/articles/4402565656338-Visualization-Configuration-Content-Security-Policies)
+The Content Security Policy can be modified for __all__ Custom Visualizations.
 
 Alternatively, this modification can be performed by applying a MooD XHTML Action Panel with specific JavaScript set the required 'csp' attribute on the iFrame, and by using the URLRewriter module to override the value of the Content-Security-Policy header returned by the iFrame page.
 Specific details of how to do this can be acquired by contacting IIG MooD support.
