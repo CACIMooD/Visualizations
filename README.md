@@ -277,13 +277,13 @@ Running the following in the VS Code terminal will generate the visualization pa
 
 ## Installing the visualization in MooD BA
 
-Guidance for installing your visualization in a MooD repository are available in the [MooD Enterprise Knowledge Base](https://supportportal.moodinternational.com/hc/en-us/articles/360017346100-How-To-Custom-Visualisations-Solution-Developer)
+Guidance for installing your visualization in a MooD repository are available in the [MooD Enterprise Knowledge Base](https://my.support.moodsoftware.co.uk/servicedesk/customer/portal/3/topic/d41023f1-26a6-44f8-a1ae-5c2dfc540027/article/1047724033)
 
 [Table of Contents](#table-of-contents)
 
 ## Using the visualization in MooD BA
 
-Guidance for connecting data in your MooD repository to visualization are available in the [MooD Enterprise Knowledge Base](https://supportportal.moodinternational.com/hc/en-us/articles/360017346100-How-To-Custom-Visualisations-Solution-Developer)
+Guidance for connecting data in your MooD repository to visualization are available in the [MooD Enterprise Knowledge Base](https://my.support.moodsoftware.co.uk/servicedesk/customer/portal/3/topic/d41023f1-26a6-44f8-a1ae-5c2dfc540027/article/1047724033)
 
 [Table of Contents](#table-of-contents)
 
